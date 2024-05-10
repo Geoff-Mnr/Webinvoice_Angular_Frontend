@@ -1,20 +1,19 @@
-<div class="flex h-screen">
-  <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+<div class="flex h-screen overflow-hidden">
+  <div class="relative hidden w-0 flex-1 lg:block">
+    <div class="absolute inset-0 h-full w-full object-cover bg-slate-200"></div>
+  </div>
+  <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-6 xl:px-20 2xl:px-32">
     <div class="mx-auto w-full max-w-sm lg:w-96">
       <div>
-        <img class="h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
-        <h2 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">Connectez-vous à votre compte</h2>
-        <p class="mt-2 text-sm leading-6 text-gray-500">
-          Pas encore de compte ?
-          <a href="#" class="font-semibold text-lime-600 hover:text-lime-500">Enregistrez-vous !</a>
-        </p>
+        <img class="h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=lime&shade=600" alt="Your Company" />
+        <h2 class="mt-8 text-xl font-medium font-montserrat text-gray-600 leading-9 tracking-tight">Connectez-vous à votre compte</h2>
       </div>
 
       <div class="mt-10">
         <div>
           <form action="#" method="POST" class="space-y-6">
             <div>
-              <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Adresse E-mail</label>
+              <label for="email" class="block text-sm font-normal leading-6 text-gray-600 font-montserrat">Adresse E-mail</label>
               <div class="mt-2">
                 <input
                   id="email"
@@ -22,13 +21,13 @@
                   type="email"
                   autocomplete="email"
                   required
-                  class="block w-full outline-none rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                  class="block w-full outline-none rounded-md border-0 py-2 p-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
             <div>
-              <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Mot de passe</label>
+              <label for="password" class="block text-sm font-normal leading-6 text-gray-600 font-montserrat">Mot de passe</label>
               <div class="mt-2">
                 <input
                   id="password"
@@ -36,7 +35,7 @@
                   type="password"
                   autocomplete="current-password"
                   required
-                  class="block w-full outline-none rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                  class="block w-full outline-none rounded-md border-0 py-2 p-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -44,28 +43,30 @@
             <div class="flex items-center justify-between">
               <div class="flex items-center">
                 <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-lime-600 focus:ring-lime-600 placeholder-lime-600" />
-                <label for="remember-me" class="ml-3 block text-sm leading-6 text-gray-700">Remember me</label>
+                <label for="remember-me" class="ml-3 block text-sm leading-6 text-gray-600 font-montserrat">Se souvenir de moi</label>
               </div>
 
               <div class="text-sm leading-6">
-                <a href="#" class="font-semibold text-lime-600 hover:text-lime-500">Forgot password?</a>
+                <a href="#" class="font-normal font-montserrat text-lime-600 hover:text-lime-500">Forgot password?</a>
               </div>
             </div>
-
             <div>
               <button
                 type="submit"
-                class="flex w-full justify-center rounded-md bg-lime-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                class="flex w-full justify-center rounded-md bg-lime-600 px-3 py-1.5 text-sm font-normal font-montserrat leading-6 text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign in
+                Se connecter
               </button>
+              <div class="text-center">
+                <p class="mt-2 text-sm leading-6 text-gray-600 font-montserrat">
+                  Pas encore de compte ?
+                  <a routerLink="/register" class="font-light text-lime-600 hover:text-lime-500">Enregistrez-vous !</a>
+                </p>
+              </div>
             </div>
           </form>
         </div>
       </div>
     </div>
-  </div>
-  <div class="relative hidden w-0 flex-1 lg:block">
-    <img class="absolute inset-0 h-full w-full object-cover" src="../../../assets/images/img-login.webp" alt="" />
   </div>
 </div>
