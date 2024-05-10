@@ -2,7 +2,16 @@
 module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      ringColor: {
+        lime: "#32CD32",
+      },
+    },
+  },
+  variants: {
+    extend: {
+      ringColor: ["responsive", "dark", "focus", "reduced-motion"],
+    },
   },
   plugins: [],
 };
