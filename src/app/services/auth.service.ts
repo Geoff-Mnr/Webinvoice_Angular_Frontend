@@ -1,7 +1,6 @@
 import { Injectable, inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { User } from "../models/user";
 
 @Injectable({
   providedIn: "root",
@@ -24,5 +23,12 @@ export class AuthService {
 
   setSession(session: any): void {
     localStorage.setItem("session", JSON.stringify(session));
+  }
+
+  login(email: string, password: string): Observable<any> {
+    return this.http.post(`${this.baseUri}/login`, {
+      email,
+      password,
+    });
   }
 }

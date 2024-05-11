@@ -4,3 +4,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import 'ngx-toastr/toastr';
+
+
+
+#toast-container > .toast-success {
+  background-image: none;
+  background-color: #14532d;
+  color: white;
+}
+#toast-container > .toast-error {
+  background-image: none;
+  background-color: #dc2626;
+  color: white;
+}
