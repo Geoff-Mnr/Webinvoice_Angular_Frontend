@@ -36,6 +36,7 @@ export class LoginComponent {
         next: (res) => {
           this.authService.setSession(res.data);
           console.log("Token expires at:", res.data.expires_at);
+          console.log("infos:", res.data);
           this.router.navigate(["/home"]);
           this.toastr.success("Connexion réussie!");
         },

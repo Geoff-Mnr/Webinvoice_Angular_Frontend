@@ -1,6 +1,7 @@
 import { Injectable, inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { User } from "../models/user.interface";
 
 @Injectable({
   providedIn: "root",
@@ -31,4 +32,21 @@ export class AuthService {
       password,
     });
   }
+
+  // Méthode d'inscription
+  register(username: string, email: string, password: string, confirm_password: string): Observable<any> {
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("confirm_password", confirm_password);
+    return this.http.post<User>(`${this.baseUri}/register`, formData);
+  }
+
+  // Méthode de déconnexion
+  logout(): void {
+    localStorage.removeItem("session");
+    localStorage.removeItem("tokenReceivedAt");
+    localStorage.removeItem("user");
+  } 
 }
