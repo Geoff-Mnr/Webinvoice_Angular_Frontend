@@ -2,6 +2,7 @@ import { Component, inject } from "@angular/core";
 import { RouterOutlet, RouterLink } from "@angular/router";
 import { Router } from "@angular/router";
 import { CommonModule } from "@angular/common";
+import { DarkModeService } from "./services/dark-mode.service";
 
 @Component({
   selector: "app-root",
@@ -14,4 +15,6 @@ export class AppComponent {
   title = "WebInvoice.";
 
   router = inject(Router);
+
+  darkModeService: DarkModeService = inject(DarkModeService);
 }
