@@ -10,13 +10,16 @@ import { DocumenttypeComponent } from "./components/documenttype/documenttype.co
 import { SupportComponent } from "./components/support/support.component";
 import { SettingsComponent } from "./components/settings/settings.component";
 import { CustomerAddEditComponent } from "./customer-add-edit/customer-add-edit.component";
+import { AuthGuard } from "./guards/auth-guard.guard";
+import { LoginGuard } from "./guards/login.guard";
 
 export const routes: Routes = [
-  { path: "login", component: LoginComponent },
+  { path: "login", component: LoginComponent, canActivate: [LoginGuard] },
   { path: "register", component: RegisterComponent },
   {
     path: "",
     component: DashboardComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: "", redirectTo: "home", pathMatch: "full" },
       { path: "home", component: HomeComponent },

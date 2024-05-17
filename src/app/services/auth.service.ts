@@ -26,6 +26,10 @@ export class AuthService {
     localStorage.setItem("session", JSON.stringify(session));
   }
 
+  getUsername(): string {
+    return JSON.parse(localStorage.getItem("session")!).user.username;
+  }
+
   login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.baseUri}/login`, {
       email,
@@ -48,5 +52,5 @@ export class AuthService {
     localStorage.removeItem("session");
     localStorage.removeItem("tokenReceivedAt");
     localStorage.removeItem("user");
-  } 
+  }
 }
