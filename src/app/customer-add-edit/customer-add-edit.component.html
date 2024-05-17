@@ -7,124 +7,159 @@
   <div class="mt-8 flow-root">
     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-        <form class="bg-background shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
+        <form class="bg-background shadow-sm ring-1 ring-gray-900/5 sm:rounded-sm md:col-span-2">
           <div class="px-4 py-6 sm:p-8">
-            <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <h2 class="font-montserrat font-semibold text-lg text-secondaryforeground">Données du client</h2>
+            <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 pt-6">
               <div class="sm:col-span-3">
-                <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First name</label>
+                <label for="compagny_name" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Nom de l'entreprise</label>
                 <div class="mt-2">
                   <input
                     type="text"
-                    name="first-name"
-                    id="first-name"
+                    name="compagny_name"
+                    id="compagny_name"
                     autocomplete="given-name"
-                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Nom de l'entreprise"
+                    class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
 
               <div class="sm:col-span-3">
-                <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last name</label>
+                <label for="last-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numéro d'entreprise</label>
                 <div class="mt-2">
                   <input
                     type="text"
                     name="last-name"
                     id="last-name"
                     autocomplete="family-name"
-                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Numéro d'entreprise"
+                    class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
 
-              <div class="sm:col-span-4">
-                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+              <div class="sm:col-span-3">
+                <label for="email" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Adresse E-mail</label>
                 <div class="mt-2">
                   <input
                     id="email"
                     name="email"
                     type="email"
                     autocomplete="email"
-                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Adresse E-mail"
+                    class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+
+              <div class="sm:col-span-3">
+                <label for="phone_number" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numéro de téléphone</label>
+                <div class="mt-2">
+                  <input
+                    type="text"
+                    name="phone_number"
+                    id="phone_number"
+                    autocomplete="family-name"
+                    placeholder="Numéro de téléphone"
+                    class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
 
               <div class="sm:col-span-4">
-                <label for="country" class="block text-sm font-medium leading-6 text-gray-900">Country</label>
+                <label for="website" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Site internet</label>
                 <div class="mt-2">
-                  <select
-                    id="country"
-                    name="country"
-                    autocomplete="country-name"
-                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  >
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
-                  </select>
+                  <input
+                    id="website"
+                    name="website"
+                    type="website"
+                    autocomplete="website"
+                    placeholder="Site internet"
+                    class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  />
                 </div>
               </div>
 
-              <div class="col-span-full">
-                <label for="street-address" class="block text-sm font-medium leading-6 text-gray-900">Street address</label>
+              <div class="col-span-full mt-4">
+                <h2 class="font-montserrat text-lg font-semibold text-secondaryforeground mb-6">Adresse de facturation</h2>
+                <label for="billing-address" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Rue</label>
                 <div class="mt-2">
                   <input
                     type="text"
-                    name="street-address"
-                    id="street-address"
-                    autocomplete="street-address"
-                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    name="billing-address"
+                    id="billing-address"
+                    autocomplete="billing-address"
+                    placeholder="Rue"
+                    class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
 
               <div class="sm:col-span-2 sm:col-start-1">
-                <label for="city" class="block text-sm font-medium leading-6 text-gray-900">City</label>
+                <label for="billing_zip_code" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Code postal</label>
                 <div class="mt-2">
                   <input
                     type="text"
-                    name="city"
-                    id="city"
+                    name="billing_zip_code"
+                    id="billing_zip_code"
+                    autocomplete="billing_zip_code"
+                    placeholder="Code postal"
+                    class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                  />
+                </div>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label for="billing_city" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Ville</label>
+                <div class="mt-2">
+                  <input
+                    type="text"
+                    name="billing_city"
+                    id="billing_city"
                     autocomplete="address-level2"
-                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Ville"
+                    class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
 
               <div class="sm:col-span-2">
-                <label for="region" class="block text-sm font-medium leading-6 text-gray-900">State / Province</label>
+                <label for="billing_state" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Province</label>
                 <div class="mt-2">
                   <input
                     type="text"
-                    name="region"
-                    id="region"
+                    name="billing_state"
+                    id="billing_state"
                     autocomplete="address-level1"
-                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Province"
+                    class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
 
-              <div class="sm:col-span-2">
-                <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">ZIP / Postal code</label>
+              <div class="sm:col-span-4">
+                <label for="billing_country" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Pays</label>
                 <div class="mt-2">
                   <input
-                    type="text"
-                    name="postal-code"
-                    id="postal-code"
-                    autocomplete="postal-code"
-                    class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    id="billing_country"
+                    name="billing_country"
+                    type="billing_country"
+                    autocomplete="billing_country"
+                    placeholder="Pays"
+                    class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
             </div>
           </div>
-          <div class="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">
-            <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+          <div class="flex items-center justify-end gap-x-6 border-t border-border px-4 py-4 sm:px-8">
+            <button type="button" class="text-sm font-semibold font-montserrat leading-6 text-secondaryforeground">Annuler</button>
             <button
               type="submit"
-              class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              class="rounded-md bg-primary px-3 py-2 text-sm font-semibold font-montserrat text-secondary shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
-              Save
+              Sauvegarder
             </button>
           </div>
         </form>
