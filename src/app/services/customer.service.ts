@@ -15,11 +15,10 @@ export class CustomerService {
   constructor() {}
 
   listCustomersByUser(page: number = 1, perPage: number = 10, search: string = ""): Observable<any> {
-    let params = new HttpParams().set("page", page.toString()).set("per_page", perPage.toString());
+    let params = new HttpParams().set("page", page.toString()).set("perPage", perPage.toString());
     if (search) {
       params = params.set("q", search);
     }
-
     return this.http.get<any>(`${this.baseUri}/customers`, { params });
   }
 
@@ -27,8 +26,8 @@ export class CustomerService {
     return this.http.post<Customer>(`${this.baseUri}/customers`, customer);
   }
 
-  update(customer: Customer): Observable<Customer> {
-    return this.http.put<Customer>(`${this.baseUri}/customers/${customer.id}`, customer);
+  update(id: number, customer: Customer): Observable<Customer> {
+    return this.http.put<Customer>(`${this.baseUri}/customers/${id}`, customer);
   }
 
   delete(id: number): Observable<Customer> {

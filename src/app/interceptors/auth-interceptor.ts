@@ -13,7 +13,6 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
   const authService = inject(AuthService);
 
   const router = inject(Router);
-
   if (authService.isAuthenticated()) {
     let headers = req.headers;
     headers = headers.set("Authorization", `Bearer ${authService.getToken()}`);

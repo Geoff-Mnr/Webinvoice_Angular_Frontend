@@ -1,7 +1,5 @@
 export interface Customer {
   id: number;
-  user_id: number;
-  product_id: number;
   company_name: string;
   email: string;
   billing_address: string;

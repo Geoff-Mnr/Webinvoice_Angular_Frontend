@@ -7,7 +7,7 @@
   <div class="mt-8 flow-root">
     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-        <form class="bg-background shadow-sm ring-1 ring-gray-900/5 sm:rounded-sm md:col-span-2">
+        <form [formGroup]="form" class="bg-background shadow-sm ring-1 ring-gray-900/5 sm:rounded-sm md:col-span-2">
           <div class="px-4 py-6 sm:p-8">
             <h2 class="font-montserrat font-semibold text-lg text-secondaryforeground">Données du client</h2>
             <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 pt-6">
@@ -17,22 +17,28 @@
                   <input
                     type="text"
                     name="compagny_name"
-                    id="compagny_name"
-                    autocomplete="given-name"
+                    [(ngModel)]="selectedCustomer.company_name"
+                    formControlName="compagny_name"
+                    required
                     placeholder="Nom de l'entreprise"
                     class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
+                  <br />
+                  @if(form.controls.company_name.errors && form.controls.company_name.touched) {
+                  <div class="text-red-700">Champ requis</div>
+                  }
                 </div>
               </div>
 
               <div class="sm:col-span-3">
-                <label for="last-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numéro d'entreprise</label>
+                <label for="vat_number" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numéro d'entreprise</label>
                 <div class="mt-2">
                   <input
                     type="text"
-                    name="last-name"
-                    id="last-name"
-                    autocomplete="family-name"
+                    name="vat_number"
+                    [(ngModel)]="selectedCustomer.vat_number"
+                    formControlName="vat_number"
+                    required
                     placeholder="Numéro d'entreprise"
                     class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
@@ -45,8 +51,8 @@
                   <input
                     id="email"
                     name="email"
-                    type="email"
-                    autocomplete="email"
+                    [(ngModel)]="selectedCustomer.email"
+                    formControlName="email"
                     placeholder="Adresse E-mail"
                     class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
@@ -59,9 +65,10 @@
                   <input
                     type="text"
                     name="phone_number"
-                    id="phone_number"
-                    autocomplete="family-name"
+                    [(ngModel)]="selectedCustomer.phone_number"
+                    formControlName="phone_number"
                     placeholder="Numéro de téléphone"
+                    required
                     class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -73,9 +80,10 @@
                   <input
                     id="website"
                     name="website"
-                    type="website"
-                    autocomplete="website"
+                    [(ngModel)]="selectedCustomer.website"
+                    formControlName="website"
                     placeholder="Site internet"
+                    required
                     class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -88,8 +96,8 @@
                   <input
                     type="text"
                     name="billing-address"
-                    id="billing-address"
-                    autocomplete="billing-address"
+                    [(ngModel)]="selectedCustomer.billing_address"
+                    formControlName="billing-address"
                     placeholder="Rue"
                     class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
@@ -102,8 +110,8 @@
                   <input
                     type="text"
                     name="billing_zip_code"
-                    id="billing_zip_code"
-                    autocomplete="billing_zip_code"
+                    [(ngModel)]="selectedCustomer.billing_zip_code"
+                    formControlName="billing_zip_code"
                     placeholder="Code postal"
                     class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
@@ -116,8 +124,8 @@
                   <input
                     type="text"
                     name="billing_city"
-                    id="billing_city"
-                    autocomplete="address-level2"
+                    [(ngModel)]="selectedCustomer.billing_city"
+                    formControlName="billing_city"
                     placeholder="Ville"
                     class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
@@ -130,8 +138,8 @@
                   <input
                     type="text"
                     name="billing_state"
-                    id="billing_state"
-                    autocomplete="address-level1"
+                    [(ngModel)]="selectedCustomer.billing_state"
+                    formControlName="billing_state"
                     placeholder="Province"
                     class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
@@ -144,8 +152,8 @@
                   <input
                     id="billing_country"
                     name="billing_country"
-                    type="billing_country"
-                    autocomplete="billing_country"
+                    [(ngModel)]="selectedCustomer.billing_country"
+                    formControlName="billing_country"
                     placeholder="Pays"
                     class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                   />
