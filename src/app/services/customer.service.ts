@@ -1,8 +1,9 @@
 import { Injectable, inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, catchError } from "rxjs";
 import { Customer } from "../models/customer.interface";
 import { HttpParams } from "@angular/common/http";
+import { throwError } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -22,11 +23,11 @@ export class CustomerService {
     return this.http.get<any>(`${this.baseUri}/customers`, { params });
   }
 
-  create(customer: Customer): Observable<Customer> {
+  createCustomer(customer: Customer): Observable<Customer> {
     return this.http.post<Customer>(`${this.baseUri}/customers`, customer);
   }
 
-  update(id: number, customer: Customer): Observable<Customer> {
+  updateCustomer(id: number, customer: Customer): Observable<Customer> {
     return this.http.put<Customer>(`${this.baseUri}/customers/${id}`, customer);
   }
 

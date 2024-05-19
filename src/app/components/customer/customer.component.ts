@@ -68,14 +68,16 @@ export class CustomerComponent implements OnDestroy {
 
   selectCustomer(customer: Customer) {
     this.selectedCustomer = customer;
+    console.log(this.selectedCustomer);
   }
 
   updateCustomer(item: Customer) {
-    this.subDelete = this.customerService.update(item.id, item).subscribe({
+    console.log(item);
+    this.subDelete = this.customerService.updateCustomer(item.id, item).subscribe({
       next: () => {
         this.toastr.success("Client modifié avec succès");
         this.getListCustomers();
-        this.router.navigate(["/customer"]);
+        this.closeEditForm();
       },
       error: (error) => {
         this.toastr.error("Une erreur est survenue lors de la modification du client", error);
@@ -84,11 +86,12 @@ export class CustomerComponent implements OnDestroy {
   }
 
   createCustomer(item: Customer) {
-    this.subDelete = this.customerService.create(item).subscribe({
+    this.subDelete = this.customerService.createCustomer(item).subscribe({
       next: () => {
         this.toastr.success("Client ajouté avec succès");
         this.getListCustomers();
-        this.router.navigate(["/customer"]);
+        this.closeAddForm();
+        this.closeEditForm();
       },
       error: (error) => {
         this.toastr.error("Une erreur est survenue lors de l'ajout du client", error);
@@ -114,11 +117,11 @@ export class CustomerComponent implements OnDestroy {
   }
 
   private closeEditForm() {
-    this.displaForm = false;
+    this.selectedCustomer = undefined;
   }
 
   private closeAddForm() {
-    this.selectedCustomer = undefined;
+    this.displaForm = false;
   }
 
   cancel() {

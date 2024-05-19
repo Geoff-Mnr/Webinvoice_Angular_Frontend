@@ -126,7 +126,11 @@
 </div>
 
 @if(displaForm) {
-<app-customer-add-edit (addEmmiter)="createCustomer($event)" (closeEmitter)="cancel()"></app-customer-add-edit>
+<div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+  <app-customer-add-edit (addEmmiter)="createCustomer($event)" (closeEmitter)="cancel()"></app-customer-add-edit>
+</div>
 } @else if (selectedCustomer) {
-<app-customer-add-edit (updateEmiter)="updateCustomer($event)" [selectedCustomer]="selectedCustomer" (closeEmitter)="cancel()"></app-customer-add-edit>
+<div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+<app-customer-add-edit (editEmiter)="updateCustomer($event)" [selectedCustomer]="selectedCustomer" (closeEmitter)="cancel()"></app-customer-add-edit>
 }

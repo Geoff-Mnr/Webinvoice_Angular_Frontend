@@ -1,9 +1,7 @@
 import { Component, Input, EventEmitter, Output, inject } from "@angular/core";
-import { ToastrService } from "ngx-toastr";
 import { FormsModule, FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Customer } from "../models/customer.interface";
 import { CommonModule, DatePipe } from "@angular/common";
-import { Router } from "@angular/router";
 
 @Component({
   selector: "app-customer-add-edit",
@@ -15,7 +13,7 @@ import { Router } from "@angular/router";
 })
 export class CustomerAddEditComponent {
   @Output() addEmmiter = new EventEmitter();
-  @Output() updateEmiter = new EventEmitter();
+  @Output() editEmiter = new EventEmitter();
   @Output() closeEmitter = new EventEmitter();
 
   @Input() selectedCustomer: Customer = {
@@ -34,8 +32,6 @@ export class CustomerAddEditComponent {
     updated_at: new Date(),
     status: "",
   };
-
-  router = inject(Router);
 
   constructor(private datePipe: DatePipe) {}
 
@@ -61,23 +57,24 @@ export class CustomerAddEditComponent {
     status: ["", Validators.required],
   });
 
+  ngOnInit() {
+    this.selectedCustomer = this.clone(this.selectedCustomer);
+  }
+
   private clone(value: any) {
     return JSON.parse(JSON.stringify(value));
   }
 
   addCustomer() {
     this.addEmmiter.emit(this.selectedCustomer);
-    this.router.navigate(["/customer"]);
   }
 
-  updateCustomer() {
+  editCustomer() {
     const customer = this.clone(this.selectedCustomer);
-    this.updateEmiter.emit(customer);
-    this.router.navigate(["/customer"]);
+    this.editEmiter.emit(customer);
   }
 
   closeForm() {
     this.closeEmitter.emit();
-    this.router.navigate(["/customer"]);
   }
 }
