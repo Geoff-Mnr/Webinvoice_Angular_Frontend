@@ -9,6 +9,8 @@ import { ToastrService } from "ngx-toastr";
 import { HttpClientModule } from "@angular/common/http";
 import { OnDestroy } from "@angular/core";
 import { Customer } from "../../models/customer.interface";
+import { state } from "@angular/animations";
+import { NavigationExtras } from "@angular/router";
 
 @Component({
   selector: "app-customer",
@@ -25,8 +27,6 @@ export class CustomerComponent implements OnDestroy {
 
   customers: Customer[] = [];
   selectedCustomer?: Customer;
-
-  displaForm = false;
 
   currentPage = 1;
   totalPage = 1;
@@ -68,35 +68,15 @@ export class CustomerComponent implements OnDestroy {
 
   selectCustomer(customer: Customer) {
     this.selectedCustomer = customer;
+    const navigationExtras: NavigationExtras = {
+      state: { customer: customer },
+    };
+    this.router.navigate(["/customer/edit-customer"], navigationExtras);
     console.log(this.selectedCustomer);
   }
 
-  updateCustomer(item: Customer) {
-    console.log(item);
-    this.subDelete = this.customerService.updateCustomer(item.id, item).subscribe({
-      next: () => {
-        this.toastr.success("Client modifié avec succès");
-        this.getListCustomers();
-        this.closeEditForm();
-      },
-      error: (error) => {
-        this.toastr.error("Une erreur est survenue lors de la modification du client", error);
-      },
-    });
-  }
-
-  createCustomer(item: Customer) {
-    this.subDelete = this.customerService.createCustomer(item).subscribe({
-      next: () => {
-        this.toastr.success("Client ajouté avec succès");
-        this.getListCustomers();
-        this.closeAddForm();
-        this.closeEditForm();
-      },
-      error: (error) => {
-        this.toastr.error("Une erreur est survenue lors de l'ajout du client", error);
-      },
-    });
+  addCustomer() {
+    this.router.navigate(["/customer/add-customer"]);
   }
 
   deleteCustomer(item: Customer) {
@@ -118,16 +98,6 @@ export class CustomerComponent implements OnDestroy {
 
   private closeEditForm() {
     this.selectedCustomer = undefined;
-  }
-
-  private closeAddForm() {
-    this.displaForm = false;
-  }
-
-  cancel() {
-    this.closeEditForm();
-    this.closeAddForm();
-    this.toastr.info("Opération annulée");
   }
 
   ngOnDestroy() {

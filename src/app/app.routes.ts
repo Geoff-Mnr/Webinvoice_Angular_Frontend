@@ -28,7 +28,7 @@ export const routes: Routes = [
         children: [
           { path: "", component: CustomerComponent },
           { path: "add-customer", component: CustomerAddEditComponent },
-          { path: "edit-customer/:id", component: CustomerAddEditComponent },
+          { path: "edit-customer", component: CustomerAddEditComponent },
         ],
       },
       { path: "product", component: ProductComponent },

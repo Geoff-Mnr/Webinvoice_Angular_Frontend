@@ -6,7 +6,7 @@
     <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
       <button
         type="button"
-        (click)="displaForm = true"
+        (click)="addCustomer()"
         class="flex items-center font-montserrat rounded-md bg-primary px-3 py-2 text-center text-sm font-semibold text-secondary shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
@@ -124,13 +124,3 @@
     </div>
   </div>
 </div>
-
-@if(displaForm) {
-<div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-  <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-  <app-customer-add-edit (addEmmiter)="createCustomer($event)" (closeEmitter)="cancel()"></app-customer-add-edit>
-</div>
-} @else if (selectedCustomer) {
-<div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-<app-customer-add-edit (editEmiter)="updateCustomer($event)" [selectedCustomer]="selectedCustomer" (closeEmitter)="cancel()"></app-customer-add-edit>
-}

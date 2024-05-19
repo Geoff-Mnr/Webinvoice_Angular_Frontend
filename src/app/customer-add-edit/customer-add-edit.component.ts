@@ -2,21 +2,24 @@ import { Component, Input, EventEmitter, Output, inject } from "@angular/core";
 import { FormsModule, FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Customer } from "../models/customer.interface";
 import { CommonModule, DatePipe } from "@angular/common";
+import { ActivatedRoute } from "@angular/router";
+import { tap } from "rxjs/operators";
+import { Router } from "@angular/router";
+import { OnDestroy } from "@angular/core";
+import { CustomerService } from "../services/customer.service";
+import { ToastrService } from "ngx-toastr";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: "app-customer-add-edit",
   standalone: true,
-  imports: [FormsModule, CommonModule, DatePipe, ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, DatePipe, ReactiveFormsModule, RouterLink],
   templateUrl: "./customer-add-edit.component.html",
   styleUrls: ["./customer-add-edit.component.scss"],
   providers: [DatePipe],
 })
 export class CustomerAddEditComponent {
-  @Output() addEmmiter = new EventEmitter();
-  @Output() editEmiter = new EventEmitter();
-  @Output() closeEmitter = new EventEmitter();
-
-  @Input() selectedCustomer: Customer = {
+  /*@Input()*/ selectedCustomer: Customer = {
     id: 0,
     company_name: "",
     email: "",
@@ -33,7 +36,16 @@ export class CustomerAddEditComponent {
     status: "",
   };
 
-  constructor(private datePipe: DatePipe) {}
+  router = inject(Router);
+  customerService = inject(CustomerService);
+  toastr = inject(ToastrService);
+
+  constructor(private datePipe: DatePipe, private route: ActivatedRoute) {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation && navigation.extras.state) {
+      this.selectedCustomer = navigation.extras.state["customer"];
+    }
+  }
 
   formatDate(date: Date) {
     return this.datePipe.transform(date, "HH:mm le dd-MM-yyyy");
@@ -65,16 +77,34 @@ export class CustomerAddEditComponent {
     return JSON.parse(JSON.stringify(value));
   }
 
-  addCustomer() {
-    this.addEmmiter.emit(this.selectedCustomer);
+  updateCustomer() {
+    const item: Customer = this.form.value as Customer;
+    this.customerService.updateCustomer(this.selectedCustomer.id, item).subscribe({
+      next: () => {
+        this.toastr.success("Client modifié avec succès");
+        this.router.navigate(["/customer"]);
+      },
+      error: (error) => {
+        this.toastr.error("Une erreur est survenue lors de la modification du client", error);
+      },
+    });
   }
 
-  editCustomer() {
-    const customer = this.clone(this.selectedCustomer);
-    this.editEmiter.emit(customer);
+  createCustomer() {
+    const item: Customer = this.form.value as Customer;
+    this.customerService.createCustomer(item).subscribe({
+      next: () => {
+        this.toastr.success("Client ajouté avec succès");
+        this.router.navigate(["/customer"]);
+      },
+      error: (error) => {
+        this.toastr.error("Une erreur est survenue lors de l'ajout du client", error);
+      },
+    });
   }
 
-  closeForm() {
-    this.closeEmitter.emit();
+  cancel() {
+    this.router.navigate(["/customer"]);
+    this.toastr.info("Opération annulée");
   }
 }
