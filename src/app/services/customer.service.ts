@@ -1,9 +1,8 @@
 import { Injectable, inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable, catchError } from "rxjs";
+import { Observable } from "rxjs";
 import { Customer } from "../models/customer.interface";
 import { HttpParams } from "@angular/common/http";
-import { throwError } from "rxjs";
 
 @Injectable({
   providedIn: "root",

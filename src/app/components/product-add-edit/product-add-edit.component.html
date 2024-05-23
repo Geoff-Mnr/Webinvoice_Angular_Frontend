@@ -1,0 +1,164 @@
+<form [formGroup]="form" class="relative transform overflow-hidden bg-background shadow-sm ring-1 ring-gray-900/5 sm:rounded-sm md:col-span-2">
+  <div class="px-4 py-6 sm:p-8">
+    <h2 class="font-montserrat font-semibold text-lg text-secondaryforeground">Données du Produit</h2>
+    <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 pt-6">
+      <div class="sm:col-span-3">
+        <label for="documenttype_id" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Nom du produit</label>
+        <div class="mt-2">
+          <input
+            type="text"
+            name="name"
+            [(ngModel)]="selectedProduct.name"
+            formControlName="name"
+            required
+            placeholder="Nom du produit"
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+          />
+        </div>
+      </div>
+
+      <div class="sm:col-span-3">
+        <label for="brand" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Marque</label>
+        <div class="mt-2">
+          <input
+            type="text"
+            name="brand"
+            [(ngModel)]="selectedProduct.brand"
+            formControlName="brand"
+            required
+            placeholder="Marque"
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+          />
+        </div>
+      </div>
+
+      <div class="sm:col-span-3">
+        <label for="ean_code" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Code Ean</label>
+        <div class="mt-2">
+          <input
+            type="text"
+            name="ean_code"
+            [(ngModel)]="selectedProduct.ean_code"
+            formControlName="ean_code"
+            required
+            placeholder="Code Ean"
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+          />
+        </div>
+      </div>
+
+      <div class="sm:col-span-3">
+        <label for="stock" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Date de création</label>
+        <div class="mt-2">
+          <input
+            id="stock"
+            name="stock"
+            [(ngModel)]="selectedProduct.stock"
+            formControlName="stock"
+            placeholder="Stock"
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+          />
+        </div>
+      </div>
+
+      <div class="sm:col-span-3">
+        <label for="buying_price" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Prix d'achat</label>
+        <div class="mt-2">
+          <input
+            type="text"
+            name="buying_price"
+            [(ngModel)]="selectedProduct.buying_price"
+            formControlName="buying_price"
+            placeholder="Prix d'achat"
+            required
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+          />
+        </div>
+      </div>
+
+      <div class="sm:col-span-4">
+        <label for="selling_price" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Prix de vente</label>
+        <div class="mt-2">
+          <input
+            type="text"
+            name="selling_price"
+            [(ngModel)]="selectedProduct.selling_price"
+            formControlName="selling_price"
+            placeholder="Prix de vente"
+            required
+            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+          />
+        </div>
+      </div>
+
+      <div class="col-span-full mt-4">
+        <label for="discount" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Prix TVAC</label>
+        <div class="mt-2">
+          <input
+            type="text"
+            name="discount"
+            [(ngModel)]="selectedProduct.discount"
+            formControlName="discount"
+            placeholder="Remise"
+            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+          />
+        </div>
+      </div>
+
+      <div class="sm:col-span-2 sm:col-start-1">
+        <label for="description" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Description</label>
+        <div class="mt-2">
+          <input
+            type="text"
+            name="description"
+            [(ngModel)]="selectedProduct.description"
+            formControlName="description"
+            placeholder="description"
+            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+          />
+        </div>
+      </div>
+
+      <div class="sm:col-span-2">
+        <label for="comment" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Commentaire</label>
+        <div class="mt-2">
+          <input
+            type="text"
+            name="comment"
+            [(ngModel)]="selectedProduct.comment"
+            formControlName="comment"
+            placeholder="Commentaire"
+            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-end gap-x-6 border-t border-border px-4 py-4 sm:px-8">
+    <button type="button" (click)="cancel()" class="text-sm font-semibold font-montserrat leading-6 text-secondaryforeground">Annuler</button>
+    @if (selectedProduct.id) {
+    <button
+      type="submit"
+      [disabled]="form.invalid"
+      [class.bg-primary]="!form.invalid"
+      [class.bg-blue-100]="form.invalid"
+      (click)="updateProduct()"
+      class="rounded-md bg-primary px-3 py-2 text-sm font-semibold font-montserrat text-secondary shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+    >
+      Modifier
+    </button>
+    } @else {
+    <button
+      type="submit"
+      [disabled]="form.invalid"
+      [class.bg-primary]="!form.invalid"
+      [class.bg-blue-100]="form.invalid"
+      (click)="createProduct()"
+      class="rounded-md bg-primary px-3 py-2 text-sm font-semibold font-montserrat text-secondary shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+    >
+      Ajouter
+    </button>
+    }
+  </div>
+</form>

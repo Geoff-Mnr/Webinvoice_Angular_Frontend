@@ -1,7 +1,7 @@
 import { Component, inject } from "@angular/core";
 import { RouterLink, Router } from "@angular/router";
 import { CustomerService } from "../../services/customer.service";
-import { CustomerAddEditComponent } from "../../customer-add-edit/customer-add-edit.component";
+import { CustomerAddEditComponent } from "../customer-add-edit/customer-add-edit.component";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { Subscription } from "rxjs";

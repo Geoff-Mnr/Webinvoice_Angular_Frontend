@@ -1,12 +1,10 @@
-import { Component, Input, EventEmitter, Output, inject } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { FormsModule, FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
-import { Customer } from "../models/customer.interface";
+import { Customer } from "../../models/customer.interface";
 import { CommonModule, DatePipe } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
-import { tap } from "rxjs/operators";
 import { Router } from "@angular/router";
-import { OnDestroy } from "@angular/core";
-import { CustomerService } from "../services/customer.service";
+import { CustomerService } from "../../services/customer.service";
 import { ToastrService } from "ngx-toastr";
 import { RouterLink } from "@angular/router";
 
@@ -19,7 +17,7 @@ import { RouterLink } from "@angular/router";
   providers: [DatePipe],
 })
 export class CustomerAddEditComponent {
-  /*@Input()*/ selectedCustomer: Customer = {
+  selectedCustomer: Customer = {
     id: 0,
     company_name: "",
     email: "",
