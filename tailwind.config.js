@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     fontFamily: {
       open: ["Open Sans", "sans-serif"],
-      montserrat: ["Montserrat", "sans-serif"], // Ensure fonts are installed on your machine
+      montserrat: ["Montserrat", "sans-serif"],
     },
     extend: {
       ringColor: {

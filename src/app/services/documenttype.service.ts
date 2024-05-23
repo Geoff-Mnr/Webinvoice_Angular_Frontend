@@ -33,4 +33,8 @@ export class DocumenttypeService {
   delete(id: number): Observable<DocumentType> {
     return this.http.delete<any>(`${this.baseUri}/documenttypes/${id}`);
   }
+
+  getListDocumenttypes(): Observable<any> {
+    return this.http.get<DocumentType>(`${this.baseUri}/list-documenttypes`);
+  }
 }

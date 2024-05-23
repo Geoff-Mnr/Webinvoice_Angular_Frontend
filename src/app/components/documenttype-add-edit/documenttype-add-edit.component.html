@@ -14,14 +14,13 @@
             placeholder="Reference"
             class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
-          <br />
           @if(form.controls.reference.errors && form.controls.reference.touched) {
-          <div class="text-red-700">Champ requis</div>
+          <div class="text-destructive text-sm font-montserrat font-medium leading-6 ml-2">Champ requis</div>
           }
         </div>
       </div>
 
-      <div class="sm:col-span-3">
+      <div class="sm:col-span-6">
         <label for="name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Nom du document</label>
         <div class="mt-2">
           <input
@@ -32,20 +31,24 @@
             placeholder="Nom du document"
             class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
+          @if (form.controls.name.errors && form.controls.name.touched) {
+          <div class="text-destructive text-sm font-montserrat font-medium leading-6 ml-2">Champ requis</div>
+          }
         </div>
       </div>
 
-      <div class="sm:col-span-3">
+      <div class="sm:col-span-6">
         <label for="description" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Description</label>
         <div class="mt-2">
-          <input
+          <textarea
             type="text"
+            rows="4"
             name="description"
             [(ngModel)]="selectedDocumentType.description"
             formControlName="description"
             placeholder="Description"
             class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-          />
+          ></textarea>
         </div>
       </div>
     </div>
@@ -59,7 +62,7 @@
       [class.bg-primary]="!form.invalid"
       [class.bg-blue-100]="form.invalid"
       (click)="updateDocumentType()"
-      class="rounded-md bg-primary px-3 py-2 text-sm font-semibold font-montserrat text-secondary shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      class="rounded-md bg-primary px-3 py-2 text-sm font-semibold font-montserrat text-secondary shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
     >
       Modifier
     </button>
@@ -70,7 +73,7 @@
       [class.bg-primary]="!form.invalid"
       [class.bg-blue-100]="form.invalid"
       (click)="createDocumentType()"
-      class="rounded-md bg-primary px-3 py-2 text-sm font-semibold font-montserrat text-secondary shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      class="rounded-md bg-primary px-3 py-2 text-sm font-semibold font-montserrat text-secondary shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
     >
       Ajouter
     </button>

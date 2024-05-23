@@ -42,6 +42,7 @@ export class DocumenttypeAddEditComponent {
   form = this.fb.group({
     reference: ["", Validators.required],
     name: ["", Validators.required],
+    description: [""],
   });
 
   ngOnInit() {
