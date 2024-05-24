@@ -162,31 +162,15 @@ export class DocumentAddEditComponent {
   updateDocument() {
     const item: Document = this.form.value as Document;
 
-    if (Array.isArray(item.product_id)) {
-      for (const productId of item.product_id) {
-        const newItem = { ...item, product_id: productId };
-
-        this.documentService.updateDocument(this.selectedDocument.id, newItem).subscribe({
-          next: () => {
-            this.toastr.success("Document modifié avec succès");
-          },
-          error: (error) => {
-            this.toastr.error("Une erreur s'est produite lors de la modification du document");
-          },
-        });
-      }
-    } else {
-      this.documentService.updateDocument(this.selectedDocument.id, item).subscribe({
-        next: () => {
-          this.toastr.success("Document modifié avec succès");
-        },
-        error: (error) => {
-          this.toastr.error("Une erreur s'est produite lors de la modification du document");
-        },
-      });
-    }
-
-    this.router.navigate(["/document"]);
+    this.documentService.updateDocument(this.selectedDocument.id, item).subscribe({
+      next: () => {
+        this.toastr.success("Document modifié avec succès");
+        this.router.navigate(["/document"]);
+      },
+      error: (error) => {
+        this.toastr.error("Une erreur s'est produite lors de la modification du document");
+      },
+    });
   }
 
   createDocument() {
