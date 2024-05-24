@@ -33,4 +33,8 @@ export class CustomerService {
   delete(id: number): Observable<Customer> {
     return this.http.delete<any>(`${this.baseUri}/customers/${id}`);
   }
+
+  listCustomers(): Observable<any> {
+    return this.http.get<Customer>(`${this.baseUri}/list-customers`);
+  }
 }

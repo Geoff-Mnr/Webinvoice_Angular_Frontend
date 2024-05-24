@@ -2,7 +2,7 @@
   <div class="px-4 py-6 sm:p-8">
     <h2 class="font-montserrat font-semibold text-lg text-secondaryforeground">Données du Document</h2>
     <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 pt-6">
-      <div class="sm:col-span-3">
+      <div class="sm:col-span-4">
         <label for="reference_number" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Reference</label>
         <div class="mt-2">
           <input
@@ -36,63 +36,67 @@
       <div class="sm:col-span-3">
         <label for="customer_id" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Client</label>
         <div class="mt-2">
-          <input
-            type="text"
+          <select
             name="customer_id"
-            [(ngModel)]="selectedDocument.customer_id"
             formControlName="customer_id"
-            required
-            placeholder="Client"
+            [(ngModel)]="selectedDocument.customer_id"
             class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-          />
+          >
+            <option value="customer.id" disabled selected>Choisir le client</option>
+            @for(customer of customers; track customer.id) {
+            <option [value]="customer.id">{{ customer.company_name }}</option>
+            }
+          </select>
         </div>
       </div>
 
-      <div class="sm:col-span-3">
+      <div class="sm:col-span-4">
         <label for="product_id" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Produit</label>
         <div class="mt-2">
-          <input
-            type="text"
-            name="product_id"
-            [(ngModel)]="selectedDocument.product_id"
-            formControlName="product_id"
-            required
-            placeholder="Produit"
-            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-          />
+          <div class="mt-2">
+            <select
+              multiple
+              name="product_id"
+              formControlName="product_id"
+              [(ngModel)]="selectedDocument.product_id"
+              class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            >
+              <option value="customer.id" disabled selected>Choisir le client</option>
+              @for(product of products; track product.id) {
+              <option [value]="product.id">{{ product.name }}</option>
+              }
+            </select>
+          </div>
         </div>
       </div>
 
       <div class="sm:col-span-3">
-        <label for="created_at" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Date de création</label>
+        <label for="document_date" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Date de création</label>
         <div class="mt-2">
-          <input
-            id="created_at"
-            name="created_at"
-            [(ngModel)]="selectedDocument.created_at"
-            formControlName="created_at"
-            placeholder="Date du document"
-            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-          />
+          <mat-form-field class="block w-full bg-background text-secondaryforeground">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="document_date" (dateChange)="dateChanged($event)" />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
         </div>
       </div>
 
       <div class="sm:col-span-3">
         <label for="due_date" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Date d'échéance</label>
         <div class="mt-2">
-          <input
-            type="text"
-            name="due_date"
-            [(ngModel)]="selectedDocument.due_date"
-            formControlName="due_date"
-            placeholder="Date d'échéance"
-            required
-            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-          />
+          <mat-form-field class="block w-full bg-background text-secondaryforeground">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker2" formControlName="due_date" />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
         </div>
       </div>
 
-      <div class="sm:col-span-4">
+      <div class="sm:col-span-2">
         <label for="price_htva" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Prix hors TVA</label>
         <div class="mt-2">
           <input
@@ -107,7 +111,7 @@
         </div>
       </div>
 
-      <div class="col-span-full mt-4">
+      <div class="sm:col-span-2">
         <label for="price_vvac" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Prix TVAC</label>
         <div class="mt-2">
           <input
@@ -121,7 +125,7 @@
         </div>
       </div>
 
-      <div class="sm:col-span-2 sm:col-start-1">
+      <div class="sm:col-span-2">
         <label for="price_total" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Prix total</label>
         <div class="mt-2">
           <input
@@ -130,20 +134,6 @@
             [(ngModel)]="selectedDocument.price_total"
             formControlName="price_total"
             placeholder="Prix total"
-            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-          />
-        </div>
-      </div>
-
-      <div class="sm:col-span-2">
-        <label for="status" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Status</label>
-        <div class="mt-2">
-          <input
-            type="text"
-            name="status"
-            [(ngModel)]="selectedDocument.status"
-            formControlName="status"
-            placeholder="Statut"
             class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>

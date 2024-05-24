@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, SimpleChanges, inject } from "@angular/core";
 import { FormsModule, FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Document } from "../../models/document.interface";
 import { CommonModule } from "@angular/common";
@@ -11,18 +11,29 @@ import { DatePipe } from "@angular/common";
 import { CustomDatePipe } from "../../pipes/custom-date.pipe";
 import { DocumenttypeService } from "../../services/documenttype.service";
 import { DocumentType } from "../../models/documenttype.interface";
+import { CustomerService } from "../../services/customer.service";
+import { Customer } from "../../models/customer.interface";
+import { Product } from "../../models/product.interface";
+import { ProductService } from "../../services/product.service";
+import { MatIconModule } from "@angular/material/icon";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatInputModule } from "@angular/material/input";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { provideNativeDateAdapter } from "@angular/material/core";
+import { formatISO } from "date-fns";
 
 @Component({
   selector: "app-document-add-edit",
   standalone: true,
-  imports: [FormsModule, CommonModule, ReactiveFormsModule, CustomDatePipe],
-  providers: [DatePipe],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule, CustomDatePipe, MatIconModule, MatDatepickerModule, MatInputModule, MatFormFieldModule],
+  providers: [DatePipe, provideNativeDateAdapter()],
   templateUrl: "./document-add-edit.component.html",
   styleUrl: "./document-add-edit.component.scss",
 })
 export class DocumentAddEditComponent {
   documenttypes: DocumentType[] = [];
-  documenttypeService = inject(DocumenttypeService);
+  customers: Customer[] = [];
+  products: Product[] = [];
 
   selectedDocument: Document = {
     id: 0,
@@ -37,7 +48,38 @@ export class DocumentAddEditComponent {
       updated_at: new Date(),
     },
     customer_id: 0,
+    customer: {
+      id: 0,
+      company_name: "",
+      email: "",
+      billing_address: "",
+      billing_city: "",
+      billing_country: "",
+      billing_zip_code: "",
+      billing_state: "",
+      website: "",
+      vat_number: "",
+      phone_number: "",
+      created_at: new Date(),
+      updated_at: new Date(),
+      status: "",
+    },
     product_id: 0,
+    product: {
+      id: 0,
+      name: "",
+      brand: "",
+      ean_code: "",
+      stock: 0,
+      buying_price: 0,
+      selling_price: 0,
+      discount: 0,
+      description: "",
+      comment: "",
+      status: "",
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
     reference_number: "",
     document_date: new Date(),
     due_date: new Date(),
@@ -51,6 +93,10 @@ export class DocumentAddEditComponent {
 
   router = inject(Router);
   documentService = inject(DocumentService);
+  customerService = inject(CustomerService);
+  documenttypeService = inject(DocumenttypeService);
+  productService = inject(ProductService);
+
   toastr = inject(ToastrService);
   datePipe = inject(DatePipe);
 
@@ -61,6 +107,10 @@ export class DocumentAddEditComponent {
     }
   }
 
+  formatDate(date: Date) {
+    return this.datePipe.transform(date, "HH:mm le dd-MM-yyyy");
+  }
+
   fb = inject(FormBuilder);
 
   form = this.fb.group({
@@ -69,22 +119,40 @@ export class DocumentAddEditComponent {
     product_id: [0, Validators.required],
     reference_number: ["", Validators.required],
     due_date: [new Date(), Validators.required],
+    document_date: [new Date(), Validators.required],
     created_at: [new Date(), Validators.required],
     price_htva: [0, Validators.required],
     price_vvac: [0, Validators.required],
     price_total: [0, Validators.required],
-    status: ["", Validators.required],
   });
 
   getListDocumenttypes() {
-    this.documenttypeService.getListDocumenttypes().subscribe((response: any) => {
+    this.documenttypeService.listDocumenttypes().subscribe((response: any) => {
       this.documenttypes = response.data;
+      console.log(this.documenttypes);
+    });
+  }
+
+  getListCustomers() {
+    this.customerService.listCustomers().subscribe((response: any) => {
+      this.customers = response.data;
+      console.log(this.customers);
+    });
+  }
+
+  getListProducts() {
+    this.productService.listProducts().subscribe((response: any) => {
+      this.products = response.data;
+      console.log(this.products);
     });
   }
 
   ngOnInit() {
+    console.log(this.selectedDocument);
     this.selectedDocument = this.clone(this.selectedDocument);
     this.getListDocumenttypes();
+    this.getListCustomers();
+    this.getListProducts();
   }
 
   private clone(value: any) {
@@ -93,32 +161,70 @@ export class DocumentAddEditComponent {
 
   updateDocument() {
     const item: Document = this.form.value as Document;
-    this.documentService.updateDocument(this.selectedDocument.id, item).subscribe({
-      next: () => {
-        this.toastr.success("Document modifié avec succès");
-        this.router.navigate(["/document"]);
-      },
-      error: (error) => {
-        this.toastr.error("Une erreur s'est produite lors de la modification du document");
-      },
-    });
+
+    if (Array.isArray(item.product_id)) {
+      for (const productId of item.product_id) {
+        const newItem = { ...item, product_id: productId };
+
+        this.documentService.updateDocument(this.selectedDocument.id, newItem).subscribe({
+          next: () => {
+            this.toastr.success("Document modifié avec succès");
+          },
+          error: (error) => {
+            this.toastr.error("Une erreur s'est produite lors de la modification du document");
+          },
+        });
+      }
+    } else {
+      this.documentService.updateDocument(this.selectedDocument.id, item).subscribe({
+        next: () => {
+          this.toastr.success("Document modifié avec succès");
+        },
+        error: (error) => {
+          this.toastr.error("Une erreur s'est produite lors de la modification du document");
+        },
+      });
+    }
+
+    this.router.navigate(["/document"]);
   }
 
   createDocument() {
     const item: Document = this.form.value as Document;
-    this.documentService.createDocument(item).subscribe({
-      next: () => {
-        this.toastr.success("Document créé avec succès");
-        this.router.navigate(["/document"]);
-      },
-      error: (error) => {
-        this.toastr.error("Une erreur s'est produite lors de la création du document");
-      },
-    });
+
+    if (Array.isArray(item.product_id)) {
+      for (const productId of item.product_id) {
+        const newItem = { ...item, product_id: productId };
+
+        this.documentService.createDocument(newItem).subscribe({
+          next: () => {
+            this.toastr.success("Document créé avec succès");
+          },
+          error: (error) => {
+            this.toastr.error("Une erreur s'est produite lors de la création du document");
+          },
+        });
+      }
+    } else {
+      this.documentService.createDocument(item).subscribe({
+        next: () => {
+          this.toastr.success("Document créé avec succès");
+        },
+        error: (error) => {
+          this.toastr.error("Une erreur s'est produite lors de la création du document");
+        },
+      });
+    }
+
+    this.router.navigate(["/document"]);
   }
 
   cancel() {
     this.router.navigate(["/document"]);
     this.toastr.info("Opération annulée");
+  }
+
+  dateChanged($event: any) {
+    console.log($event.target.value);
   }
 }

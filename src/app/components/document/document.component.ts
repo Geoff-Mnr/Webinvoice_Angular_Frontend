@@ -10,11 +10,12 @@ import { DocumentService } from "../../services/document.service";
 import { NavigationExtras } from "@angular/router";
 import { DocumentAddEditComponent } from "../document-add-edit/document-add-edit.component";
 import { OnDestroy } from "@angular/core";
+import { CustomDatePipe } from "../../pipes/custom-date.pipe";
 
 @Component({
   selector: "app-document",
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule, HttpClientModule, DocumentAddEditComponent],
+  imports: [RouterLink, CommonModule, FormsModule, HttpClientModule, DocumentAddEditComponent, CustomDatePipe],
   templateUrl: "./document.component.html",
   styleUrl: "./document.component.scss",
 })

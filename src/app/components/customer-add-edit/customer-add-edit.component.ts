@@ -64,7 +64,6 @@ export class CustomerAddEditComponent {
     vat_number: ["", Validators.required],
     created_at: [new Date(), Validators.required],
     updated_at: [new Date(), Validators.required],
-    status: ["", Validators.required],
   });
 
   ngOnInit() {

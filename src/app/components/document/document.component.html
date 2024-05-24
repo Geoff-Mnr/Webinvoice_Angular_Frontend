@@ -50,8 +50,9 @@
               <tr>
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-secondary sm:pl-6">Reference</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Type de document</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Client</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Date du document</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Date de cloture</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Date d'échéance</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Prix HTVA</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Prix TVAC</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Prix total</th>
@@ -66,8 +67,9 @@
               <tr>
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-secondaryforeground sm:pl-6">{{ document.reference_number }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.documenttype }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.created_at | date : "dd/MM/yyyy" }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.due_date | date : "dd/MM/yyyy" }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.customer }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.document_date }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.due_date }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.price_htva }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.price_vvac }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.price_total }}</td>
