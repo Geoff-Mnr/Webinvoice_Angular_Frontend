@@ -5,6 +5,7 @@ import { CommonModule } from "@angular/common";
 import { DarkModeService } from "../../services/dark-mode.service";
 import { AuthService } from "../../services/auth.service";
 import { ToastrService } from "ngx-toastr";
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: "app-dashboard",
@@ -17,8 +18,10 @@ export class DashboardComponent {
   router = inject(Router);
   darkModeService: DarkModeService = inject(DarkModeService);
   authService = inject(AuthService);
+  userService = inject(UserService);
   toastr = inject(ToastrService);
 
+  user: any;
   showMenu = false;
 
   toggleDarkMode() {
@@ -27,6 +30,19 @@ export class DashboardComponent {
 
   toggleMenu() {
     this.showMenu = !this.showMenu;
+  }
+
+  ngOnInit() {
+    this.userService.getProfileUser().subscribe({
+      next: (res) => {
+        this.user = res;
+        console.log("User profile", this.user);
+      },
+      error: (err) => {
+        console.log("Error while fetching user profile", err);
+      },
+    });
+    /*this.isAdmin = this.authService.isAdmin();*/
   }
 
   logout() {
