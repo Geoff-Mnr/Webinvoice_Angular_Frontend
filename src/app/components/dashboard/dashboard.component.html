@@ -385,9 +385,15 @@
               aria-labelledby="user-menu-button"
               tabindex="-1"
             >
-              <a routerLink="/profile-user" class="block px-3 py-1 text-sm leading-6 text-secondaryforeground hover:font-semibold cursor-pointer" role="menuitem" tabindex="-1" id="user-menu-item-0"
-                >Votre Profil</a
+              <button
+                (click)="selectUser(user)"
+                class="block px-3 py-1 text-sm leading-6 text-secondaryforeground hover:font-semibold cursor-pointer"
+                role="menuitem"
+                tabindex="-1"
+                id="user-menu-item-0"
               >
+                Votre Profil
+              </button>
               <a (click)="logout()" class="block px-3 py-1 text-sm leading-6 text-secondaryforeground hover:font-semibold cursor-pointer" role="menuitem" tabindex="-1" id="user-menu-item-1"
                 >Deconnexion</a
               >

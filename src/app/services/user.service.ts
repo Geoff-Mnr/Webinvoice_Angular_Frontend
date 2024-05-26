@@ -16,4 +16,8 @@ export class UserService {
   getProfileUser(): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUri}/profile-user`);
   }
+
+  updateProfileUser(id: number, user: User): Observable<User> {
+    return this.http.put<User>(`${this.baseUri}/users/${id}`, user);
+  }
 }

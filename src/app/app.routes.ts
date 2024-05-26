@@ -27,7 +27,13 @@ export const routes: Routes = [
     children: [
       { path: "", redirectTo: "home", pathMatch: "full" },
       { path: "home", component: HomeComponent },
-      { path: "profile-user", component: ProfileUserComponent },
+      {
+        path: "user",
+        children: [
+          { path: "", component: ProfileUserComponent },
+          { path: "update-user", component: ProfileUserComponent },
+        ],
+      },
       {
         path: "customer",
         children: [

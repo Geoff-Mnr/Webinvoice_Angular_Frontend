@@ -6,6 +6,8 @@ import { DarkModeService } from "../../services/dark-mode.service";
 import { AuthService } from "../../services/auth.service";
 import { ToastrService } from "ngx-toastr";
 import { UserService } from "../../services/user.service";
+import { User } from "../../models/user.interface";
+import { NavigationExtras } from "@angular/router";
 
 @Component({
   selector: "app-dashboard",
@@ -21,8 +23,21 @@ export class DashboardComponent {
   userService = inject(UserService);
   toastr = inject(ToastrService);
 
+  selectedUser?: User;
+
   user: any;
   showMenu = false;
+
+  selectUser(user: User) {
+    this.selectedUser = user;
+    console.log("Selected user", this.selectedUser);
+    const navigationExtras: NavigationExtras = {
+      state: {
+        user: user,
+      },
+    };
+    this.router.navigate(["/user/update-user"], navigationExtras);
+  }
 
   toggleDarkMode() {
     this.darkModeService.updateDarkMode();
