@@ -15,6 +15,7 @@ import { SettingsComponent } from "./components/settings/settings.component";
 import { CustomerAddEditComponent } from "./components/customer-add-edit/customer-add-edit.component";
 import { AuthGuard } from "./guards/auth-guard";
 import { LoginGuard } from "./guards/login-guard";
+import { ProfileUserComponent } from "./components/profile-user/profile-user.component";
 
 export const routes: Routes = [
   { path: "login", component: LoginComponent, canActivate: [LoginGuard] },
@@ -26,6 +27,7 @@ export const routes: Routes = [
     children: [
       { path: "", redirectTo: "home", pathMatch: "full" },
       { path: "home", component: HomeComponent },
+      { path: "profile-user", component: ProfileUserComponent },
       {
         path: "customer",
         children: [
