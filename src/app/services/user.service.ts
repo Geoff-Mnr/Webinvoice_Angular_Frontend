@@ -13,8 +13,8 @@ export class UserService {
 
   http = inject(HttpClient);
 
-  getProfileUser(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseUri}/profile-user`);
+  getProfileUser(): Observable<any> {
+    return this.http.get<User>(`${this.baseUri}/profile-user`);
   }
 
   updateProfileUser(id: number, user: User): Observable<User> {

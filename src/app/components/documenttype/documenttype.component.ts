@@ -68,6 +68,7 @@ export class DocumenttypeComponent implements OnDestroy {
 
   selectDocumentType(documenttype: DocumentType) {
     this.selectedDocumentType = documenttype;
+    console.log(this.selectedDocumentType);
     const navigationExtras: NavigationExtras = {
       state: { documenttype: documenttype },
     };

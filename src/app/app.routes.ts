@@ -31,7 +31,7 @@ export const routes: Routes = [
         path: "user",
         children: [
           { path: "", component: ProfileUserComponent },
-          { path: "update-user", component: ProfileUserComponent },
+          { path: "edit-user", component: ProfileUserComponent },
         ],
       },
       {

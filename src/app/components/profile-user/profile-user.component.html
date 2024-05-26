@@ -1,4 +1,4 @@
-<form class="relative transform overflow-hidden bg-background shadow-sm ring-1 p-10 ring-gray-900/5">
+<form [formGroup]="userForm" class="relative transform overflow-hidden bg-background shadow-sm ring-1 p-10 ring-gray-900/5">
   <div class="space-y-12 sm:space-y-16">
     <div>
       <h2 class="font-semibold leading-7 text-lg text-primary font-montserrat">Votre Profil</h2>
@@ -11,12 +11,54 @@
               <input
                 type="text"
                 name="username"
-                id="username"
-                autocomplete="username"
+                [(ngModel)]="selectedUser.username"
+                formControlName="username"
                 class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                 placeholder="Username"
               />
             </div>
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6 border-border">
+          <label for="email" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Email address</label>
+          <div class="mt-2 sm:col-span-2 sm:mt-0">
+            <input
+              name="email"
+              type="email"
+              [(ngModel)]="selectedUser.email"
+              formControlName="email"
+              placeholder="Email"
+              autocomplete="email"
+              class="block w-full rounded-md border-0 py-1.5 bg-background text-secondaryforeground font-montserrat shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-md sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6 border-border">
+          <label for="region" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Mode de passe</label>
+          <div class="mt-2 sm:col-span-2 sm:mt-0">
+            <input
+              type="password"
+              formControlName="password"
+              id="password"
+              name="password"
+              placeholder="Mot de passe"
+              required
+              class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6 border-border">
+          <label for="region" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Confirmer votre mot de passe</label>
+          <div class="mt-2 sm:col-span-2 sm:mt-0">
+            <input
+              type="password"
+              formControlName="password"
+              id="confirm_password"
+              name="confirm_password"
+              placeholder="Confirmation de mot de passe"
+              required
+              class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
+            />
           </div>
         </div>
 
@@ -34,11 +76,11 @@
                 </svg>
                 <div class="mt-4 flex text-sm leading-6 text-secondaryforeground">
                   <label
-                    for="file-upload"
+                    for="profile_picture"
                     class="relative cursor-pointer rounded-md bg-background font-semibold text-primary focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                   >
                     <span>Upload a file</span>
-                    <input id="file-upload" name="file-upload" type="file" class="sr-only" />
+                    <input id="profile_picture" name="profile_picture" (change)="onFileSelected($event)" type="file" class="sr-only" />
                   </label>
                   <p class="pl-1">or drag and drop</p>
                 </div>
@@ -51,18 +93,20 @@
     </div>
 
     <div>
-      <h2 class="font-semibold leading-7 text-lg text-primary font-montserrat">Information Personnel</h2>
+      <h2 class="font-semibold leading-7 text-lg text-primary font-montserrat">Informations Personnelles</h2>
       <p class="mt-1 max-w-2xl text-sm leading-6 text-secondaryforeground font-montserrat">Mettez à jour vos informations personnelles</p>
 
       <div class="mt-10 space-y-8 border-b border-border pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="first-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">First name</label>
+          <label for="first-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Prénom</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               type="text"
               name="first-name"
-              id="first-name"
+              [(ngModel)]="selectedUser.first_name"
+              formControlName="first_name"
               placeholder="Prénom"
+              required
               autocomplete="given-name"
               class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
             />
@@ -70,13 +114,15 @@
         </div>
 
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="last-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Last name</label>
+          <label for="last-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Nom</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               type="text"
               name="last-name"
-              id="last-name"
+              [(ngModel)]="selectedUser.last_name"
+              formControlName="last_name"
               placeholder="Nom"
+              required
               autocomplete="family-name"
               class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
             />
@@ -84,40 +130,29 @@
         </div>
 
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="email" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Email address</label>
-          <div class="mt-2 sm:col-span-2 sm:mt-0">
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="Email"
-              autocomplete="email"
-              class="block w-full rounded-md border-0 py-1.5 bg-background text-secondaryforeground font-montserrat shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-md sm:text-sm sm:leading-6"
-            />
-          </div>
-        </div>
-
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="country" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Country</label>
+          <label for="last-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numéro de téléphone</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               type="text"
-              name="country"
-              id="country"
-              placeholder="Pays"
-              autocomplete="country"
+              name="phone_number"
+              [(ngModel)]="selectedUser.phone_number"
+              formControlName="phone_number"
+              placeholder="Numéro de téléphone"
+              required
               class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
             />
           </div>
         </div>
 
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="street-address" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Street address</label>
+          <label for="street-address" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Adresse</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               type="text"
               name="street-address"
-              id="street-address"
+              [(ngModel)]="selectedUser.address"
+              formControlName="address"
+              required
               placeholder="Adresse"
               autocomplete="street-address"
               class="block w-full rounded-md border-0 py-1.5 font-montserrat bg-background text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xl sm:text-sm sm:leading-6"
@@ -126,12 +161,14 @@
         </div>
 
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="city" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">City</label>
+          <label for="city" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Ville</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               type="text"
               name="city"
-              id="city"
+              [(ngModel)]="selectedUser.city"
+              formControlName="city"
+              required
               placeholder="Ville"
               autocomplete="address-level2"
               class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
@@ -140,28 +177,29 @@
         </div>
 
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="region" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">State / Province</label>
+          <label for="postal-code" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Code postale</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               type="text"
-              name="region"
-              id="region"
-              placeholder="Province / Région"
-              autocomplete="address-level1"
+              name="zip_code"
+              [(ngModel)]="selectedUser.zip_code"
+              formControlName="zip_code"
+              placeholder="Code Postal"
               class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
             />
           </div>
         </div>
 
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="postal-code" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">ZIP / Postal code</label>
+          <label for="country" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Pays</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               type="text"
-              name="postal-code"
-              id="postal-code"
-              autocomplete="postal-code"
-              placeholder="Code Postal"
+              name="country"
+              [(ngModel)]="selectedUser.country"
+              formControlName="country"
+              placeholder="Pays"
+              autocomplete="country"
               class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
             />
           </div>
@@ -170,9 +208,10 @@
     </div>
   </div>
   <div class="mt-6 flex items-center justify-end gap-x-6">
-    <button type="button" class="text-sm font-semibold font-montserrat leading-6 text-secondaryforeground">Annuler</button>
+    <button (click)="cancel()" type="button" class="text-sm font-semibold font-montserrat leading-6 text-secondaryforeground">Annuler</button>
     <button
       type="submit"
+      (click)="updateUser()"
       class="rounded-md bg-primary px-3 py-2 text-sm font-semibold font-montserrat text-secondary shadow-sm hover:font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
     >
       Modifier

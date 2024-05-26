@@ -28,7 +28,7 @@ export class DashboardComponent {
   user: any;
   showMenu = false;
 
-  selectUser(user: User) {
+  selectUser(user: any) {
     this.selectedUser = user;
     console.log("Selected user", this.selectedUser);
     const navigationExtras: NavigationExtras = {
@@ -36,7 +36,7 @@ export class DashboardComponent {
         user: user,
       },
     };
-    this.router.navigate(["/user/update-user"], navigationExtras);
+    this.router.navigate(["/user/edit-user"], navigationExtras);
   }
 
   toggleDarkMode() {
@@ -48,21 +48,23 @@ export class DashboardComponent {
   }
 
   ngOnInit() {
-    this.userService.getProfileUser().subscribe({
-      next: (res) => {
-        this.user = res;
-        console.log("User profile", this.user);
-      },
-      error: (err) => {
-        console.log("Error while fetching user profile", err);
-      },
+    this.getProfile();
+  }
+
+  getProfile() {
+    this.userService.getProfileUser().subscribe((response: any) => {
+      this.user = response.data;
+      console.log("User", this.user);
     });
-    /*this.isAdmin = this.authService.isAdmin();*/
   }
 
   logout() {
     this.authService.logout();
     this.toastr.info("Deconnexion reussie");
     this.router.navigate(["/login"]);
+  }
+
+  closeMenu() {
+    this.showMenu = false;
   }
 }
