@@ -61,7 +61,7 @@
               [(ngModel)]="selectedDocument.product_id"
               class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
             >
-              <option value="customer.id" disabled selected>Choisir le client</option>
+              <option value="customer.id" disabled selected>Choisir un produit</option>
               @for(product of products; track product.id) {
               <option [value]="product.id">{{ product.name }}</option>
               }

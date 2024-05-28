@@ -176,31 +176,21 @@ export class DocumentAddEditComponent {
   createDocument() {
     const item: Document = this.form.value as Document;
 
-    if (Array.isArray(item.product_id)) {
-      for (const productId of item.product_id) {
-        const newItem = { ...item, product_id: productId };
-
-        this.documentService.createDocument(newItem).subscribe({
-          next: () => {
-            this.toastr.success("Document créé avec succès");
-          },
-          error: (error) => {
-            this.toastr.error("Une erreur s'est produite lors de la création du document");
-          },
-        });
-      }
-    } else {
-      this.documentService.createDocument(item).subscribe({
-        next: () => {
-          this.toastr.success("Document créé avec succès");
-        },
-        error: (error) => {
+    this.documentService.createDocument(item).subscribe({
+      next: () => {
+        this.toastr.success("Document créé avec succès");
+        this.router.navigate(["/document"]);
+      },
+      error: (error) => {
+        if (error.error && error.error.message) {
+          // Si le serveur a renvoyé un message d'erreur spécifique, affichez-le
+          this.toastr.error(error.error.message);
+        } else {
+          // Sinon, affichez un message d'erreur générique
           this.toastr.error("Une erreur s'est produite lors de la création du document");
-        },
-      });
-    }
-
-    this.router.navigate(["/document"]);
+        }
+      },
+    });
   }
 
   cancel() {

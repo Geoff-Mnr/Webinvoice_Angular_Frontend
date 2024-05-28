@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, OnDestroy, OnInit, ChangeDetectorRef, NgZone, inject } from "@angular/core";
 import { RouterOutlet, RouterLink, RouterModule, Router } from "@angular/router";
 import { RouterLinkActive } from "@angular/router";
 import { CommonModule } from "@angular/common";
@@ -8,27 +8,31 @@ import { ToastrService } from "ngx-toastr";
 import { UserService } from "../../services/user.service";
 import { User } from "../../models/user.interface";
 import { NavigationExtras } from "@angular/router";
+import { Subscription } from "rxjs";
+import { GlobalStateService } from "../../services/global.service";
 
 @Component({
   selector: "app-dashboard",
   standalone: true,
   imports: [RouterLink, RouterOutlet, RouterModule, RouterLinkActive, CommonModule],
   templateUrl: "./dashboard.component.html",
-  styleUrl: "./dashboard.component.scss",
+  styleUrls: ["./dashboard.component.scss"],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit, OnDestroy {
   router = inject(Router);
   darkModeService: DarkModeService = inject(DarkModeService);
   authService = inject(AuthService);
   userService = inject(UserService);
   toastr = inject(ToastrService);
+  private subDelete: Subscription | undefined;
+  globalStateService = inject(GlobalStateService);
 
   selectedUser?: User;
 
   user: any;
   showMenu = false;
 
-  selectUser(user: any) {
+  selectUser(user: User) {
     this.selectedUser = user;
     console.log("Selected user", this.selectedUser);
     const navigationExtras: NavigationExtras = {
@@ -66,5 +70,11 @@ export class DashboardComponent {
 
   closeMenu() {
     this.showMenu = false;
+  }
+
+  ngOnDestroy() {
+    if (this.subDelete) {
+      this.subDelete.unsubscribe();
+    }
   }
 }

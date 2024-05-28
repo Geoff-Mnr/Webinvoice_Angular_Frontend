@@ -121,12 +121,20 @@ export class ProfileUserComponent implements OnDestroy {
     this.userService.updateProfileUser(this.selectedUser.id, item).subscribe({
       next: () => {
         this.toastr.success("Profil modifié avec succès");
+        console.log("User updated", item);
         this.router.navigate(["/home"]);
+        this.reloadPage();
       },
       error: (error) => {
         this.toastr.error("Erreur lors de la modification du profil");
       },
     });
+  }
+
+  reloadPage() {
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
   }
 
   cancel() {
