@@ -74,6 +74,7 @@ export class DocumentAddEditComponent {
       buying_price: 0,
       selling_price: 0,
       discount: 0,
+      margin: 0,
       description: "",
       comment: "",
       status: "",
@@ -117,13 +118,12 @@ export class DocumentAddEditComponent {
     documenttype_id: [0, Validators.required],
     customer_id: [0, Validators.required],
     product_id: [0, Validators.required],
-    reference_number: ["", Validators.required],
     due_date: [new Date(), Validators.required],
     document_date: [new Date(), Validators.required],
     created_at: [new Date(), Validators.required],
     price_htva: [0, Validators.required],
     price_vvac: [0, Validators.required],
-    price_total: [0, Validators.required],
+    price_total: [0],
   });
 
   getListDocumenttypes() {

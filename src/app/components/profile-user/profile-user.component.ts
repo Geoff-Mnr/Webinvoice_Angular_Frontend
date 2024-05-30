@@ -134,7 +134,7 @@ export class ProfileUserComponent implements OnDestroy {
   reloadPage() {
     setTimeout(() => {
       window.location.reload();
-    }, 3000);
+    }, 300);
   }
 
   cancel() {

@@ -40,9 +40,9 @@ export class DocumenttypeAddEditComponent {
   fb = inject(FormBuilder);
 
   form = this.fb.group({
-    reference: ["", Validators.required],
     name: ["", Validators.required],
     description: [""],
+    status: ["", Validators.required],
   });
 
   ngOnInit() {

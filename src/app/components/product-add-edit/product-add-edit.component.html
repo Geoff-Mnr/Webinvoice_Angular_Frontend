@@ -77,14 +77,14 @@
       </div>
 
       <div class="sm:col-span-2">
-        <label for="selling_price" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Prix de vente</label>
+        <label for="margin" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Marge</label>
         <div class="mt-2">
           <input
             type="text"
-            name="selling_price"
-            [(ngModel)]="selectedProduct.selling_price"
-            formControlName="selling_price"
-            placeholder="Prix de vente"
+            name="margin"
+            [(ngModel)]="selectedProduct.margin"
+            formControlName="margin"
+            placeholder="Marge"
             required
             class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
@@ -92,7 +92,7 @@
       </div>
 
       <div class="sm:col-span-2">
-        <label for="discount" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Prix TVAC</label>
+        <label for="discount" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Remise</label>
         <div class="mt-2">
           <input
             type="text"

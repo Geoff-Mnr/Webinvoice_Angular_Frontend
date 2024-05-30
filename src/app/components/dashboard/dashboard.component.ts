@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ChangeDetectorRef, NgZone, inject } from "@angular/core";
-import { RouterOutlet, RouterLink, RouterModule, Router } from "@angular/router";
+import { RouterOutlet, RouterLink, RouterModule, Router, ActivatedRoute } from "@angular/router";
 import { RouterLinkActive } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { DarkModeService } from "../../services/dark-mode.service";
@@ -27,6 +27,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private subDelete: Subscription | undefined;
   globalStateService = inject(GlobalStateService);
 
+  constructor(private route: ActivatedRoute) {}
+
   selectedUser?: User;
 
   user: any;
@@ -52,7 +54,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getProfile();
+    this.route.params.subscribe(() => {
+      this.getProfile();
+    });
   }
 
   getProfile() {

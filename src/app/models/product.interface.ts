@@ -6,6 +6,7 @@ export interface Product {
   stock: number;
   buying_price: number;
   selling_price: number;
+  margin: number;
   discount: number;
   description: string;
   comment: string;

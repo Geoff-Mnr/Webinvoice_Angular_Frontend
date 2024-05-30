@@ -54,7 +54,7 @@
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Date du document</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Date d'échéance</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Prix HTVA</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Prix TVAC</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Taux TVAC</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Prix total</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Status</th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
@@ -70,9 +70,9 @@
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.customer }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.document_date }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.due_date }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.price_htva }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.price_vvac }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.price_total }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.price_htva }} €</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.price_vvac }}%</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.price_total }} €</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.status }}</td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                   <button (click)="selectDocument(document)" class="text-primary font-montserrat hover:font-semibold">Edit</button>
