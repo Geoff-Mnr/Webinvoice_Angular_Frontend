@@ -180,7 +180,11 @@
     <!-- Sidebar component, swap this element with another sidebar if you like -->
     <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-background border-r border-border px-6 pb-4">
       <div class="flex h-16 shrink-0 items-center">
-        <h1 class="text-2xl font-bold text-primary">Logo</h1>
+        @if (darkModeService.darkModeSignal() !== 'dark'){
+        <img src="../../../assets/images/wi_logo_light.png" class="w-40" />
+        } @else {
+        <img src="../../../assets/images/wi_logo_dark.png" class="w-40" />
+        }
       </div>
       <nav class="flex flex-1 flex-col">
         <ul role="list" class="flex flex-1 flex-col gap-y-7">

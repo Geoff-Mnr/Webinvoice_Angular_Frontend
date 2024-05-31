@@ -118,6 +118,15 @@ export class ProfileUserComponent implements OnDestroy {
 
   updateUser() {
     const item: User = this.userForm.value as User;
+
+    if (item.password === "") {
+      item.password = this.selectedUser.password;
+    }
+
+    if (item.profile_picture === "") {
+      item.profile_picture = this.selectedUser.profile_picture;
+    }
+
     this.userService.updateProfileUser(this.selectedUser.id, item).subscribe({
       next: () => {
         this.toastr.success("Profil modifié avec succès");
