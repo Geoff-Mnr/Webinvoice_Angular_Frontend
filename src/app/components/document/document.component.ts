@@ -50,10 +50,10 @@ export class DocumentComponent implements OnDestroy {
     console.log(page, this.itemsPerPage, this.search);
     this.subDelete = this.documentService.listDocumentsByUser(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {
-        this.documents = response.data.data;
+        this.documents = response.data;
         console.log(this.documents);
-        this.totalItems = response.data.total;
-        this.totalPage = response.data.last_page;
+        this.totalItems = response.total;
+        this.totalPage = response.last_page;
 
         if (this.totalItems === 0) {
           this.toastr.info("Aucun document trouvé");
