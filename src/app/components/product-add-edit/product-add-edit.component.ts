@@ -7,6 +7,7 @@ import { ProductService } from "../../services/product.service";
 import { ToastrService } from "ngx-toastr";
 import { RouterLink } from "@angular/router";
 import { ActivatedRoute } from "@angular/router";
+import { debounceTime } from "rxjs";
 
 @Component({
   selector: "app-product-add-edit",
@@ -36,6 +37,7 @@ export class ProductAddEditComponent {
   router = inject(Router);
   productService = inject(ProductService);
   toastr = inject(ToastrService);
+  form: any;
 
   constructor(private route: ActivatedRoute) {
     const navigation = this.router.getCurrentNavigation();
@@ -44,23 +46,51 @@ export class ProductAddEditComponent {
     }
   }
 
-  fb = inject(FormBuilder);
-
-  form = this.fb.group({
-    name: ["", Validators.required],
-    brand: ["", Validators.required],
-    ean_code: ["", Validators.required],
-    stock: [0, Validators.required],
-    buying_price: [0, Validators.required],
-    margin: [0, Validators.required],
-    selling_price: [0, Validators.required],
-    discount: [0, Validators.required],
-    description: ["", Validators.required],
-    comment: ["", Validators.required],
-  });
-
   ngOnInit() {
     this.selectedProduct = this.clone(this.selectedProduct);
+
+    this.form = this.fb.group({
+      name: ["", Validators.required],
+      brand: ["", Validators.required],
+      ean_code: ["", Validators.required],
+      stock: [0, Validators.required],
+      buying_price: [0, Validators.required],
+      margin: [0, Validators.required],
+      selling_price: [0, Validators.required],
+      discount: [0, Validators.required],
+      description: ["", Validators.required],
+      comment: ["", Validators.required],
+    });
+
+    this.form
+      .get("buying_price")
+      .valueChanges.pipe(debounceTime(300))
+      .subscribe(() => this.calculateSellingPrice());
+    this.form
+      .get("margin")
+      .valueChanges.pipe(debounceTime(300))
+      .subscribe(() => this.calculateSellingPrice());
+    this.form
+      .get("discount")
+      .valueChanges.pipe(debounceTime(300))
+      .subscribe(() => this.calculateSellingPrice());
+  }
+
+  fb = inject(FormBuilder);
+
+  calculateSellingPrice() {
+    const buyingPrice = this.form.value.buying_price;
+    const margin = this.form.value.margin ?? 0;
+    const discount = this.form.value.discount ?? 0;
+
+    console.log(`buyingPrice: ${buyingPrice}, margin: ${margin}, discount: ${discount}`);
+
+    if (buyingPrice !== null && buyingPrice !== undefined) {
+      const priceAfterDiscount = buyingPrice * (1 - discount / 100);
+      const sellingPrice = priceAfterDiscount * (1 + margin / 100);
+
+      this.form.get("selling_price").setValue(sellingPrice.toFixed(0), { emitEvent: false });
+    }
   }
 
   private clone(value: any): Product {
@@ -68,6 +98,10 @@ export class ProductAddEditComponent {
   }
 
   updateProduct() {
+    if (!this.selectedProduct.id) {
+      this.toastr.error("Aucun produit sélectionné");
+      return;
+    }
     const item: Product = this.form.value as Product;
     this.productService.updateProduct(this.selectedProduct.id, item).subscribe({
       next: () => {
