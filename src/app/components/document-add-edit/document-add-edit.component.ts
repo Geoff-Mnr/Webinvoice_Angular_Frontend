@@ -152,14 +152,14 @@ export class DocumentAddEditComponent {
 
   getListCustomers() {
     this.customerService.listCustomers().subscribe((response: any) => {
-      this.customers = response;
+      this.customers = response.data;
       console.log(this.customers);
     });
   }
 
   getListProducts() {
     this.productService.listProducts().subscribe((response: any) => {
-      this.products = response;
+      this.products = response.data;
       console.log(this.products);
     });
   }
