@@ -9,7 +9,6 @@ import { ToastrService } from "ngx-toastr";
 import { HttpClientModule } from "@angular/common/http";
 import { OnDestroy } from "@angular/core";
 import { Customer } from "../../models/customer.interface";
-import { state } from "@angular/animations";
 import { NavigationExtras } from "@angular/router";
 
 @Component({
