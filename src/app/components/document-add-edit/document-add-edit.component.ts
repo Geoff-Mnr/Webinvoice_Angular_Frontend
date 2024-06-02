@@ -20,7 +20,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { provideNativeDateAdapter } from "@angular/material/core";
-import { formatISO } from "date-fns";
+import { debounceTime } from "rxjs";
 
 @Component({
   selector: "app-document-add-edit",
@@ -85,7 +85,7 @@ export class DocumentAddEditComponent {
     document_date: new Date(),
     due_date: new Date(),
     price_htva: 0,
-    price_vvac: 0,
+    price_vvat: 0,
     price_total: 0,
     created_at: new Date(),
     updated_at: new Date(),
@@ -100,6 +100,7 @@ export class DocumentAddEditComponent {
 
   toastr = inject(ToastrService);
   datePipe = inject(DatePipe);
+  form: any;
 
   constructor(private route: ActivatedRoute) {
     const navigation = this.router.getCurrentNavigation();
@@ -112,19 +113,35 @@ export class DocumentAddEditComponent {
     return this.datePipe.transform(date, "HH:mm le dd-MM-yyyy");
   }
 
-  fb = inject(FormBuilder);
+  ngOnInit() {
+    this.selectedDocument = this.clone(this.selectedDocument);
+    this.getListDocumenttypes();
+    this.getListCustomers();
+    this.getListProducts();
 
-  form = this.fb.group({
-    documenttype_id: [0, Validators.required],
-    customer_id: [0, Validators.required],
-    product_id: [0, Validators.required],
-    due_date: [new Date(), Validators.required],
-    document_date: [new Date(), Validators.required],
-    created_at: [new Date(), Validators.required],
-    price_htva: [0, Validators.required],
-    price_vvac: [0, Validators.required],
-    price_total: [0],
-  });
+    this.form = this.fb.group({
+      documenttype_id: [0, Validators.required],
+      customer_id: [0, Validators.required],
+      product_id: [0, Validators.required],
+      due_date: [new Date(), Validators.required],
+      document_date: [new Date(), Validators.required],
+      created_at: [new Date(), Validators.required],
+      price_htva: [0, Validators.required],
+      price_vvat: [0, Validators.required],
+      price_total: [0, Validators.required],
+    });
+
+    this.form
+      .get("price_htva")
+      .valueChanges.pipe(debounceTime(300))
+      .subscribe(() => this.calculatePriceTotal());
+    this.form
+      .get("price_vvat")
+      .valueChanges.pipe(debounceTime(300))
+      .subscribe(() => this.calculatePriceTotal());
+  }
+
+  fb = inject(FormBuilder);
 
   getListDocumenttypes() {
     this.documenttypeService.listDocumenttypes().subscribe((response: any) => {
@@ -145,14 +162,6 @@ export class DocumentAddEditComponent {
       this.products = response.data;
       console.log(this.products);
     });
-  }
-
-  ngOnInit() {
-    console.log(this.selectedDocument);
-    this.selectedDocument = this.clone(this.selectedDocument);
-    this.getListDocumenttypes();
-    this.getListCustomers();
-    this.getListProducts();
   }
 
   private clone(value: any) {
@@ -191,6 +200,19 @@ export class DocumentAddEditComponent {
         }
       },
     });
+  }
+
+  calculatePriceTotal() {
+    const price_htva = Number(this.form.value.price_htva);
+    const price_vvat = Number(this.form.value.price_vvat ?? 0);
+
+    console.log(`price_htva: ${price_htva}, price_vvat: ${price_vvat}`);
+
+    if (!isNaN(price_htva) && !isNaN(price_vvat)) {
+      const vvatAmount = price_htva * (price_vvat / 100);
+      const price_total = price_htva + vvatAmount;
+      this.form.get("price_total").setValue(price_total.toFixed(0), { emitEvent: false });
+    }
   }
 
   cancel() {
