@@ -70,7 +70,7 @@ export class DocumentAddEditComponent {
       name: "",
       brand: "",
       ean_code: "",
-      stock: 0,
+      quantity: 0,
       buying_price: 0,
       selling_price: 0,
       discount: 0,

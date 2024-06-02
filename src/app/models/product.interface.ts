@@ -3,7 +3,7 @@ export interface Product {
   name: string;
   brand: string;
   ean_code: string;
-  stock: number;
+  quantity: number;
   buying_price: number;
   selling_price: number;
   margin: number;
