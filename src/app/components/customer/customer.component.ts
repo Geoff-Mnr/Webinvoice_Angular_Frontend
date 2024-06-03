@@ -49,15 +49,18 @@ export class CustomerComponent implements OnDestroy {
     console.log(page, this.itemsPerPage, this.search);
     this.subDelete = this.customerService.listCustomersByUser(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {
-        this.customers = response.data.data;
+        this.customers = response.data;
         console.log(this.customers);
-        this.totalItems = response.data.total;
-        this.totalPage = response.data.last_page;
+        this.totalItems = response.meta.total;
+        console.log(this.totalItems);
+        this.totalPage = response.meta.last_page;
+        console.log(this.totalPage);
 
         if (this.totalItems === 0) {
           this.toastr.info("Aucun client trouvé");
         }
-        this.currentPage = page < 1 ? 1 : page > this.totalPage ? this.totalPage : page;
+        this.currentPage = Math.min(Math.max(page, 1), this.totalPage);
+        console.log(this.currentPage);
       },
       error: (error) => {
         this.toastr.error("Une erreur est survenue lors de la récupération des données", error);
@@ -92,11 +95,7 @@ export class CustomerComponent implements OnDestroy {
 
   onItemsPerPageChange() {
     localStorage.setItem("itemsPerPage", this.itemsPerPage.toString());
-    this.getListCustomers();
-  }
-
-  private closeEditForm() {
-    this.selectedCustomer = undefined;
+    this.getListCustomers(this.currentPage);
   }
 
   ngOnDestroy() {

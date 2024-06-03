@@ -49,14 +49,17 @@ export class ProductComponent implements OnDestroy {
     console.log(page, this.itemsPerPage, this.search);
     this.subDelete = this.productService.listProductsByUser(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {
-        this.products = response.data.data;
+        this.products = response.data;
         console.log(this.products);
-        this.totalItems = response.data.total;
-        this.totalPage = response.data.last_page;
-
+        this.totalItems = response.meta.total;
+        console.log(this.totalItems);
+        this.totalPage = response.meta.last_page;
+        console.log(this.totalPage);
         if (this.totalItems === 0) {
           this.toastr.info("Aucun produit trouvé");
         }
+        this.currentPage = page < 1 ? 1 : page > this.totalPage ? this.totalPage : page;
+        console.log(this.currentPage);
       },
       error: (error) => {
         this.toastr.error("Erreur lors de la récupération des produits");
@@ -79,7 +82,7 @@ export class ProductComponent implements OnDestroy {
 
   onItemsPerPageChange() {
     localStorage.setItem("itemsPerPage", this.itemsPerPage.toString());
-    this.getListProducts();
+    this.getListProducts(this.currentPage);
   }
 
   ngOnDestroy() {

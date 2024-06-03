@@ -115,6 +115,8 @@ export class DocumentAddEditComponent {
 
   ngOnInit() {
     this.selectedDocument = this.clone(this.selectedDocument);
+    console.log(this.selectedDocument);
+    console.log(this.selectedDocument.documenttype.id);
     this.getListDocumenttypes();
     this.getListCustomers();
     this.getListProducts();

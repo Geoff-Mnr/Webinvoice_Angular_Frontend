@@ -47,21 +47,20 @@ export class DocumentComponent implements OnDestroy {
   }
 
   getListDocuments(page: number = 1) {
-    console.log(page, this.itemsPerPage, this.search);
     this.subDelete = this.documentService.listDocumentsByUser(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {
         this.documents = response.data;
         console.log(this.documents);
-        this.totalItems = response.total;
-        this.totalPage = response.last_page;
+        this.totalItems = response.meta.total;
+        this.totalPage = response.meta.last_page;
 
         if (this.totalItems === 0) {
           this.toastr.info("Aucun document trouvé");
         }
+        this.currentPage = page < 1 ? 1 : page > this.totalPage ? this.totalPage : page;
       },
       error: (error) => {
-        console.log(error);
-        this.toastr.error("Erreur lors du chargement des documents");
+        this.toastr.error("Erreur lors du chargement des documents", error);
       },
     });
   }
