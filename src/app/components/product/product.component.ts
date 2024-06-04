@@ -50,11 +50,8 @@ export class ProductComponent implements OnDestroy {
     this.subDelete = this.productService.listProductsByUser(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {
         this.products = response.data;
-        console.log(this.products);
         this.totalItems = response.meta.total;
-        console.log(this.totalItems);
         this.totalPage = response.meta.last_page;
-        console.log(this.totalPage);
         if (this.totalItems === 0) {
           this.toastr.info("Aucun produit trouvé");
         }

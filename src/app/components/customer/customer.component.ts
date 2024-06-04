@@ -49,10 +49,10 @@ export class CustomerComponent implements OnDestroy {
     console.log(page, this.itemsPerPage, this.search);
     this.subDelete = this.customerService.listCustomersByUser(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {
-        this.customers = response.data.data;
+        this.customers = response.data;
         console.log(response);
-        this.totalItems = response.data.total;
-        this.totalPage = response.data.last_page;
+        this.totalItems = response.meta.total;
+        this.totalPage = response.meta.last_page;
 
         if (this.totalItems === 0) {
           this.toastr.info("Aucun client trouvé");

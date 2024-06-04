@@ -51,9 +51,8 @@ export class DocumenttypeComponent implements OnDestroy {
       next: (response) => {
         this.documenttypes = response.data;
         console.log(this.documenttypes);
-        this.totalItems = response.total;
-        this.totalPage = response.last_page;
-
+        this.totalItems = response.meta.total;
+        this.totalPage = response.meta.last_page;
         if (this.totalItems === 0) {
           this.toastr.info("Aucun type de document trouvé");
         }
