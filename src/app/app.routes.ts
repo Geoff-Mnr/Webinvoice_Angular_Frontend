@@ -16,6 +16,8 @@ import { CustomerAddEditComponent } from "./components/customer-add-edit/custome
 import { AuthGuard } from "./guards/auth-guard";
 import { LoginGuard } from "./guards/login-guard";
 import { ProfileUserComponent } from "./components/profile-user/profile-user.component";
+import { UserComponent } from "./components/user/user.component";
+import { AdminGuard } from "./guards/admin-guard";
 
 export const routes: Routes = [
   { path: "login", component: LoginComponent, canActivate: [LoginGuard] },
@@ -64,6 +66,14 @@ export const routes: Routes = [
           { path: "", component: DocumenttypeComponent },
           { path: "add-documenttype", component: DocumenttypeAddEditComponent },
           { path: "edit-documenttype", component: DocumenttypeAddEditComponent },
+        ],
+      },
+      {
+        path: "users",
+        children: [
+          { path: "", component: UserComponent, canActivate: [AdminGuard] },
+          { path: "add-user", component: UserComponent, canActivate: [AdminGuard] },
+          { path: "edit-user", component: UserComponent, canActivate: [AdminGuard] },
         ],
       },
       { path: "support", component: SupportComponent },

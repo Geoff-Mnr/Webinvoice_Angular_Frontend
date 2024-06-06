@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, BehaviorSubject } from "rxjs";
 import { User } from "../models/user.interface";
 import { tap } from "rxjs/operators";
+import { HttpParams } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root",
@@ -18,6 +19,14 @@ export class UserService {
 
   getProfileUser(): Observable<any> {
     return this.http.get<User>(`${this.baseUri}/profile-user`);
+  }
+
+  getAllUsers(page: number = 1, perPage: number = 10, search: string = ""): Observable<any> {
+    let params = new HttpParams().set("page", page.toString()).set("per_page", perPage.toString());
+    if (search) {
+      params = params.set("q", search);
+    }
+    return this.http.get<any>(`${this.baseUri}/users`, { params });
   }
 
   updateProfileUser(id: number, user: User): Observable<User> {

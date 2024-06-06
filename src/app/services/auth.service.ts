@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   isAdmin(): boolean {
-    return JSON.parse(localStorage.getItem("session")!).user.role_name == "Super Admin";
+    return JSON.parse(localStorage.getItem("session")!).user.role == "Super Admin";
   }
 
   getUsername(): string {

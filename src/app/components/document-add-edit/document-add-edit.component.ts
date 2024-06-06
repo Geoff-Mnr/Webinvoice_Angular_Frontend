@@ -1,7 +1,6 @@
 import { Component, SimpleChanges, inject } from "@angular/core";
 import { FormsModule, FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Document } from "../../models/document.interface";
-import { CommonModule } from "@angular/common";
 import { ActivatedRoute } from "@angular/router";
 import { Router } from "@angular/router";
 import { DocumentService } from "../../services/document.service";
@@ -12,6 +11,7 @@ import { CustomDatePipe } from "../../pipes/custom-date.pipe";
 import { DocumenttypeService } from "../../services/documenttype.service";
 import { DocumentType } from "../../models/documenttype.interface";
 import { CustomerService } from "../../services/customer.service";
+import { CommonModule } from "@angular/common";
 import { Customer } from "../../models/customer.interface";
 import { Product } from "../../models/product.interface";
 import { ProductService } from "../../services/product.service";
