@@ -27,6 +27,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private subDelete: Subscription | undefined;
   globalStateService = inject(GlobalStateService);
 
+  isAdmin: boolean = false;
+
   constructor(private route: ActivatedRoute) {}
 
   selectedUser?: User;
@@ -57,6 +59,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.route.params.subscribe(() => {
       this.getProfile();
     });
+    this.isAdmin = this.authService.isAdmin();
   }
 
   getProfile() {

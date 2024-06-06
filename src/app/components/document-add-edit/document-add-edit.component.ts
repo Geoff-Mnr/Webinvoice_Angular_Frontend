@@ -25,7 +25,7 @@ import { debounceTime } from "rxjs";
 @Component({
   selector: "app-document-add-edit",
   standalone: true,
-  imports: [FormsModule, CommonModule, ReactiveFormsModule, CustomDatePipe, MatIconModule, MatDatepickerModule, MatInputModule, MatFormFieldModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatIconModule, MatDatepickerModule, MatInputModule, MatFormFieldModule],
   providers: [DatePipe, provideNativeDateAdapter()],
   templateUrl: "./document-add-edit.component.html",
   styleUrl: "./document-add-edit.component.scss",
@@ -128,7 +128,7 @@ export class DocumentAddEditComponent {
       due_date: [new Date(), Validators.required],
       document_date: [new Date(), Validators.required],
       created_at: [new Date(), Validators.required],
-      price_htva: [0, Validators.required],
+      price_htva: [this.selectedDocument.price_htva, Validators.required],
       price_vvat: [0, Validators.required],
       price_total: [0, Validators.required],
     });
@@ -163,6 +163,15 @@ export class DocumentAddEditComponent {
     this.productService.listProducts().subscribe((response: any) => {
       this.products = response.data;
       console.log(this.products);
+      this.form.get("product_id").valueChanges.subscribe((productId: any) => {
+        const product = this.products.find((product) => product.id === Number(productId));
+        console.log(product); // Afficher le produit dans la console
+        if (product) {
+          this.selectedDocument.product = product;
+          // Assurez-vous que product.selling_price est un nombre avant de le définir comme valeur de price_htva
+          this.form.get("price_htva").setValue(Number(product.selling_price));
+        }
+      });
     });
   }
 

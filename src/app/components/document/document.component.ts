@@ -90,6 +90,19 @@ export class DocumentComponent implements OnDestroy {
     });
   }
 
+  downloadInvoice(item: Document) {
+    this.subDelete = this.documentService.getInvoicePdf(item.id).subscribe({
+      next: (response) => {
+        const blob = new Blob([response], { type: "application/pdf" });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+      },
+      error: (error) => {
+        this.toastr.error("Erreur lors du téléchargement de la facture");
+      },
+    });
+  }
+
   onItemsPerPageChange() {
     localStorage.setItem("itemsPerPage", this.itemsPerPage.toString());
     this.getListDocuments();

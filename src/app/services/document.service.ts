@@ -33,4 +33,8 @@ export class DocumentService {
   delete(id: number): Observable<Document> {
     return this.http.delete<any>(`${this.baseUri}/documents/${id}`);
   }
+
+  getInvoicePdf(id: number): Observable<Blob> {
+    return this.http.get<any>(`${this.baseUri}/invoices/${id}`, { responseType: "blob" as "json" });
+  }
 }

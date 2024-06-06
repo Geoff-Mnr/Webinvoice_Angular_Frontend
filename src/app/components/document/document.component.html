@@ -73,7 +73,8 @@
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.price_htva }} €</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.price_vvat }}%</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.price_total }} €</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ document.status }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500" (click)="downloadInvoice(document)">Télécharger</td>
+
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                   <button (click)="selectDocument(document)" class="text-primary font-montserrat hover:font-semibold">Edit</button>
                 </td>
