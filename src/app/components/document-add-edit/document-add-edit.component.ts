@@ -1,5 +1,5 @@
 import { Component, SimpleChanges, inject } from "@angular/core";
-import { FormsModule, FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormsModule, FormBuilder, ReactiveFormsModule, Validators, FormArray } from "@angular/forms";
 import { Document } from "../../models/document.interface";
 import { ActivatedRoute } from "@angular/router";
 import { Router } from "@angular/router";
@@ -64,7 +64,8 @@ export class DocumentAddEditComponent {
       updated_at: new Date(),
       status: "",
     },
-    product_id: 0,
+    product_id: [],
+    products: [],
     product: {
       id: 0,
       name: "",
@@ -124,7 +125,7 @@ export class DocumentAddEditComponent {
     this.form = this.fb.group({
       documenttype_id: [0, Validators.required],
       customer_id: [0, Validators.required],
-      product_id: [0, Validators.required],
+      selectedProducts: this.fb.array([]),
       due_date: [new Date(), Validators.required],
       document_date: [new Date(), Validators.required],
       created_at: [new Date(), Validators.required],
@@ -133,14 +134,35 @@ export class DocumentAddEditComponent {
       price_total: [0, Validators.required],
     });
 
-    this.form
-      .get("price_htva")
-      .valueChanges.pipe(debounceTime(300))
-      .subscribe(() => this.calculatePriceTotal());
-    this.form
-      .get("price_vvat")
-      .valueChanges.pipe(debounceTime(300))
-      .subscribe(() => this.calculatePriceTotal());
+    if (this.selectedDocument && this.selectedDocument.products) {
+      const productArray = this.form.get("selectedProducts") as FormArray;
+      this.selectedDocument.products.forEach((product) => {
+        const productGroup = this.fb.group({
+          product_id: [product.id],
+          quantity: [product.quantity],
+          discount: [product.discount],
+        });
+        productArray.push(productGroup);
+      });
+    }
+  }
+
+  get selectedProducts(): FormArray {
+    return this.form.get("selectedProducts") as FormArray;
+  }
+
+  addProduct() {
+    this.selectedProducts.push(
+      this.fb.group({
+        product_id: [null, Validators.required],
+        quantity: ["", Validators.required],
+        discount: ["", Validators.required],
+      })
+    );
+  }
+
+  removeProduct(index: number) {
+    this.selectedProducts.removeAt(index);
   }
 
   fb = inject(FormBuilder);
@@ -163,15 +185,6 @@ export class DocumentAddEditComponent {
     this.productService.listProducts().subscribe((response: any) => {
       this.products = response.data;
       console.log(this.products);
-      this.form.get("product_id").valueChanges.subscribe((productId: any) => {
-        const product = this.products.find((product) => product.id === Number(productId));
-        console.log(product); // Afficher le produit dans la console
-        if (product) {
-          this.selectedDocument.product = product;
-          // Assurez-vous que product.selling_price est un nombre avant de le définir comme valeur de price_htva
-          this.form.get("price_htva").setValue(Number(product.selling_price));
-        }
-      });
     });
   }
 
@@ -181,7 +194,10 @@ export class DocumentAddEditComponent {
 
   updateDocument() {
     const item: Document = this.form.value as Document;
+    const product_ids = this.selectedProducts.controls.map((ctrl) => ctrl.get("product_id")?.value) as number[]; // Créer le tableau de product_id
 
+    // Assigner le tableau de produits
+    item.product_id = product_ids;
     this.documentService.updateDocument(this.selectedDocument.id, item).subscribe({
       next: () => {
         this.toastr.success("Document modifié avec succès");
@@ -195,7 +211,10 @@ export class DocumentAddEditComponent {
 
   createDocument() {
     const item: Document = this.form.value as Document;
+    const product_ids = this.selectedProducts.controls.map((ctrl) => ctrl.get("product_id")?.value) as number[]; // Créer le tableau de product_id
 
+    // Assigner le tableau de produits
+    item.product_id = product_ids;
     this.documentService.createDocument(item).subscribe({
       next: () => {
         this.toastr.success("Document créé avec succès");
@@ -211,19 +230,6 @@ export class DocumentAddEditComponent {
         }
       },
     });
-  }
-
-  calculatePriceTotal() {
-    const price_htva = Number(this.form.value.price_htva);
-    const price_vvat = Number(this.form.value.price_vvat ?? 0);
-
-    console.log(`price_htva: ${price_htva}, price_vvat: ${price_vvat}`);
-
-    if (!isNaN(price_htva) && !isNaN(price_vvat)) {
-      const vvatAmount = price_htva * (price_vvat / 100);
-      const price_total = price_htva + vvatAmount;
-      this.form.get("price_total").setValue(price_total.toFixed(0), { emitEvent: false });
-    }
   }
 
   cancel() {

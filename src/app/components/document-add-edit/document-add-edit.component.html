@@ -35,25 +35,64 @@
           </select>
         </div>
       </div>
-
-      <div class="sm:col-span-4">
-        <label for="product_id" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Produit</label>
-        <div class="mt-2">
-          <div class="mt-2">
-            <select
-              multiple
-              name="product_id"
-              formControlName="product_id"
-              [(ngModel)]="selectedDocument.product_id"
-              class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-            >
-              <option value="customer.id" disabled selected>Choisir un produit</option>
-              @for(product of products; track product.id) {
-              <option [value]="product.id">{{ product.name }}</option>
-              }
-            </select>
+      <div class="sm:col-span-6">
+        <label for="id" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Produit</label>
+        <div class="mt-2" formArrayName="selectedProducts">
+          <div *ngFor="let productCtrl of selectedProducts.controls; let i = index" [formGroupName]="i" class="mt-2">
+            <div class="grid grid-cols-10 gap-2 mt-2 w-full">
+              <div class="col-span-5">
+                <label for="product" class="col-span-2 text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Nom du produit</label>
+                <select
+                  name="product"
+                  formControlName="product_id"
+                  [(ngModel)]="selectedProducts.controls[i].value.product_id"
+                  class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                >
+                  <option value="" disabled selected>Choisir un produit</option>
+                  <option *ngFor="let product of products" [value]="product.id">{{ product.name }}</option>
+                </select>
+              </div>
+              <div class="col-span-2">
+                <label for="quantity" class="text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Quantité</label>
+                <input
+                  type="number"
+                  formControlName="quantity"
+                  placeholder="Quantité"
+                  class="col-span-2 block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                />
+              </div>
+              <div class="col-span-2">
+                <label for="discount" class="col-span-1 text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Remise</label>
+                <input
+                  type="number"
+                  formControlName="discount"
+                  placeholder="Remise"
+                  class="col-span-2 block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+                />
+              </div>
+              <div class="flex justify-center items-end">
+                <button type="button" (click)="removeProduct(i)" class="ml-2 p-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 shrink-0 text-destructive">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
+        <button
+          type="button"
+          (click)="addProduct()"
+          class="rounded-full bg-primary p-1 text-secondary shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+        >
+          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+          </svg>
+        </button>
       </div>
 
       <div class="sm:col-span-3">
@@ -117,7 +156,6 @@
           <input
             type="text"
             name="price_total"
-            (input)="calculatePriceTotal()"
             formControlName="price_total"
             placeholder="Prix total"
             class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
@@ -136,7 +174,7 @@
       [class.bg-primary]="!form.invalid"
       [class.bg-blue-100]="form.invalid"
       (click)="updateDocument()"
-      class="rounded-md bg-primary px-3 py-2 text-sm font-semibold font-montserrat text-secondary shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      class="rounded-md bg-primary px-3 py-2 text-sm font-semibold font-montserrat text-secondary shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
     >
       Modifier
     </button>
@@ -147,7 +185,7 @@
       [class.bg-primary]="!form.invalid"
       [class.bg-blue-100]="form.invalid"
       (click)="createDocument()"
-      class="rounded-md bg-primary px-3 py-2 text-sm font-semibold font-montserrat text-secondary shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      class="rounded-md bg-primary px-3 py-2 text-sm font-semibold font-montserrat text-secondary shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
     >
       Ajouter
     </button>

@@ -8,14 +8,14 @@ import { Subscription } from "rxjs";
 import { Document } from "../../models/document.interface";
 import { DocumentService } from "../../services/document.service";
 import { NavigationExtras } from "@angular/router";
-import { DocumentAddEditComponent } from "../document-add-edit/document-add-edit.component";
 import { OnDestroy } from "@angular/core";
 import { CustomDatePipe } from "../../pipes/custom-date.pipe";
+import { DocumentAddEditComponent } from "../document-add-edit/document-add-edit.component";
 
 @Component({
   selector: "app-document",
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule, HttpClientModule, DocumentAddEditComponent, CustomDatePipe],
+  imports: [RouterLink, CommonModule, FormsModule, HttpClientModule, CustomDatePipe, DocumentAddEditComponent],
   templateUrl: "./document.component.html",
   styleUrl: "./document.component.scss",
 })

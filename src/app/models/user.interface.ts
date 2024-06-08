@@ -11,6 +11,7 @@ export interface User {
   country: string;
   zip_code: string;
   profile_picture: string;
+  role_id: number;
   role: {
     id: number;
     name: string;

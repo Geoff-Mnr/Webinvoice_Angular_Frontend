@@ -43,6 +43,7 @@
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Téléphone</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">E-mail</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Role</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Statut</th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                   <span class="sr-only">Edit</span>
                 </th>
@@ -51,14 +52,15 @@
             <tbody class="divide-y divide-border bg-background">
               @for (user of users; track users){
               <tr>
-                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-secondaryforeground sm:pl-6">{{ user.username }}</td>
-                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-secondaryforeground sm:pl-6">{{ user.last_name }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ user.first_name }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ user.phone_number }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ user.email }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ user.role.name }}</td>
+                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-secondaryforeground sm:pl-6">{{ user.username }}</td>
+                <td class="whitespace-nowrap py-3 px-3 text-sm text-secondaryforeground">{{ user.last_name }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ user.first_name }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ user.phone_number }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ user.email }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ user.role.name }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ user.is_active }}</td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                  <button (click)="selectUser(user)" class="text-primary font-montserrat hover:font-semibold">Edit</button>
+                  <button (click)="selectUser(user)" class="text-primary font-montserrat hover:font-semibold">Editer</button>
                 </td>
               </tr>
               }

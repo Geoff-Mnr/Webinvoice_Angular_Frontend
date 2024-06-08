@@ -18,6 +18,7 @@ import { LoginGuard } from "./guards/login-guard";
 import { ProfileUserComponent } from "./components/profile-user/profile-user.component";
 import { UserComponent } from "./components/user/user.component";
 import { AdminGuard } from "./guards/admin-guard";
+import { EditUserComponent } from "./components/user-edit/edit-user.component";
 
 export const routes: Routes = [
   { path: "login", component: LoginComponent, canActivate: [LoginGuard] },
@@ -69,11 +70,10 @@ export const routes: Routes = [
         ],
       },
       {
-        path: "users",
+        path: "user-admin",
         children: [
-          { path: "", component: UserComponent, canActivate: [AdminGuard] },
-          { path: "add-user", component: UserComponent, canActivate: [AdminGuard] },
-          { path: "edit-user", component: UserComponent, canActivate: [AdminGuard] },
+          { path: "", component: UserComponent },
+          { path: "edit-user", component: EditUserComponent },
         ],
       },
       { path: "support", component: SupportComponent },

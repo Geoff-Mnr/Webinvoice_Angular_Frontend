@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { inject } from "@angular/core";
-import { FormsModule, FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { UserService } from "../../services/user.service";
 import { CommonModule } from "@angular/common";
 import { User } from "../../models/user.interface";
@@ -8,11 +8,12 @@ import { Subscription } from "rxjs";
 import { ToastrService } from "ngx-toastr";
 import { Router, NavigationExtras } from "@angular/router";
 import { OnDestroy } from "@angular/core";
+import { EditUserComponent } from "../user-edit/edit-user.component";
 
 @Component({
   selector: "app-user",
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, EditUserComponent],
   templateUrl: "./user.component.html",
   styleUrl: "./user.component.scss",
 })
@@ -67,7 +68,7 @@ export class UserComponent implements OnDestroy {
     const navigationExtras: NavigationExtras = {
       state: { user: user },
     };
-    this.router.navigate(["/users/edit-user"], navigationExtras);
+    this.router.navigate(["/user-admin/edit-user"], navigationExtras);
   }
 
   ngOnDestroy() {

@@ -9,21 +9,19 @@ import { UserService } from "../../services/user.service";
 import { User } from "../../models/user.interface";
 import { OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { ValidatorFn } from "@angular/forms";
-import { nospaceValidator } from "../../validators/nospace";
-import { OnInit } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { RoleService } from "../../services/role.service";
 import { Role } from "../../models/role.interface";
+import { OnInit } from "@angular/core";
 
 @Component({
-  selector: "app-profile-user",
+  selector: "app-edit-user",
   standalone: true,
   imports: [RouterLink, CommonModule, FormsModule, HttpClientModule, ReactiveFormsModule],
-  templateUrl: "./profile-user.component.html",
-  styleUrl: "./profile-user.component.scss",
+  templateUrl: "./edit-user.component.html",
+  styleUrl: "./edit-user.component.scss",
 })
-export class ProfileUserComponent implements OnDestroy {
+export class EditUserComponent implements OnDestroy {
   roles: Role[] = [];
 
   selectedUser: User = {
@@ -57,6 +55,7 @@ export class ProfileUserComponent implements OnDestroy {
   isAdmin = false;
   authService = inject(AuthService);
   roleService = inject(RoleService);
+  fb = inject(FormBuilder);
 
   constructor(private route: ActivatedRoute) {
     const navigation = this.router.getCurrentNavigation();
@@ -65,66 +64,15 @@ export class ProfileUserComponent implements OnDestroy {
     }
   }
 
-  passwordMatch: ValidatorFn = (control) => {
-    const password = control.get("password");
-    const confirm_password = control.get("confirm_password");
-
-    // Si les deux champs sont remplis et que les valeurs sont différentes
-    if (password && confirm_password && password.value !== confirm_password.value) {
-      if (confirm_password) {
-        confirm_password.setErrors({ passwordMatch: true });
-      }
-      // Sinon, on réinitialise les erreurs
-    } else {
-      if (confirm_password) {
-        confirm_password.setErrors(null);
-      }
-    }
-    return null;
-  };
-
-  fb = inject(FormBuilder);
-
-  userForm = this.fb.group(
-    {
-      username: ["", [Validators.required]],
-      first_name: ["", [Validators.required]],
-      last_name: ["", [Validators.required]],
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.minLength(8), nospaceValidator]],
-      confirm_password: ["", [Validators.minLength(8), nospaceValidator]],
-      phone_number: ["", [Validators.required]],
-      address: ["", [Validators.required]],
-      city: ["", [Validators.required]],
-      country: ["", [Validators.required]],
-      zip_code: ["", [Validators.required]],
-      profile_picture: [""],
-      role_id: ["", [Validators.required]],
-    },
-    { validators: this.passwordMatch }
-  );
+  userForm = this.fb.group({
+    role_id: ["", [Validators.required]],
+    is_active: ["", [Validators.required]],
+  });
 
   ngOnInit() {
     this.selectedUser = this.clone(this.selectedUser);
     this.getListRoles();
     this.isAdmin = this.authService.isAdmin();
-  }
-
-  private clone(value: any) {
-    return JSON.parse(JSON.stringify(value));
-  }
-
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (this.userForm.get("profile_picture")) {
-          this.userForm.get("profile_picture")?.setValue(reader.result as string);
-        }
-      };
-      reader.readAsDataURL(file);
-    }
   }
 
   updateUser() {
@@ -143,7 +91,6 @@ export class ProfileUserComponent implements OnDestroy {
         this.toastr.success("Profil modifié avec succès");
         console.log("User updated", item);
         this.router.navigate(["/home"]);
-        this.reloadPage();
       },
       error: (error) => {
         this.toastr.error("Erreur lors de la modification du profil");
@@ -158,10 +105,8 @@ export class ProfileUserComponent implements OnDestroy {
     });
   }
 
-  reloadPage() {
-    setTimeout(() => {
-      window.location.reload();
-    }, 300);
+  private clone(value: any) {
+    return JSON.parse(JSON.stringify(value));
   }
 
   cancel() {
