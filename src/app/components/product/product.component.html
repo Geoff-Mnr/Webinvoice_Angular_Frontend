@@ -7,7 +7,7 @@
       <button
         type="button"
         (click)="addProduct()"
-        class="flex items-center font-montserrat rounded-md bg-primary px-3 py-2 text-center text-sm font-semibold text-secondary shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        class="flex items-center font-montserrat rounded-md bg-primary px-3 py-2 text-center text-sm font-semibold text-secondary shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
       >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -36,7 +36,7 @@
                 <input
                   [(ngModel)]="search"
                   id="search-field"
-                  class="block h-full w-full border-0 py-0 pl-8 pr-0 text-secondaryforeground bg-background placeholder:text-textLight-900 font-montserrat focus:ring-0 sm:text-sm"
+                  class="block h-full w-full border-0 py-0 pl-8 pr-0 text-secondaryforeground bg-background placeholder:text-cardforeground font-montserrat focus:ring-0 sm:text-sm"
                   placeholder="Recherchez..."
                   type="search"
                   name="search"
@@ -51,12 +51,10 @@
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-secondary sm:pl-6">Nom</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Marque</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Code ean</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Stock</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Prix d'achat</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Prix de vente</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Marge</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Remise</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Description</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Commentaire</th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                   <span class="sr-only">Edit</span>
                 </th>
@@ -66,14 +64,12 @@
               @for (product of products; track products){
               <tr>
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-secondaryforeground sm:pl-6">{{ product.name }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.brand }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.ean_code }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.quantity }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.buying_price }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.selling_price }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.discount }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.description }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ product.comment }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ product.brand }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ product.ean_code }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ product.buying_price }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ product.selling_price }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ product.discount }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ product.margin }}</td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                   <button (click)="selectProduct(product)" class="text-primary font-montserrat hover:font-semibold">Edit</button>
                 </td>

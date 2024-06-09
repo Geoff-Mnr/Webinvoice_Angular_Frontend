@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
-  content: ["./src/**/*.{html,ts}"],
+  content: ["./src/**/*.{html,ts}", "./node_modules/flowbite/**/*.js"],
   theme: {
     fontFamily: {
       open: ["Open Sans", "sans-serif"],
@@ -39,5 +39,5 @@ module.exports = {
       ringColor: ["responsive", "dark", "focus", "reduced-motion"],
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [require("@tailwindcss/forms"), require("flowbite/plugin")],
 };

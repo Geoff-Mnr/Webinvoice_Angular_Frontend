@@ -16,6 +16,7 @@ export interface Document {
   due_date: Date;
   price_htva: number;
   price_vvat: number;
+  price_tvac: number;
   price_total: number;
   status: string;
   created_at: Date;

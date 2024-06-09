@@ -20,7 +20,6 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { provideNativeDateAdapter } from "@angular/material/core";
-import { debounceTime } from "rxjs";
 
 @Component({
   selector: "app-document-add-edit",
@@ -87,6 +86,7 @@ export class DocumentAddEditComponent {
     due_date: new Date(),
     price_htva: 0,
     price_vvat: 0,
+    price_tvac: 0,
     price_total: 0,
     created_at: new Date(),
     updated_at: new Date(),
@@ -123,15 +123,15 @@ export class DocumentAddEditComponent {
     this.getListProducts();
 
     this.form = this.fb.group({
-      documenttype_id: [0, Validators.required],
-      customer_id: [0, Validators.required],
+      documenttype_id: ["", Validators.required],
+      customer_id: ["", Validators.required],
       selectedProducts: this.fb.array([]),
       due_date: [new Date(), Validators.required],
       document_date: [new Date(), Validators.required],
       created_at: [new Date(), Validators.required],
       price_htva: [this.selectedDocument.price_htva, Validators.required],
       price_vvat: [0, Validators.required],
-      price_total: [0, Validators.required],
+      price_tvac: [0, Validators.required],
     });
 
     if (this.selectedDocument && this.selectedDocument.products) {
@@ -145,6 +145,51 @@ export class DocumentAddEditComponent {
         productArray.push(productGroup);
       });
     }
+
+    // Abonnement aux changements de valeur de selectedProducts
+    this.form.get("selectedProducts").valueChanges.subscribe((products: { product_id: string; quantity: number; discount: number }[]) => {
+      this.updatePrices();
+    });
+
+    // Abonnement aux changements de valeur de price_vvat
+    this.form.get("price_vvat").valueChanges.subscribe(() => {
+      this.updatePrices();
+    });
+  }
+
+  updatePrices() {
+    const products: { product_id: string; quantity: number; discount: number }[] = this.form.get("selectedProducts").value;
+    if (products) {
+      const productArray = this.form.get("selectedProducts") as FormArray;
+      let totalPriceHtva = 0;
+      products.forEach((product, index) => {
+        const selectedProduct = this.getProductById(product.product_id);
+        if (selectedProduct) {
+          const price = Number(selectedProduct.selling_price);
+          const quantity = product.quantity;
+          const discount = product.discount;
+          const discountedPrice = price - price * (discount / 100);
+          const price_total = discountedPrice * quantity;
+          totalPriceHtva += price_total;
+
+          productArray.at(index).patchValue({ price_total }, { emitEvent: false });
+        }
+      });
+
+      const vat_field = this.form.get("price_vvat");
+      const vat_rate = vat_field ? Number(vat_field.value) : 0;
+      const price_vvat = totalPriceHtva * (vat_rate / 100);
+      const price_tvac = totalPriceHtva + price_vvat;
+
+      this.form.patchValue({ price_htva: totalPriceHtva, price_tvac }, { emitEvent: false });
+
+      console.log(totalPriceHtva, price_vvat, price_tvac);
+    }
+  }
+
+  getProductById(id: string) {
+    const numId = Number(id);
+    return this.products.find((product) => product.id === numId);
   }
 
   get selectedProducts(): FormArray {
@@ -156,7 +201,8 @@ export class DocumentAddEditComponent {
       this.fb.group({
         product_id: [null, Validators.required],
         quantity: ["", Validators.required],
-        discount: ["", Validators.required],
+        discount: [""],
+        price_total: [{ value: 0, disabled: true }],
       })
     );
   }

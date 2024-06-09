@@ -36,7 +36,7 @@
                 <input
                   [(ngModel)]="search"
                   id="search-field"
-                  class="block h-full w-full border-0 py-0 pl-8 pr-0 text-secondaryforeground bg-background placeholder:text-textLight-900 font-montserrat focus:ring-0 sm:text-sm"
+                  class="block h-full w-full border-0 py-0 pl-8 pr-0 text-secondaryforeground bg-background placeholder:text-cardforeground font-montserrat focus:ring-0 sm:text-sm"
                   placeholder="Search..."
                   type="search"
                   name="search"
@@ -50,8 +50,9 @@
               <tr>
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-secondary sm:pl-6">Nom de l'entreprise</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Email</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Pays</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Téléphone</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Site Internet</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Ville</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Tva</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Statut</th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
@@ -63,11 +64,12 @@
               @for (customer of customers; track customer){
               <tr>
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-secondaryforeground sm:pl-6">{{ customer.company_name }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ customer.email }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ customer.billing_country }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ customer.website }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ customer.vat_number }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ customer.status }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ customer.email }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ customer.phone_number }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ customer.website }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ customer.billing_city }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ customer.vat_number }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ customer.status }}</td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                   <button (click)="selectCustomer(customer)" class="text-primary font-montserrat hover:font-semibold">Edit</button>
                 </td>
