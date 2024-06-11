@@ -5,9 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Router } from "@angular/router";
 import { DocumentService } from "../../services/document.service";
 import { ToastrService } from "ngx-toastr";
-import { RouterLink } from "@angular/router";
 import { DatePipe } from "@angular/common";
-import { CustomDatePipe } from "../../pipes/custom-date.pipe";
 import { DocumenttypeService } from "../../services/documenttype.service";
 import { DocumentType } from "../../models/documenttype.interface";
 import { CustomerService } from "../../services/customer.service";
@@ -116,6 +114,7 @@ export class DocumentAddEditComponent {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
       this.selectedDocument = navigation.extras.state["document"];
+      this.selectedDocument.status = this.mapStatusToValue(this.selectedDocument.status);
     }
   }
 
@@ -141,6 +140,7 @@ export class DocumentAddEditComponent {
       price_htva: [this.selectedDocument.price_htva || 0, Validators.required],
       price_vvat: [this.selectedDocument.price_vvat || 0, Validators.required],
       price_tvac: [this.selectedDocument.price_tvac || 0, Validators.required],
+      status: [this.selectedDocument.status || "", Validators.required],
     });
 
     if (this.selectedDocument && this.selectedDocument.products) {
@@ -166,6 +166,32 @@ export class DocumentAddEditComponent {
       this.updatePrices();
     });
     /*setTimeout(() => this.updatePrices());*/
+  }
+
+  mapStatusToValue(status: string): string {
+    switch (status) {
+      case "Payé":
+        return "P";
+      case "En attente":
+        return "E";
+      case "Impayé":
+        return "N";
+      default:
+        return "N";
+    }
+  }
+
+  mapValueToStatus(value: string): string {
+    switch (value) {
+      case "P":
+        return "Payé";
+      case "E":
+        return "En attente";
+      case "N":
+        return "Impayé";
+      default:
+        return "N";
+    }
   }
 
   updatePrices() {

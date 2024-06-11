@@ -69,7 +69,7 @@
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-secondaryforeground sm:pl-6">{{ documenttype.reference }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ documenttype.name }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ documenttype.description }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ documenttype.status }}</td>
+                <td [ngClass]="getStatusClass(documenttype.status)" class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ documenttype.status }}</td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                   <button (click)="selectDocumentType(documenttype)" class="text-primary font-montserrat hover:font-semibold">Edit</button>
                 </td>

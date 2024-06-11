@@ -7,7 +7,8 @@ import { ProductService } from "../../services/product.service";
 import { ToastrService } from "ngx-toastr";
 import { RouterLink } from "@angular/router";
 import { ActivatedRoute } from "@angular/router";
-import { debounceTime } from "rxjs";
+import { debounceTime, min } from "rxjs";
+import { EanCodePipe } from "../../pipes/ean-code.pipe";
 
 @Component({
   selector: "app-product-add-edit",
@@ -57,30 +58,31 @@ export class ProductAddEditComponent {
 
   ngOnInit() {
     this.selectedProduct = this.clone(this.selectedProduct);
+    setTimeout(() => {
+      this.form = this.fb.group({
+        name: [this.selectedProduct.name, Validators.required],
+        brand: [this.selectedProduct.brand, Validators.required],
+        ean_code: [this.selectedProduct.ean_code, [Validators.minLength(13), Validators.maxLength(13)]],
+        buying_price: [this.selectedProduct.buying_price, Validators.required],
+        margin: [this.selectedProduct.margin, Validators.required],
+        selling_price: [this.selectedProduct.selling_price, Validators.required],
+        description: [this.selectedProduct.description],
+        comment: [this.selectedProduct.comment],
+      });
 
-    this.form = this.fb.group({
-      name: ["", Validators.required],
-      brand: ["", Validators.required],
-      ean_code: ["", Validators.required],
-      buying_price: [0, Validators.required],
-      margin: [0, Validators.required],
-      selling_price: [0, Validators.required],
-      description: ["", Validators.required],
-      comment: ["", Validators.required],
+      this.form
+        .get("buying_price")
+        .valueChanges.pipe(debounceTime(300))
+        .subscribe(() => this.calculateSellingPrice());
+      this.form
+        .get("margin")
+        .valueChanges.pipe(debounceTime(300))
+        .subscribe(() => this.calculateSellingPrice());
+      this.form
+        .get("discount")
+        .valueChanges.pipe(debounceTime(300))
+        .subscribe(() => this.calculateSellingPrice());
     });
-
-    this.form
-      .get("buying_price")
-      .valueChanges.pipe(debounceTime(300))
-      .subscribe(() => this.calculateSellingPrice());
-    this.form
-      .get("margin")
-      .valueChanges.pipe(debounceTime(300))
-      .subscribe(() => this.calculateSellingPrice());
-    this.form
-      .get("discount")
-      .valueChanges.pipe(debounceTime(300))
-      .subscribe(() => this.calculateSellingPrice());
   }
 
   fb = inject(FormBuilder);

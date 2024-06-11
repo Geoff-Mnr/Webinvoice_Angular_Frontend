@@ -65,11 +65,11 @@
               <tr>
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-secondaryforeground sm:pl-6">{{ customer.company_name }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ customer.email }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ customer.phone_number }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ customer.phone_number | phoneNumber }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ customer.website }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ customer.billing_city }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ customer.vat_number }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ customer.status }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ customer.vat_number | vatNumber }}</td>
+                <td [ngClass]="getStatusClass(customer.status)" class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ customer.status }}</td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                   <button (click)="selectCustomer(customer)" class="text-primary font-montserrat hover:font-semibold">Edit</button>
                 </td>

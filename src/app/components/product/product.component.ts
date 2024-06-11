@@ -10,11 +10,12 @@ import { Product } from "../../models/product.interface";
 import { OnDestroy } from "@angular/core";
 import { NavigationExtras } from "@angular/router";
 import { ProductAddEditComponent } from "../product-add-edit/product-add-edit.component";
+import { EanCodePipe } from "../../pipes/ean-code.pipe";
 
 @Component({
   selector: "app-product",
   standalone: true,
-  imports: [ProductAddEditComponent, RouterLink, CommonModule, FormsModule, HttpClientModule],
+  imports: [ProductAddEditComponent, RouterLink, CommonModule, FormsModule, HttpClientModule, EanCodePipe],
   templateUrl: "./product.component.html",
   styleUrl: "./product.component.scss",
 })

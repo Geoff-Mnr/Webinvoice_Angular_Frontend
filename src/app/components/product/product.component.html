@@ -51,9 +51,9 @@
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-secondary sm:pl-6">Nom</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Marque</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Code ean</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Marge</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Prix d'achat</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Prix de vente</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Marge</th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                   <span class="sr-only">Edit</span>
                 </th>
@@ -64,10 +64,10 @@
               <tr>
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-secondaryforeground sm:pl-6">{{ product.name }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ product.brand }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ product.ean_code }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ product.buying_price }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ product.selling_price }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ product.margin }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ product.ean_code | eanCode }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ product.margin }} %</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ product.buying_price }} €</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ product.selling_price }} €</td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                   <button (click)="selectProduct(product)" class="text-primary font-montserrat hover:font-semibold">Edit</button>
                 </td>

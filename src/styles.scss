@@ -118,3 +118,30 @@ $Webinvoice_Angular_Frontend-theme: mat.define-light-theme((
 }
 
 
+.status-paid {
+  color: green;
+}
+
+.status-active {
+  color: green;
+}
+
+.status-in-progress {
+  color: orange;
+}
+
+.status-unpaid {
+  color: red;
+}
+
+.status-inactive {
+  color: red;
+}
+
+.status-unknown {
+  color: gray;
+}
+
+:invalid {
+  color: rgba(156, 163, 175, 1);
+}

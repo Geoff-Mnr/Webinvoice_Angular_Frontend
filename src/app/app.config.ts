@@ -14,9 +14,9 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
-
 import { routes } from "./app.routes";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
+import { VatNumberPipe } from "./pipes/vat-number.pipe";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -33,5 +33,6 @@ export const appConfig: ApplicationConfig = {
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
+    VatNumberPipe,
   ],
 };

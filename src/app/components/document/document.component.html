@@ -53,9 +53,9 @@
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Client</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Date du document</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Date d'échéance</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Prix HTVA</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Taux TVAC</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Prix total</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Prix HTVA</th>
+                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Prix TVAC</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-secondary">Status</th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6"></th>
                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6"></th>
@@ -69,10 +69,10 @@
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ document.customer.company_name }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ document.document_date }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ document.due_date }}</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ document.price_htva }} €</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ document.price_vvat }}%</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ document.price_total }} €</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ document.status }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ document.price_htva }} €</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ document.price_tvac }} €</td>
+                <td [ngClass]="getStatusClass(document.status)" class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ document.status }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">
                   <button
                     class="rounded-full bg-primary p-2 text-secondary shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"

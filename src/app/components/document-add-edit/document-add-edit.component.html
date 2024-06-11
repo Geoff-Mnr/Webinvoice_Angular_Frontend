@@ -1,17 +1,17 @@
 <form [formGroup]="form" class="relative transform overflow-hidden bg-background shadow-sm ring-1 ring-gray-900/5 sm:rounded-sm md:col-span-2">
   <div class="px-4 py-6 sm:p-8">
-    <h2 class="font-montserrat font-semibold text-lg text-secondaryforeground">Données du Document</h2>
+    <h2 class="font-montserrat font-semibold text-lg text-primary">Données du Document</h2>
     <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 pt-6">
       <div class="sm:col-span-3">
         <label for="documenttype_id" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Type de document</label>
         <div class="mt-2">
           <select
+            required
             name="documenttype_id"
             formControlName="documenttype_id"
-            [(ngModel)]="selectedDocument.documenttype_id"
             class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           >
-            <option value="documenttype.id" disabled selected>Choisir le type de document</option>
+            <option value="" disabled selected>Choisir le type de document</option>
             @for(documenttype of documenttypes; track documenttype.id) {
             <option [value]="documenttype.id">{{ documenttype.name }}</option>
             }
@@ -23,12 +23,12 @@
         <label for="customer_id" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Client</label>
         <div class="mt-2">
           <select
+            required
             name="customer_id"
             formControlName="customer_id"
-            [(ngModel)]="selectedDocument.customer_id"
             class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           >
-            <option value="customer.id" disabled selected>Choisir le client</option>
+            <option value="" disabled selected>Choisir le client</option>
             @for(customer of customers; track customer.id) {
             <option [value]="customer.id">{{ customer.company_name }}</option>
             }
@@ -43,9 +43,9 @@
               <div class="col-span-5">
                 <label for="product" class="col-span-2 text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Nom du produit</label>
                 <select
+                  required
                   name="product"
                   formControlName="product_id"
-                  [(ngModel)]="selectedProducts.controls[i].value.product_id"
                   class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                 >
                   <option value="" disabled selected>Choisir un produit</option>
@@ -169,9 +169,26 @@
           />
         </div>
       </div>
+
+      <div class="sm:col-span-4">
+        <label for="status" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Statut</label>
+        <div class="mt-2">
+          <select
+            name="status"
+            type="text"
+            required
+            formControlName="status"
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-input focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+          >
+            <option value="" disabled selected>Choisir le statut du paiement</option>
+            <option value="P">Payé</option>
+            <option value="E">En cours</option>
+            <option value="N">Impayé</option>
+          </select>
+        </div>
+      </div>
     </div>
   </div>
-
   <div class="flex items-center justify-end gap-x-6 border-t border-border px-4 py-4 sm:px-8">
     <button type="button" (click)="cancel()" class="text-sm font-semibold font-montserrat leading-6 text-secondaryforeground">Annuler</button>
     @if (selectedDocument.id) {

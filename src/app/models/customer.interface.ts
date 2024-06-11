@@ -8,9 +8,9 @@ export interface Customer {
   billing_zip_code: string;
   billing_state: string;
   website: string;
+  status: string;
   vat_number: string;
   phone_number: string;
   created_at: Date;
   updated_at: Date;
-  status: string;
 }

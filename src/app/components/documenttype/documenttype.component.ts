@@ -93,6 +93,17 @@ export class DocumenttypeComponent implements OnDestroy {
     }
   }
 
+  getStatusClass(status: string): string {
+    switch (status) {
+      case "Actif":
+        return "status-active";
+      case "Inactif":
+        return "status-inactive";
+      default:
+        return "status-inactive";
+    }
+  }
+
   onItemsPerPageChange() {
     localStorage.setItem("itemsPerPage", this.itemsPerPage.toString());
     this.getListDocumentTypes();

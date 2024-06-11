@@ -46,6 +46,19 @@ export class DocumentComponent implements OnDestroy {
     this.getListDocuments(this.currentPage);
   }
 
+  getStatusClass(status: string): string {
+    switch (status) {
+      case "Payé":
+        return "status-paid";
+      case "En cours":
+        return "status-in-progress";
+      case "Impayé":
+        return "status-unpaid";
+      default:
+        return "status-unknown";
+    }
+  }
+
   getListDocuments(page: number = 1) {
     this.subDelete = this.documentService.listDocumentsByUser(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {

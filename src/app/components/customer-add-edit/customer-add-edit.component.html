@@ -1,6 +1,6 @@
 <form [formGroup]="form" class="relative transform overflow-hidden bg-background shadow-sm ring-1 ring-gray-900/5 sm:rounded-sm md:col-span-2">
   <div class="px-4 py-6 sm:p-8">
-    <h2 class="font-montserrat font-semibold text-lg text-secondaryforeground">Données du client</h2>
+    <h2 class="font-montserrat font-semibold text-lg text-primary">Données du client</h2>
     <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 pt-6">
       <div class="sm:col-span-3">
         <label for="compagny_name" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Nom de l'entreprise</label>
@@ -8,15 +8,13 @@
           <input
             type="text"
             name="Nom de l'entreprise"
-            [(ngModel)]="selectedCustomer.company_name"
             formControlName="company_name"
             required
             placeholder="Nom de l'entreprise"
-            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground font-normal shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
-          <br />
           @if(form.controls.company_name.errors && form.controls.company_name.touched) {
-          <div class="text-red-700">Champ requis</div>
+          <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Nom d'entreprise obligatoire</p>
           }
         </div>
       </div>
@@ -27,42 +25,55 @@
           <input
             type="text"
             name="vat_number"
-            [(ngModel)]="selectedCustomer.vat_number"
             formControlName="vat_number"
+            pattern="\d*"
             required
             placeholder="Numéro d'entreprise"
-            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
+          @if(form.controls.vat_number.invalid && form.controls.vat_number.touched) {
+          <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Numero d'entreprise n'est pas valable</p>
+          }
         </div>
       </div>
 
       <div class="sm:col-span-3">
         <label for="email" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Adresse E-mail</label>
-        <div class="mt-2">
+        <div class="relative mt-2 rounded-md shadow-sm">
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+            <svg class="h-5 w-5 dark:text-secondaryforeground text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" />
+              <path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" />
+            </svg>
+          </div>
           <input
-            id="email"
+            type="email"
             name="email"
-            [(ngModel)]="selectedCustomer.email"
+            id="email"
             formControlName="email"
-            placeholder="Adresse E-mail"
-            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 pl-10 secondaryforeground bg-background ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            placeholder="Adresse e-mail"
           />
         </div>
+        @if(form.controls.email.invalid && form.controls.email.touched) {
+        <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Adresse e-mail obligatoire</p>
+        }
       </div>
-
       <div class="sm:col-span-3">
         <label for="phone_number" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numéro de téléphone</label>
         <div class="mt-2">
           <input
             type="text"
             name="phone_number"
-            [(ngModel)]="selectedCustomer.phone_number"
             formControlName="phone_number"
             placeholder="Numéro de téléphone"
             required
-            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
+        @if(form.controls.phone_number.errors && form.controls.phone_number.touched) {
+        <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Numéro de téléphone obligatoire</p>
+        }
       </div>
 
       <div class="sm:col-span-4">
@@ -71,28 +82,32 @@
           <input
             type="text"
             name="website"
-            [(ngModel)]="selectedCustomer.website"
             formControlName="website"
             placeholder="Site internet"
             required
-            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
+        @if (form.controls.website.errors && form.controls.website.touched) {
+        <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Site internet obligatoire</p>
+        }
       </div>
 
       <div class="col-span-full mt-4">
-        <h2 class="font-montserrat text-lg font-semibold text-secondaryforeground mb-6">Adresse de facturation</h2>
+        <h2 class="font-montserrat text-lg font-semibold text-primary mb-6">Adresse de facturation</h2>
         <label for="billing-address" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Rue</label>
         <div class="mt-2">
           <input
             type="text"
             name="billing_address"
-            [(ngModel)]="selectedCustomer.billing_address"
             formControlName="billing_address"
             placeholder="Rue"
-            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
+        @if(form.controls.billing_address.errors && form.controls.billing_address.touched) {
+        <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Adresse de facturation obligatoire</p>
+        }
       </div>
 
       <div class="sm:col-span-2 sm:col-start-1">
@@ -101,12 +116,14 @@
           <input
             type="text"
             name="billing_zip_code"
-            [(ngModel)]="selectedCustomer.billing_zip_code"
             formControlName="billing_zip_code"
             placeholder="Code postal"
-            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
+        @if(form.controls.billing_zip_code.errors && form.controls.billing_zip_code.touched) {
+        <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Code postal obligatoire</p>
+        }
       </div>
 
       <div class="sm:col-span-2">
@@ -115,12 +132,14 @@
           <input
             type="text"
             name="billing_city"
-            [(ngModel)]="selectedCustomer.billing_city"
             formControlName="billing_city"
             placeholder="Ville"
             class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
+        @if(form.controls.billing_city.errors && form.controls.billing_city.touched) {
+        <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Ville obligatoire</p>
+        }
       </div>
 
       <div class="sm:col-span-2">
@@ -129,12 +148,14 @@
           <input
             type="text"
             name="billing_state"
-            [(ngModel)]="selectedCustomer.billing_state"
             formControlName="billing_state"
             placeholder="Province"
             class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
+        @if(form.controls.billing_state.errors && form.controls.billing_state.touched) {
+        <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Province obligatoire</p>
+        }
       </div>
 
       <div class="sm:col-span-4">
@@ -143,25 +164,30 @@
           <input
             id="billing_country"
             name="billing_country"
-            [(ngModel)]="selectedCustomer.billing_country"
             formControlName="billing_country"
             placeholder="Pays"
             class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
+        @if(form.controls.billing_country.errors && form.controls.billing_country.touched) {
+        <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Pays obligatoire</p>
+        }
       </div>
 
       <div class="sm:col-span-4">
-        <label for="status" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Status</label>
+        <label for="status" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Statut</label>
         <div class="mt-2">
-          <input
-            id="status"
+          <select
+            required
             name="status"
-            [(ngModel)]="selectedCustomer.status"
+            type="text"
             formControlName="status"
-            placeholder="Statut"
-            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-          />
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-input focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+          >
+            <option value="" disabled selected>Choisir le type de document</option>
+            <option value="A">Actif</option>
+            <option value="I">Inactif</option>
+          </select>
         </div>
       </div>
     </div>

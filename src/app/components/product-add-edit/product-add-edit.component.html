@@ -1,6 +1,6 @@
 <form [formGroup]="form" class="relative transform overflow-hidden bg-background shadow-sm ring-1 ring-gray-900/5 sm:rounded-sm md:col-span-2">
   <div class="px-4 py-6 sm:p-8">
-    <h2 class="font-montserrat font-semibold text-lg text-secondaryforeground">Données du Produit</h2>
+    <h2 class="font-montserrat font-semibold text-lg text-primary">Données du Produit</h2>
     <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 pt-6">
       <div class="sm:col-span-3">
         <label for="documenttype_id" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Nom du produit</label>
@@ -8,28 +8,31 @@
           <input
             type="text"
             name="name"
-            [(ngModel)]="selectedProduct.name"
             formControlName="name"
             required
             placeholder="Nom du produit"
             class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
+        @if(form.controls.name.errors && form.controls.name.touched) {
+        <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Nom du produit obligatoire</p>
+        }
       </div>
-
       <div class="sm:col-span-3">
         <label for="brand" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Marque</label>
         <div class="mt-2">
           <input
             type="text"
             name="brand"
-            [(ngModel)]="selectedProduct.brand"
             formControlName="brand"
             required
             placeholder="Marque"
             class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
+        @if(form.controls.brand.errors && form.controls.brand.touched) {
+        <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Marque obligatoire</p>
+        }
       </div>
 
       <div class="sm:col-span-3">
@@ -38,13 +41,15 @@
           <input
             type="text"
             name="ean_code"
-            [(ngModel)]="selectedProduct.ean_code"
             formControlName="ean_code"
             required
             placeholder="Code Ean"
             class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
+        @if(form.controls.ean_code.invalid && form.controls.ean_code.touched) {
+        <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Code Ean obligatoire</p>
+        }
       </div>
       <div class="sm:col-span-2">
         <label for="buying_price" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Prix d'achat</label>
@@ -52,28 +57,31 @@
           <input
             type="text"
             name="buying_price"
-            [(ngModel)]="selectedProduct.buying_price"
             formControlName="buying_price"
             placeholder="Prix d'achat"
             required
             class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
+        @if(form.controls.buying_price.errors && form.controls.buying_price.touched) {
+        <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Prix d'achat obligatoire</p>
+        }
       </div>
-
       <div class="sm:col-span-2">
         <label for="margin" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Marge</label>
         <div class="mt-2">
           <input
             type="text"
             name="margin"
-            [(ngModel)]="selectedProduct.margin"
             formControlName="margin"
             placeholder="Marge"
             required
             class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
+        @if(form.controls.margin.errors && form.controls.margin.touched) {
+        <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Marge obligatoire</p>
+        }
       </div>
 
       <div class="sm:col-span-2">

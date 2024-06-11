@@ -10,11 +10,13 @@ import { HttpClientModule } from "@angular/common/http";
 import { OnDestroy } from "@angular/core";
 import { Customer } from "../../models/customer.interface";
 import { NavigationExtras } from "@angular/router";
+import { VatNumberPipe } from "../../pipes/vat-number.pipe";
+import { PhoneNumberPipe } from "../../pipes/phone-number.pipe";
 
 @Component({
   selector: "app-customer",
   standalone: true,
-  imports: [CustomerAddEditComponent, RouterLink, CommonModule, FormsModule, HttpClientModule],
+  imports: [CustomerAddEditComponent, RouterLink, CommonModule, FormsModule, HttpClientModule, VatNumberPipe, PhoneNumberPipe],
   templateUrl: "./customer.component.html",
   styleUrl: "./customer.component.scss",
 })
@@ -98,6 +100,17 @@ export class CustomerComponent implements OnDestroy {
   private closeEditForm() {
     this.selectedCustomer = undefined;
     this.getListCustomers(this.currentPage);
+  }
+
+  getStatusClass(status: string): string {
+    switch (status) {
+      case "Actif":
+        return "status-active";
+      case "Inactif":
+        return "status-inactive";
+      default:
+        return "status-inactive";
+    }
   }
 
   ngOnDestroy() {

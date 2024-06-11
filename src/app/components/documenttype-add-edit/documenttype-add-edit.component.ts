@@ -21,9 +21,9 @@ export class DocumenttypeAddEditComponent {
     reference: "",
     name: "",
     description: "",
+    status: "",
     created_at: new Date(),
     updated_at: new Date(),
-    status: "",
   };
 
   router = inject(Router);
@@ -34,23 +34,49 @@ export class DocumenttypeAddEditComponent {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
       this.selectedDocumentType = navigation.extras.state["documenttype"];
+      this.selectedDocumentType.status = this.mapStatusToValue(this.selectedDocumentType.status);
     }
   }
 
   fb = inject(FormBuilder);
 
   form = this.fb.group({
-    name: ["", Validators.required],
-    description: [""],
-    status: ["", Validators.required],
+    name: [this.selectedDocumentType.name, Validators.required],
+    description: [this.selectedDocumentType.description, Validators.required],
+    status: [this.selectedDocumentType.status, Validators.required],
   });
 
   ngOnInit() {
+    if (this.selectedDocumentType) {
+      this.form.patchValue(this.selectedDocumentType);
+    }
     this.selectedDocumentType = this.clone(this.selectedDocumentType);
   }
 
   private clone(value: any) {
     return JSON.parse(JSON.stringify(value));
+  }
+
+  mapStatusToValue(status: string): string {
+    switch (status) {
+      case "Actif":
+        return "A";
+      case "Inactif":
+        return "I";
+      default:
+        return "";
+    }
+  }
+
+  mapValueToStatus(value: string): string {
+    switch (value) {
+      case "A":
+        return "Actif";
+      case "I":
+        return "Inactif";
+      default:
+        return "";
+    }
   }
 
   updateDocumentType() {
