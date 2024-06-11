@@ -20,6 +20,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { provideNativeDateAdapter } from "@angular/material/core";
+import { set } from "date-fns";
 
 @Component({
   selector: "app-document-add-edit",
@@ -70,14 +71,23 @@ export class DocumentAddEditComponent {
       name: "",
       brand: "",
       ean_code: "",
-      quantity: 0,
       buying_price: 0,
       selling_price: 0,
-      discount: 0,
       margin: 0,
       description: "",
       comment: "",
       status: "",
+      pivot: {
+        document_id: 0,
+        product_id: 0,
+        selling_price: 0,
+        quantity: 0,
+        price_htva: 0,
+        discount: 0,
+        margin: 0,
+        comment: "",
+        description: "",
+      },
       created_at: new Date(),
       updated_at: new Date(),
     },
@@ -98,7 +108,6 @@ export class DocumentAddEditComponent {
   customerService = inject(CustomerService);
   documenttypeService = inject(DocumenttypeService);
   productService = inject(ProductService);
-
   toastr = inject(ToastrService);
   datePipe = inject(DatePipe);
   form: any;
@@ -117,30 +126,31 @@ export class DocumentAddEditComponent {
   ngOnInit() {
     this.selectedDocument = this.clone(this.selectedDocument);
     console.log(this.selectedDocument);
-    console.log(this.selectedDocument.documenttype.id);
     this.getListDocumenttypes();
     this.getListCustomers();
     this.getListProducts();
 
     this.form = this.fb.group({
-      documenttype_id: ["", Validators.required],
-      customer_id: ["", Validators.required],
+      documenttype_id: [this.selectedDocument.documenttype_id || "", Validators.required],
+      customer_id: [this.selectedDocument.customer_id || "", Validators.required],
       selectedProducts: this.fb.array([]),
-      due_date: [new Date(), Validators.required],
-      document_date: [new Date(), Validators.required],
-      created_at: [new Date(), Validators.required],
-      price_htva: [this.selectedDocument.price_htva, Validators.required],
-      price_vvat: [0, Validators.required],
-      price_tvac: [0, Validators.required],
+      due_date: [new Date(this.selectedDocument.due_date), Validators.required],
+      document_date: [new Date(this.selectedDocument.document_date), Validators.required],
+      created_at: [new Date(this.selectedDocument.created_at), Validators.required],
+      price_total: [this.selectedDocument.price_total || 0, Validators.required],
+      price_htva: [this.selectedDocument.price_htva || 0, Validators.required],
+      price_vvat: [this.selectedDocument.price_vvat || 0, Validators.required],
+      price_tvac: [this.selectedDocument.price_tvac || 0, Validators.required],
     });
 
     if (this.selectedDocument && this.selectedDocument.products) {
       const productArray = this.form.get("selectedProducts") as FormArray;
       this.selectedDocument.products.forEach((product) => {
         const productGroup = this.fb.group({
-          product_id: [product.id],
-          quantity: [product.quantity],
-          discount: [product.discount],
+          product_id: [product.pivot.product_id, Validators.required],
+          quantity: [product.pivot.quantity, Validators.required],
+          discount: [product.pivot.discount],
+          price_total: [{ value: product.pivot.quantity * product.pivot.selling_price, disabled: false }],
         });
         productArray.push(productGroup);
       });
@@ -155,6 +165,7 @@ export class DocumentAddEditComponent {
     this.form.get("price_vvat").valueChanges.subscribe(() => {
       this.updatePrices();
     });
+    /*setTimeout(() => this.updatePrices());*/
   }
 
   updatePrices() {
@@ -164,6 +175,8 @@ export class DocumentAddEditComponent {
       let totalPriceHtva = 0;
       products.forEach((product, index) => {
         const selectedProduct = this.getProductById(product.product_id);
+        console.log("productId", product.product_id, selectedProduct);
+        console.log("index", index, totalPriceHtva, selectedProduct);
         if (selectedProduct) {
           const price = Number(selectedProduct.selling_price);
           const quantity = product.quantity;
@@ -171,7 +184,6 @@ export class DocumentAddEditComponent {
           const discountedPrice = price - price * (discount / 100);
           const price_total = discountedPrice * quantity;
           totalPriceHtva += price_total;
-
           productArray.at(index).patchValue({ price_total }, { emitEvent: false });
         }
       });
@@ -181,14 +193,23 @@ export class DocumentAddEditComponent {
       const price_vvat = totalPriceHtva * (vat_rate / 100);
       const price_tvac = totalPriceHtva + price_vvat;
 
-      this.form.patchValue({ price_htva: totalPriceHtva, price_tvac }, { emitEvent: false });
+      this.form.controls.price_htva.setValue(totalPriceHtva, { emitEvent: false });
+      this.form.controls.price_tvac.setValue(price_tvac, { emitEvent: false });
 
-      console.log(totalPriceHtva, price_vvat, price_tvac);
+      console.log("Total Price HTVA Form:", this.form.controls.price_htva.value);
+
+      /*  this.form.patchValue({ price_htva: totalPriceHtva, price_tvac }, { emitEvent: false });*/
+
+      /*console.log("Total Price HTVA:", totalPriceHtva);
+      console.log("VAT Rate:", vat_rate);
+      console.log("Price VVAT:", price_vvat);
+      console.log("Price TVAC:", price_tvac);*/
     }
   }
 
   getProductById(id: string) {
     const numId = Number(id);
+    console.log("this.products", this.products);
     return this.products.find((product) => product.id === numId);
   }
 
@@ -202,7 +223,7 @@ export class DocumentAddEditComponent {
         product_id: [null, Validators.required],
         quantity: ["", Validators.required],
         discount: [""],
-        price_total: [{ value: 0, disabled: true }],
+        price_total: [{ value: 0, disabled: false }],
       })
     );
   }
@@ -230,6 +251,7 @@ export class DocumentAddEditComponent {
   getListProducts() {
     this.productService.listProducts().subscribe((response: any) => {
       this.products = response.data;
+      this.updatePrices();
       console.log(this.products);
     });
   }
@@ -242,7 +264,6 @@ export class DocumentAddEditComponent {
     const item: Document = this.form.value as Document;
     const product_ids = this.selectedProducts.controls.map((ctrl) => ctrl.get("product_id")?.value) as number[]; // Créer le tableau de product_id
 
-    // Assigner le tableau de produits
     item.product_id = product_ids;
     this.documentService.updateDocument(this.selectedDocument.id, item).subscribe({
       next: () => {
@@ -258,9 +279,9 @@ export class DocumentAddEditComponent {
   createDocument() {
     const item: Document = this.form.value as Document;
     const product_ids = this.selectedProducts.controls.map((ctrl) => ctrl.get("product_id")?.value) as number[]; // Créer le tableau de product_id
-
     // Assigner le tableau de produits
     item.product_id = product_ids;
+    console.log(item);
     this.documentService.createDocument(item).subscribe({
       next: () => {
         this.toastr.success("Document créé avec succès");

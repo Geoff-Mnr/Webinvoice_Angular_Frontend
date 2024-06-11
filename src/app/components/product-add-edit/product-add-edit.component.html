@@ -46,21 +46,6 @@
           />
         </div>
       </div>
-
-      <div class="sm:col-span-3">
-        <label for="quantity" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Stock</label>
-        <div class="mt-2">
-          <input
-            id="quantity"
-            name="quantity"
-            [(ngModel)]="selectedProduct.quantity"
-            formControlName="quantity"
-            placeholder="Stock"
-            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-          />
-        </div>
-      </div>
-
       <div class="sm:col-span-2">
         <label for="buying_price" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Prix d'achat</label>
         <div class="mt-2">
@@ -91,19 +76,6 @@
         </div>
       </div>
 
-      <div class="sm:col-span-2">
-        <label for="discount" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Remise</label>
-        <div class="mt-2">
-          <input
-            type="text"
-            name="discount"
-            [(ngModel)]="selectedProduct.discount"
-            formControlName="discount"
-            placeholder="Remise"
-            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
-          />
-        </div>
-      </div>
       <div class="sm:col-span-2">
         <label for="discount" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Prix de vente</label>
         <div class="mt-2">
