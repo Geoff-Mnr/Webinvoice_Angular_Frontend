@@ -11,12 +11,14 @@
               <input
                 type="text"
                 name="username"
-                [(ngModel)]="selectedUser.username"
                 formControlName="username"
                 class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
                 placeholder="Username"
               />
             </div>
+            @if(userForm.controls.username.errors && userForm.controls.username.touched) {
+            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Nom d'utilisateur obligatoire</p>
+            }
           </div>
         </div>
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6 border-border">
@@ -25,12 +27,14 @@
             <input
               name="email"
               type="email"
-              [(ngModel)]="selectedUser.email"
               formControlName="email"
               placeholder="Email"
               autocomplete="email"
               class="block w-full rounded-md border-0 py-1.5 bg-background text-secondaryforeground font-montserrat shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-md sm:text-sm sm:leading-6"
             />
+            @if(userForm.controls.email.errors && userForm.controls.email.touched) {
+            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Email obligatoire</p>
+            }
           </div>
         </div>
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6 border-border">
@@ -98,49 +102,87 @@
 
       <div class="mt-10 space-y-8 border-b border-border pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+          <label for="company_name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Nom de votre entreprise</label>
+          <div class="mt-2 sm:col-span-2 sm:mt-0">
+            <input
+              type="text"
+              name="company_name"
+              formControlName="company_name"
+              placeholder="Nom de votre entreprise"
+              required
+              autocomplete="given-name"
+              class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
+            />
+            @if(userForm.controls.company_name.errors && userForm.controls.company_name.touched) {
+            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Nom d'entreprise obligatoire</p>
+            }
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+          <label for="vat_number" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numero d'entreprise</label>
+          <div class="mt-2 sm:col-span-2 sm:mt-0">
+            <input
+              type="text"
+              name="vat_number"
+              formControlName="vat_number"
+              placeholder="Numéro d'entreprise"
+              required
+              autocomplete="given-name"
+              class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
+            />
+            @if(userForm.controls.vat_number.invalid && userForm.controls.vat_number.touched) {
+            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Numero d'entreprise n'est pas valable</p>
+            }
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
           <label for="first-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Prénom</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               type="text"
               name="first-name"
-              [(ngModel)]="selectedUser.first_name"
               formControlName="first_name"
               placeholder="Prénom"
               required
               autocomplete="given-name"
               class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
             />
+            @if(userForm.controls.first_name.errors && userForm.controls.first_name.touched) {
+            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Prénom obligatoire</p>
+            }
           </div>
         </div>
-
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
           <label for="last-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Nom</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               type="text"
               name="last-name"
-              [(ngModel)]="selectedUser.last_name"
               formControlName="last_name"
               placeholder="Nom"
               required
               autocomplete="family-name"
               class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
             />
+            @if(userForm.controls.last_name.errors && userForm.controls.last_name.touched) {
+            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Nom obligatoire</p>
+            }
           </div>
         </div>
-
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
           <label for="last-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numéro de téléphone</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               type="text"
               name="phone_number"
-              [(ngModel)]="selectedUser.phone_number"
               formControlName="phone_number"
               placeholder="Numéro de téléphone"
               required
               class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
             />
+            @if(userForm.controls.phone_number.errors && userForm.controls.phone_number.touched) {
+            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Numéro de téléphone obligatoire</p>
+            }
           </div>
         </div>
 
@@ -150,13 +192,15 @@
             <input
               type="text"
               name="street-address"
-              [(ngModel)]="selectedUser.address"
               formControlName="address"
               required
               placeholder="Adresse"
               autocomplete="street-address"
               class="block w-full rounded-md border-0 py-1.5 font-montserrat bg-background text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xl sm:text-sm sm:leading-6"
             />
+            @if(userForm.controls.address.errors && userForm.controls.address.touched) {
+            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Adresse obligatoire</p>
+            }
           </div>
         </div>
 
@@ -166,13 +210,15 @@
             <input
               type="text"
               name="city"
-              [(ngModel)]="selectedUser.city"
               formControlName="city"
               required
               placeholder="Ville"
               autocomplete="address-level2"
               class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
             />
+            @if(userForm.controls.city.errors && userForm.controls.city.touched) {
+            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Ville obligatoire</p>
+            }
           </div>
         </div>
 
@@ -182,43 +228,29 @@
             <input
               type="text"
               name="zip_code"
-              [(ngModel)]="selectedUser.zip_code"
               formControlName="zip_code"
               placeholder="Code Postal"
               class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
             />
+            @if(userForm.controls.zip_code.errors && userForm.controls.zip_code.touched) {
+            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Code postale obligatoire</p>
+            }
           </div>
         </div>
-
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
           <label for="country" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Pays</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               type="text"
               name="country"
-              [(ngModel)]="selectedUser.country"
               formControlName="country"
               placeholder="Pays"
               autocomplete="country"
               class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
             />
-          </div>
-        </div>
-
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="role_id" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Rôle de l'utilisateur</label>
-          <div class="mt-2 sm:col-span-2 sm:mt-0">
-            <select
-              name="role_id"
-              formControlName="role_id"
-              [(ngModel)]="selectedUser.role_id"
-              class="block w-full rounded-md border-0 py-1.5 font-montserrat bg-background text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xl sm:text-sm sm:leading-6"
-            >
-              <option value="documenttype.id" disabled selected>Choisir le type de document</option>
-              @for(role of roles; track role.id) {
-              <option [value]="role.id">{{ role.name }}</option>
-              }
-            </select>
+            @if(userForm.controls.country.errors && userForm.controls.country.touched) {
+            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Pays obligatoire</p>
+            }
           </div>
         </div>
       </div>

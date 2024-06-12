@@ -32,6 +32,8 @@ export class ProfileUserComponent implements OnDestroy {
     first_name: "",
     last_name: "",
     email: "",
+    company_name: "",
+    vat_number: "",
     password: "",
     phone_number: "",
     address: "",
@@ -87,27 +89,29 @@ export class ProfileUserComponent implements OnDestroy {
 
   userForm = this.fb.group(
     {
-      username: ["", [Validators.required]],
-      first_name: ["", [Validators.required]],
-      last_name: ["", [Validators.required]],
-      email: ["", [Validators.required, Validators.email]],
+      username: [this.selectedUser.username, Validators.required],
+      first_name: [this.selectedUser.first_name, Validators.required],
+      last_name: [this.selectedUser.last_name, Validators.required],
+      email: [this.selectedUser.email, Validators.required],
       password: ["", [Validators.minLength(8), nospaceValidator]],
       confirm_password: ["", [Validators.minLength(8), nospaceValidator]],
-      phone_number: ["", [Validators.required]],
-      address: ["", [Validators.required]],
-      city: ["", [Validators.required]],
-      country: ["", [Validators.required]],
-      zip_code: ["", [Validators.required]],
+      company_name: [this.selectedUser.company_name, Validators.required],
+      vat_number: [this.selectedUser.vat_number, [Validators.minLength(9), Validators.maxLength(10)]],
+      phone_number: [this.selectedUser.phone_number, Validators.required],
+      address: [this.selectedUser.address, Validators.required],
+      city: [this.selectedUser.city, Validators.required],
+      country: [this.selectedUser.country, Validators.required],
+      zip_code: [this.selectedUser.zip_code, Validators.required],
       profile_picture: [""],
-      role_id: ["", [Validators.required]],
     },
     { validators: this.passwordMatch }
   );
 
   ngOnInit() {
     this.selectedUser = this.clone(this.selectedUser);
-    this.getListRoles();
-    this.isAdmin = this.authService.isAdmin();
+    if (this.selectedUser) {
+      this.userForm.patchValue(this.selectedUser);
+    }
   }
 
   private clone(value: any) {

@@ -3,6 +3,8 @@ export interface User {
   username: string;
   first_name: string;
   last_name: string;
+  company_name: string;
+  vat_number: string;
   email: string;
   password: string;
   phone_number: string;

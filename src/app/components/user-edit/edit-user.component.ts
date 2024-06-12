@@ -30,6 +30,8 @@ export class EditUserComponent implements OnDestroy {
     first_name: "",
     last_name: "",
     email: "",
+    company_name: "",
+    vat_number: "",
     password: "",
     phone_number: "",
     address: "",
