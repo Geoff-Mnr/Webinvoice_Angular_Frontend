@@ -97,8 +97,8 @@
     </div>
 
     <div>
-      <h2 class="font-semibold leading-7 text-lg text-primary font-montserrat">Informations Personnelles</h2>
-      <p class="mt-1 max-w-2xl text-sm leading-6 text-secondaryforeground font-montserrat">Mettez à jour vos informations personnelles</p>
+      <h2 class="font-semibold leading-7 text-lg text-primary font-montserrat">Informations Entreprise</h2>
+      <p class="mt-1 max-w-2xl text-sm leading-6 text-secondaryforeground font-montserrat">Mettez à jour les informations de votre entreprise</p>
 
       <div class="mt-10 space-y-8 border-b border-border pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
@@ -136,121 +136,144 @@
           </div>
         </div>
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="first-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Prénom</label>
+          <label for="account_number" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numero de compte</label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               type="text"
-              name="first-name"
-              formControlName="first_name"
-              placeholder="Prénom"
+              name="account_number"
+              formControlName="account_number"
+              placeholder="Numéro de compte"
               required
               autocomplete="given-name"
               class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
             />
-            @if(userForm.controls.first_name.errors && userForm.controls.first_name.touched) {
-            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Prénom obligatoire</p>
+            @if(userForm.controls.account_number.invalid && userForm.controls.account_number.touched) {
+            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Numero de compte n'est pas valide</p>
             }
           </div>
         </div>
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="last-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Nom</label>
-          <div class="mt-2 sm:col-span-2 sm:mt-0">
-            <input
-              type="text"
-              name="last-name"
-              formControlName="last_name"
-              placeholder="Nom"
-              required
-              autocomplete="family-name"
-              class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
-            />
-            @if(userForm.controls.last_name.errors && userForm.controls.last_name.touched) {
-            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Nom obligatoire</p>
-            }
+      </div>
+      <div class="mt-14">
+        <h2 class="font-semibold leading-7 text-lg text-primary font-montserrat">Informations Personnelles</h2>
+        <p class="mt-1 max-w-2xl text-sm leading-6 text-secondaryforeground font-montserrat">Mettez à jour vos informations personnelles</p>
+        <div class="mt-10 space-y-8 border-b border-border pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label for="first-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Prénom</label>
+            <div class="mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="text"
+                name="first-name"
+                formControlName="first_name"
+                placeholder="Prénom"
+                required
+                autocomplete="given-name"
+                class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
+              />
+              @if(userForm.controls.first_name.errors && userForm.controls.first_name.touched) {
+              <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Prénom obligatoire</p>
+              }
+            </div>
           </div>
-        </div>
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="last-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numéro de téléphone</label>
-          <div class="mt-2 sm:col-span-2 sm:mt-0">
-            <input
-              type="text"
-              name="phone_number"
-              formControlName="phone_number"
-              placeholder="Numéro de téléphone"
-              required
-              class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
-            />
-            @if(userForm.controls.phone_number.errors && userForm.controls.phone_number.touched) {
-            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Numéro de téléphone obligatoire</p>
-            }
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label for="last-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Nom</label>
+            <div class="mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="text"
+                name="last-name"
+                formControlName="last_name"
+                placeholder="Nom"
+                required
+                autocomplete="family-name"
+                class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
+              />
+              @if(userForm.controls.last_name.errors && userForm.controls.last_name.touched) {
+              <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Nom obligatoire</p>
+              }
+            </div>
           </div>
-        </div>
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label for="last-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numéro de téléphone</label>
+            <div class="mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="text"
+                name="phone_number"
+                formControlName="phone_number"
+                placeholder="Numéro de téléphone"
+                required
+                class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
+              />
+              @if(userForm.controls.phone_number.errors && userForm.controls.phone_number.touched) {
+              <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Numéro de téléphone obligatoire</p>
+              }
+            </div>
+          </div>
 
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="street-address" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Adresse</label>
-          <div class="mt-2 sm:col-span-2 sm:mt-0">
-            <input
-              type="text"
-              name="street-address"
-              formControlName="address"
-              required
-              placeholder="Adresse"
-              autocomplete="street-address"
-              class="block w-full rounded-md border-0 py-1.5 font-montserrat bg-background text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xl sm:text-sm sm:leading-6"
-            />
-            @if(userForm.controls.address.errors && userForm.controls.address.touched) {
-            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Adresse obligatoire</p>
-            }
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label for="street-address" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Adresse</label>
+            <div class="mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="text"
+                name="street-address"
+                formControlName="address"
+                required
+                placeholder="Adresse"
+                autocomplete="street-address"
+                class="block w-full rounded-md border-0 py-1.5 font-montserrat bg-background text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xl sm:text-sm sm:leading-6"
+              />
+              @if(userForm.controls.address.errors && userForm.controls.address.touched) {
+              <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Adresse obligatoire</p>
+              }
+            </div>
           </div>
-        </div>
 
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="city" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Ville</label>
-          <div class="mt-2 sm:col-span-2 sm:mt-0">
-            <input
-              type="text"
-              name="city"
-              formControlName="city"
-              required
-              placeholder="Ville"
-              autocomplete="address-level2"
-              class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
-            />
-            @if(userForm.controls.city.errors && userForm.controls.city.touched) {
-            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Ville obligatoire</p>
-            }
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label for="city" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Ville</label>
+            <div class="mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="text"
+                name="city"
+                formControlName="city"
+                required
+                placeholder="Ville"
+                autocomplete="address-level2"
+                class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
+              />
+              @if(userForm.controls.city.errors && userForm.controls.city.touched) {
+              <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Ville obligatoire</p>
+              }
+            </div>
           </div>
-        </div>
 
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="postal-code" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Code postale</label>
-          <div class="mt-2 sm:col-span-2 sm:mt-0">
-            <input
-              type="text"
-              name="zip_code"
-              formControlName="zip_code"
-              placeholder="Code Postal"
-              class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
-            />
-            @if(userForm.controls.zip_code.errors && userForm.controls.zip_code.touched) {
-            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Code postale obligatoire</p>
-            }
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label for="postal-code" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Code postale</label>
+            <div class="mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="text"
+                name="zip_code"
+                formControlName="zip_code"
+                placeholder="Code Postal"
+                class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
+              />
+              @if(userForm.controls.zip_code.errors && userForm.controls.zip_code.touched) {
+              <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Code postale obligatoire</p>
+              }
+            </div>
           </div>
-        </div>
-        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="country" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Pays</label>
-          <div class="mt-2 sm:col-span-2 sm:mt-0">
-            <input
-              type="text"
-              name="country"
-              formControlName="country"
-              placeholder="Pays"
-              autocomplete="country"
-              class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
-            />
-            @if(userForm.controls.country.errors && userForm.controls.country.touched) {
-            <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Pays obligatoire</p>
-            }
+          <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
+            <label for="country" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Pays</label>
+            <div class="mt-2 sm:col-span-2 sm:mt-0">
+              <input
+                type="text"
+                name="country"
+                formControlName="country"
+                placeholder="Pays"
+                autocomplete="country"
+                class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
+              />
+              @if(userForm.controls.country.errors && userForm.controls.country.touched) {
+              <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Pays obligatoire</p>
+              }
+            </div>
           </div>
         </div>
       </div>

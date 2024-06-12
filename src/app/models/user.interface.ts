@@ -5,6 +5,7 @@ export interface User {
   last_name: string;
   company_name: string;
   vat_number: string;
+  account_number: string;
   email: string;
   password: string;
   phone_number: string;
