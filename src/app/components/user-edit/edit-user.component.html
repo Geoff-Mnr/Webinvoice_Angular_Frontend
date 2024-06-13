@@ -1,8 +1,8 @@
 <form [formGroup]="userForm" class="relative transform overflow-hidden bg-background shadow-sm ring-1 p-10 ring-gray-900/5">
   <div class="space-y-12 sm:space-y-16">
     <div>
-      <h2 class="font-semibold leading-7 text-lg text-primary font-montserrat">Votre Profil</h2>
-      <p class="mt-1 max-w-2xl text-sm leading-6 text-secondaryforeground font-montserrat">C'est ici que vous pouvez modifier vos données</p>
+      <h2 class="font-semibold leading-7 text-lg text-primary font-montserrat">Administration utilisateur</h2>
+      <p class="mt-1 max-w-2xl text-sm leading-6 text-secondaryforeground font-montserrat">C'est ici que vous pouvez modifier les données des utilisateurs</p>
       <div class="mt-10 space-y-8 border-b border-border pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-border sm:border-t sm:pb-0"></div>
       <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
         <label for="role_id" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Rôle de l'utilisateur</label>
@@ -10,7 +10,6 @@
           <select
             name="role_id"
             formControlName="role_id"
-            [(ngModel)]="selectedUser.role_id"
             class="block w-full rounded-md border-0 py-1.5 font-montserrat bg-background text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xl sm:text-sm sm:leading-6"
           >
             <option value="role.id" disabled selected>Choisir le type de document</option>
@@ -22,18 +21,16 @@
       </div>
     </div>
     <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-      <label for="role_id" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Désactiver un utilisateur</label>
+      <label for="status" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Désactiver un utilisateur</label>
       <div class="mt-2 sm:col-span-2 sm:mt-0">
         <select
-          name="is_active"
-          formControlName="is_active"
-          [(ngModel)]="selectedUser.is_active"
+          name="status"
+          formControlName="status"
           class="block w-full rounded-md border-0 py-1.5 font-montserrat bg-background text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xl sm:text-sm sm:leading-6"
         >
-          <option value="is_active" disabled selected>Choisir le type de document</option>
-          <option [value]="selectedUser.is_active">{{ selectedUser.is_active }}</option>
-          <option [value]="1">Activer</option>
-          <option [value]="0">Désactiver</option>
+          <option value="status" disabled selected>Choisir le type de document</option>
+          <option value="A">Actif</option>
+          <option value="B">Inactif</option>
         </select>
       </div>
     </div>

@@ -51,6 +51,7 @@ export class ProfileUserComponent implements OnDestroy {
     },
     is_active: "",
     role_name: "",
+    status: "",
   };
 
   userService = inject(UserService);

@@ -23,4 +23,5 @@ export interface User {
   };
   is_active: string;
   role_name: string;
+  status: string;
 }

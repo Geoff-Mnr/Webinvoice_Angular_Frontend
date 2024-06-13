@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   user: any;
   showMenu = false;
-
+  isMenuOpen = false;
   selectUser(user: User) {
     this.selectedUser = user;
     console.log("Selected user", this.selectedUser);
@@ -49,6 +49,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   toggleDarkMode() {
     this.darkModeService.updateDarkMode();
+  }
+
+  toggleMenuDashboard() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenuDashboard() {
+    this.isMenuOpen = false;
   }
 
   toggleMenu() {

@@ -64,16 +64,16 @@ export const routes: Routes = [
       {
         path: "documenttype",
         children: [
-          { path: "", component: DocumenttypeComponent },
-          { path: "add-documenttype", component: DocumenttypeAddEditComponent },
-          { path: "edit-documenttype", component: DocumenttypeAddEditComponent },
+          { path: "", component: DocumenttypeComponent, canActivate: [AdminGuard] },
+          { path: "add-documenttype", component: DocumenttypeAddEditComponent, canActivate: [AdminGuard] },
+          { path: "edit-documenttype", component: DocumenttypeAddEditComponent, canActivate: [AdminGuard] },
         ],
       },
       {
         path: "user-admin",
         children: [
-          { path: "", component: UserComponent },
-          { path: "edit-user", component: EditUserComponent },
+          { path: "", component: UserComponent, canActivate: [AdminGuard] },
+          { path: "edit-user", component: EditUserComponent, canActivate: [AdminGuard] },
         ],
       },
       { path: "support", component: SupportComponent },

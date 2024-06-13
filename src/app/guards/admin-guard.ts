@@ -16,7 +16,7 @@ export class AdminGuard implements CanActivate {
     const session = JSON.parse(localStorage.getItem("session") || "{}");
     const user = session.user;
 
-    if (user && user.role_name === "Super Admin") {
+    if (user && user.role_name === "Admin") {
       return true;
     } else {
       this.toaster.error("Vous n'avez pas les droits pour accéder à cette page", "Erreur");

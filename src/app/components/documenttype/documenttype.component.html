@@ -23,7 +23,7 @@
           <div class="min-w-full divide-y text-popverforeground font-montserrat bg-background px-3 py-3.5">
             <div class="flex">
               <h3 class="w-3/4">
-                Nombre de client :&nbsp;
+                Nombre de type de document :&nbsp;
                 <span class="font-semibold text-primary">{{ totalItems }}</span>
               </h3>
               <form class="relative flex flex-1 w-1/4" action="#" method="GET" (submit)="searchDocumentType(); $event.preventDefault()">
@@ -83,66 +83,73 @@
             <p class="text-secondaryforeground">Aucun type de document trouvé</p>
           </div>
           }
+          <div class="flex items-center justify-between border-t border-border bg-background px-4 py-3 sm:px-6">
+            <div class="flex flex-1 justify-between sm:hidden">
+              <a href="#" class="relative inline-flex items-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-secondaryforeground hover:bg-gray-50">Previous</a>
+              <a href="#" class="relative ml-3 inline-flex items-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-secondaryforeground hover:bg-gray-50">Next</a>
+            </div>
+            <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+              <div>
+                <p class="text-sm text-secondaryforeground">
+                  Page
+                  <span class="font-medium">{{ currentPage }}</span>
+                  sur
+                  <span class="font-medium">{{ totalPage }}</span>
+                  -
+                  <span class="font-medium">{{ totalItems }}</span>
+                  résultats
+                </p>
+              </div>
+              <select
+                [(ngModel)]="itemsPerPage"
+                (change)="onItemsPerPageChange()"
+                aria-label="Items per page"
+                class="bg-background border border-border focus:border rounded-md text-sm font-medium text-secondaryforeground"
+              >
+                <option>5</option>
+                <option>10</option>
+                <option>20</option>
+              </select>
+              <div>
+                <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+                  <button
+                    (click)="getListDocumentTypes(currentPage - 1)"
+                    [disabled]="currentPage <= 1"
+                    class="relative inline-flex items-center rounded-l-md px-2 py-2 text-secondaryforeground ring-1 ring-inset ring-border hover:bg-primary focus:z-20 focus:outline-offset-0"
+                  >
+                    <span class="sr-only">Previous</span>
+                    <svg class="h-5 w-5 text-secondaryforeground" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path
+                        fill-rule="evenodd"
+                        d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                  <!--i want the number of the page-->
+                  <span class="relative inline-flex items-center px-4 py-2 bg-background border border-border text-sm font-medium text-secondaryforeground">
+                    {{ currentPage }}
+                  </span>
+
+                  <button
+                    (click)="getListDocumentTypes(currentPage + 1)"
+                    [disabled]="currentPage >= totalPage"
+                    class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-border hover:bg-primary focus:z-20 focus:outline-offset-0"
+                  >
+                    <span class="sr-only">Next</span>
+                    <svg class="h-5 w-5 text-secondaryforeground" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path
+                        fill-rule="evenodd"
+                        d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                </nav>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="flex items-center justify-between border-t border-border bg-background px-4 py-3 sm:px-6">
-    <div class="flex flex-1 justify-between sm:hidden">
-      <a href="#" class="relative inline-flex items-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-secondaryforeground hover:bg-gray-50">Previous</a>
-      <a href="#" class="relative ml-3 inline-flex items-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-secondaryforeground hover:bg-gray-50">Next</a>
-    </div>
-    <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-      <div>
-        <p class="text-sm text-secondaryforeground">
-          Page
-          <span class="font-medium">{{ currentPage }}</span>
-          sur
-          <span class="font-medium">{{ totalPage }}</span>
-          -
-          <span class="font-medium">{{ totalItems }}</span>
-          résultats
-        </p>
-      </div>
-      <select
-        [(ngModel)]="itemsPerPage"
-        (change)="onItemsPerPageChange()"
-        aria-label="Items per page"
-        class="bg-background border border-border focus:border rounded-md text-sm font-medium text-secondaryforeground"
-      >
-        <option>5</option>
-        <option>10</option>
-        <option>20</option>
-      </select>
-      <div>
-        <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-          <button
-            (click)="getListDocumentTypes(currentPage - 1)"
-            [disabled]="currentPage <= 1"
-            class="relative inline-flex items-center rounded-l-md px-2 py-2 text-secondaryforeground ring-1 ring-inset ring-border hover:bg-primary focus:z-20 focus:outline-offset-0"
-          >
-            <span class="sr-only">Previous</span>
-            <svg class="h-5 w-5 text-secondaryforeground" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
-            </svg>
-          </button>
-          <!--i want the number of the page-->
-          <span class="relative inline-flex items-center px-4 py-2 bg-background border border-border text-sm font-medium text-secondaryforeground">
-            {{ currentPage }}
-          </span>
-
-          <button
-            (click)="getListDocumentTypes(currentPage + 1)"
-            [disabled]="currentPage >= totalPage"
-            class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-border hover:bg-primary focus:z-20 focus:outline-offset-0"
-          >
-            <span class="sr-only">Next</span>
-            <svg class="h-5 w-5 text-secondaryforeground" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-            </svg>
-          </button>
-        </nav>
       </div>
     </div>
   </div>

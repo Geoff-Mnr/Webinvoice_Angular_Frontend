@@ -10,7 +10,7 @@
             name="name"
             formControlName="name"
             placeholder="Nom du document"
-            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
           @if (form.controls.name.errors && form.controls.name.touched) {
           <p class="mt-2 text-sm font-montserrat text-destructive" id="email-error">Nom du type de document obligatoire</p>
@@ -27,7 +27,7 @@
             name="description"
             formControlName="description"
             placeholder="Description"
-            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           ></textarea>
           @if (form.controls.description.errors && form.controls.description.touched) {
           <p class="mt-2 text-sm font-montserrat text-destructive" id="email-error">Description obligatoire</p>
@@ -39,8 +39,9 @@
         <div class="mt-2">
           <select
             name="status"
+            required
             formControlName="status"
-            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-input focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-input focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           >
             <option value="" disabled selected>Choisir le type de document</option>
             <option value="A">Actif</option>

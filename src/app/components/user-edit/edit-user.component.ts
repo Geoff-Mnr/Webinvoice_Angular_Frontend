@@ -49,6 +49,7 @@ export class EditUserComponent implements OnDestroy {
     },
     is_active: "",
     role_name: "",
+    status: "",
   };
 
   userService = inject(UserService);
@@ -64,18 +65,44 @@ export class EditUserComponent implements OnDestroy {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
       this.selectedUser = navigation.extras.state["user"];
+      this.selectedUser.status = this.mapStatusToValue(this.selectedUser.status);
     }
   }
 
   userForm = this.fb.group({
-    role_id: ["", [Validators.required]],
-    is_active: ["", [Validators.required]],
+    role_id: [this.selectedUser.role_id, [Validators.required]],
+    status: [this.selectedUser.status, [Validators.required]],
   });
 
   ngOnInit() {
+    if (this.selectedUser) {
+      this.userForm.patchValue(this.selectedUser);
+    }
     this.selectedUser = this.clone(this.selectedUser);
     this.getListRoles();
     this.isAdmin = this.authService.isAdmin();
+  }
+
+  mapStatusToValue(status: string): string {
+    switch (status) {
+      case "Actif":
+        return "A";
+      case "Inactif":
+        return "B";
+      default:
+        return "";
+    }
+  }
+
+  mapValueToStatus(value: string): string {
+    switch (value) {
+      case "A":
+        return "Actif";
+      case "B":
+        return "Inactif";
+      default:
+        return "";
+    }
   }
 
   updateUser() {
