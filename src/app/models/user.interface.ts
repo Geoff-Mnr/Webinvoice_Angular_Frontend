@@ -24,4 +24,13 @@ export interface User {
   is_active: string;
   role_name: string;
   status: string;
+  pivot: Pivot;
+}
+
+export interface Pivot {
+  message: string;
+  response: string;
+  status: string;
+  created_by: number;
+  updated_by: number;
 }
