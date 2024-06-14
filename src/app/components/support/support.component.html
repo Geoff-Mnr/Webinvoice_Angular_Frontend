@@ -19,7 +19,7 @@
     <div *ngFor="let ticket of tickets; let i = index" class="bg-background rounded-sm font-montserrat px-4 py-5 sm:px-6 mt-3">
       <div class="flex space-x-3">
         <div class="flex-shrink-0">
-          <img class="h-10 w-10 rounded-full" [src]="user?.profile_picture" alt="" />
+          <img class="h-10 w-10 rounded-full" [src]="user.profile_picture" alt="" />
         </div>
         <div class="min-w-0 flex-1">
           <p class="text-md font-semibold text-secondaryforeground">{{ ticket.title }}</p>
