@@ -12,4 +12,5 @@ export interface Ticket {
   createdBy: User;
   users: User[];
   showMenu?: boolean;
+  is_active: string;
 }

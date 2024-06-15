@@ -94,6 +94,17 @@ export class SupportComponent implements OnDestroy {
     this.router.navigate(["/support/create-ticket"]);
   }
 
+  getIsactiveClass(is_active: string): string {
+    switch (is_active) {
+      case "Ouvert":
+        return "is_active-active";
+      case "Fermé":
+        return "is_active-inactive";
+      default:
+        return "is_active-inactive";
+    }
+  }
+
   ngOnDestroy() {
     if (this.subDelete) {
       this.subDelete.unsubscribe();

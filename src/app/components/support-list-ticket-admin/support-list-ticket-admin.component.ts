@@ -3,7 +3,6 @@ import { RouterLink, Router } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
-import { ToastrService } from "ngx-toastr";
 import { Subscription } from "rxjs";
 import { TicketService } from "../../services/ticket.service";
 import { Ticket } from "../../models/ticket.interface";
@@ -11,6 +10,7 @@ import { NavigationExtras } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { AuthService } from "../../services/auth.service";
 import { SupportMessageComponent } from "../support-message/support-message.component";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-support-list-ticket-admin",
@@ -24,6 +24,7 @@ export class SupportListTicketAdminComponent {
   userService = inject(UserService);
   authService = inject(AuthService);
   router = inject(Router);
+  toastr = inject(ToastrService);
   private subDelete: Subscription | undefined;
 
   tickets: Ticket[] = [];
@@ -82,6 +83,31 @@ export class SupportListTicketAdminComponent {
 
   createTicket() {
     this.router.navigate(["/support/create-ticket"]);
+  }
+
+  inactiveTicket(index: number) {
+    const ticket = this.tickets[index];
+    ticket.is_active = "0";
+    this.ticketService.updateTicket(ticket.id, ticket).subscribe({
+      next: () => {
+        this.toastr.success("Ticket désactivé avec succès");
+        this.getListTickets();
+      },
+      error: (error) => {
+        this.toastr.error("Une erreur est survenue lors de la désactivation du ticket", error);
+      },
+    });
+  }
+
+  getIsactiveClass(is_active: string): string {
+    switch (is_active) {
+      case "Ouvert":
+        return "is_active-active";
+      case "Fermé":
+        return "is_active-inactive";
+      default:
+        return "is_active-inactive";
+    }
   }
 
   ngOnDestroy() {

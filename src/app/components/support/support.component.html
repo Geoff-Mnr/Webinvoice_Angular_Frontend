@@ -30,9 +30,8 @@
           </p>
           <div class="mt-4">
             <h3 class="text-md font-semibold font-open text-secondaryforeground">{{ ticket.title }}</h3>
-            <p class="text-normal font-light text-secondaryforeground">
-              {{ ticket.description }}
-            </p>
+            <p class="text-normal font-light text-secondaryforeground">{{ ticket.description }}</p>
+            <span class="mt-1" [ngClass]="getIsactiveClass(ticket.is_active)">{{ ticket.is_active }}</span>
           </div>
           <div *ngFor="let user of ticket.users; let i = index" class="flex space-x-3 mt-6">
             <ng-container *ngIf="i !== 0">
@@ -88,18 +87,6 @@
 
                   <span class="hover:font-semibold">Répondre</span>
                 </button>
-                @if(isAdmin === true){
-                <button class="flex px-4 py-2 text-sm text-secondaryforeground" role="menuitem" tabindex="-1" id="menu-{{ i }}-item-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-                    />
-                  </svg>
-                  <span class="hover:font-semibold">Clôturer</span>
-                </button>
-                }
               </div>
             </div>
             <!-- Fin du menu déroulant -->

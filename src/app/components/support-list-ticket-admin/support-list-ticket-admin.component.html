@@ -21,6 +21,7 @@
             <p class="text-normal font-light text-secondaryforeground">
               {{ ticket.description }}
             </p>
+            <span [ngClass]="getIsactiveClass(ticket.is_active)">{{ ticket.is_active }}</span>
           </div>
           <div *ngFor="let user of ticket.users; let i = index" class="flex space-x-3 mt-6">
             <ng-container *ngIf="i !== 0">
@@ -77,7 +78,7 @@
                   <span class="hover:font-semibold">Répondre</span>
                 </button>
 
-                <button class="flex px-4 py-2 text-sm text-secondaryforeground" role="menuitem" tabindex="-1" id="menu-{{ i }}-item-1">
+                <button class="flex px-4 py-2 text-sm text-secondaryforeground" role="menuitem" tabindex="-1" id="menu-{{ i }}-item-1" (click)="inactiveTicket(i)">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
                     <path
                       stroke-linecap="round"

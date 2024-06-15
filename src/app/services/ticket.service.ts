@@ -23,6 +23,10 @@ export class TicketService {
     return this.http.post<Ticket>(`${this.baseUri}/tickets/${ticketId}/messages`, messageData);
   }
 
+  updateTicket(ticketId: number, ticket: Ticket): Observable<Ticket> {
+    return this.http.put<Ticket>(`${this.baseUri}/tickets/${ticketId}`, ticket);
+  }
+
   createTicket(ticket: Ticket): Observable<Ticket> {
     return this.http.post<Ticket>(`${this.baseUri}/tickets`, ticket);
   }
