@@ -30,7 +30,7 @@
               <div class="min-w-0 flex-1">
                 <p class="text-normal font-semibold text-secondaryforeground">{{ user?.username }}</p>
                 <p class="text-xs text-primary">
-                  {{ ticket.created_at }}
+                  {{ user.pivot.created_at }}
                 </p>
                 <p class="text-normal font-light text-secondaryforeground mt-1">
                   {{ user.pivot.message }}
