@@ -9,6 +9,7 @@ export interface Ticket {
   status: string;
   created_at: Date;
   updated_at: Date;
+  createdBy: User;
   users: User[];
   showMenu?: boolean;
 }

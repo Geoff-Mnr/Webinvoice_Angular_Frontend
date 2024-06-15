@@ -9,10 +9,10 @@
     <div class="bg-background rounded-sm font-montserrat px-4 py-5 sm:px-6 mt-3">
       <div class="flex space-x-3">
         <div class="flex-shrink-0">
-          <img class="h-10 w-10 rounded-full" [src]="user?.profile_picture" alt="" />
+          <img class="h-10 w-10 rounded-full" [src]="ticket.createdBy.profile_picture" alt="" />
         </div>
         <div class="min-w-0 flex-1">
-          <p class="text-normal font-semibold text-secondaryforeground">{{ user?.username }}</p>
+          <p class="text-normal font-semibold text-secondaryforeground">{{ ticket.createdBy.username }}</p>
           <p class="text-xs text-primary">
             {{ ticket.created_at }}
           </p>
