@@ -65,6 +65,10 @@ $Webinvoice_Angular_Frontend-theme: mat.define-light-theme((
   background-color: #2563eb;
 }
 
+.dark .active_responsive {
+  background-color: #3B82F6;
+}
+
 .dark .active {
   background-color: #1E2A3B;
 }

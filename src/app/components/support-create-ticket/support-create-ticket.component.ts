@@ -7,6 +7,7 @@ import { TicketService } from "../../services/ticket.service";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { ActivatedRoute } from "@angular/router";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: "app-support-create-ticket",
@@ -29,6 +30,7 @@ export class SupportCreateTicketComponent {
   ticketService = inject(TicketService);
   toastr = inject(ToastrService);
   fb = inject(FormBuilder);
+  authService = inject(AuthService);
 
   constructor(private route: ActivatedRoute) {
     const navigation = this.router.getCurrentNavigation();
@@ -44,15 +46,15 @@ export class SupportCreateTicketComponent {
 
   createTicket() {
     const item: Ticket = this.form.value as Ticket;
-    this.ticketService.createTicket(item).subscribe(
-      (response) => {
+    this.ticketService.createTicket(item).subscribe({
+      next: (response) => {
         this.toastr.success("Ticket created successfully");
         this.router.navigate(["/support"]);
       },
-      (error) => {
+      error: (error) => {
         this.toastr.error("An error occurred while creating the ticket");
-      }
-    );
+      },
+    });
   }
 
   cancel() {
