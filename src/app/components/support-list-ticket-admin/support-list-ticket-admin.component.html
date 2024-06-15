@@ -1,19 +1,7 @@
 <div class="px-4 sm:px-6 lg:px-8">
   <div class="sm:flex sm:items-center">
     <div class="sm:flex-auto">
-      <h1 class="text-2xl font-semibold font-open leading-6 text-secondaryforeground">Liste de vos tickets ✨</h1>
-    </div>
-    <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-      <button
-        type="button"
-        (click)="createTicket()"
-        class="flex items-center font-montserrat rounded-md bg-primary px-3 py-2 text-center text-sm font-semibold text-secondary shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-        </svg>
-        Créer un ticket
-      </button>
+      <h1 class="text-2xl font-semibold font-open leading-6 text-secondaryforeground">Liste des tickets ✨</h1>
     </div>
   </div>
   <div class="mt-8 flow-root">
@@ -88,7 +76,7 @@
 
                   <span class="hover:font-semibold">Répondre</span>
                 </button>
-                @if(isAdmin === true){
+
                 <button class="flex px-4 py-2 text-sm text-secondaryforeground" role="menuitem" tabindex="-1" id="menu-{{ i }}-item-1">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
                     <path
@@ -99,7 +87,6 @@
                   </svg>
                   <span class="hover:font-semibold">Clôturer</span>
                 </button>
-                }
               </div>
             </div>
             <!-- Fin du menu déroulant -->

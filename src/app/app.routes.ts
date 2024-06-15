@@ -19,6 +19,8 @@ import { ProfileUserComponent } from "./components/profile-user/profile-user.com
 import { UserComponent } from "./components/user/user.component";
 import { AdminGuard } from "./guards/admin-guard";
 import { EditUserComponent } from "./components/user-edit/edit-user.component";
+import { SupportCreateTicketComponent } from "./components/support-create-ticket/support-create-ticket.component";
+import { SupportListTicketAdminComponent } from "./components/support-list-ticket-admin/support-list-ticket-admin.component";
 
 export const routes: Routes = [
   { path: "login", component: LoginComponent, canActivate: [LoginGuard] },
@@ -62,6 +64,13 @@ export const routes: Routes = [
         ],
       },
       {
+        path: "support",
+        children: [
+          { path: "", component: SupportComponent },
+          { path: "create-ticket", component: SupportCreateTicketComponent },
+        ],
+      },
+      {
         path: "documenttype",
         children: [
           { path: "", component: DocumenttypeComponent, canActivate: [AdminGuard] },
@@ -76,7 +85,10 @@ export const routes: Routes = [
           { path: "edit-user", component: EditUserComponent, canActivate: [AdminGuard] },
         ],
       },
-      { path: "support", component: SupportComponent },
+      {
+        path: "support-admin",
+        children: [{ path: "", component: SupportListTicketAdminComponent, canActivate: [AdminGuard] }],
+      },
       { path: "settings", component: SettingsComponent },
     ],
   },

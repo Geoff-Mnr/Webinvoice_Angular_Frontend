@@ -15,4 +15,15 @@ export class TicketService {
   listTicketsByUser(): Observable<any> {
     return this.http.get<any>(`${this.baseUri}/list-tickets-user`);
   }
+  listTickets(): Observable<any> {
+    return this.http.get<any>(`${this.baseUri}/tickets`);
+  }
+
+  createMessage(ticketId: number, messageData: { message: string }): Observable<Ticket> {
+    return this.http.post<Ticket>(`${this.baseUri}/tickets/${ticketId}/messages`, messageData);
+  }
+
+  createTicket(ticket: Ticket): Observable<Ticket> {
+    return this.http.post<Ticket>(`${this.baseUri}/tickets`, ticket);
+  }
 }

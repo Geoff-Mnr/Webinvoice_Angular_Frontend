@@ -56,6 +56,8 @@ export class EditUserComponent implements OnDestroy {
       status: "",
       created_by: 0,
       updated_by: 0,
+      created_at: new Date(),
+      updated_at: new Date(),
     },
   };
 

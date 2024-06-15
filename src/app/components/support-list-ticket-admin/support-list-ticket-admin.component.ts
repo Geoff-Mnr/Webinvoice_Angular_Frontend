@@ -13,13 +13,13 @@ import { AuthService } from "../../services/auth.service";
 import { SupportMessageComponent } from "../support-message/support-message.component";
 
 @Component({
-  selector: "app-support",
+  selector: "app-support-list-ticket-admin",
   standalone: true,
   imports: [RouterLink, CommonModule, FormsModule, HttpClientModule, SupportMessageComponent],
-  templateUrl: "./support.component.html",
-  styleUrl: "./support.component.scss",
+  templateUrl: "./support-list-ticket-admin.component.html",
+  styleUrl: "./support-list-ticket-admin.component.scss",
 })
-export class SupportComponent implements OnDestroy {
+export class SupportListTicketAdminComponent {
   ticketService = inject(TicketService);
   userService = inject(UserService);
   authService = inject(AuthService);
@@ -27,13 +27,25 @@ export class SupportComponent implements OnDestroy {
   private subDelete: Subscription | undefined;
 
   tickets: Ticket[] = [];
+  user: any;
   showMenu = false;
   showComponent = false;
-  user: any;
-  isAdmin: boolean = false;
+  toggleMessage: boolean = false;
+
+  getProfile() {
+    this.userService.getProfileUser().subscribe((response: any) => {
+      this.user = response.data;
+      console.log("User", this.user);
+    });
+  }
 
   toggleMenu(index: number): void {
     this.tickets[index].showMenu = !this.tickets[index].showMenu;
+  }
+
+  toggleComponent(index: number) {
+    this.tickets[index].showComponent = !this.tickets[index].showComponent;
+    this.tickets[index].showMenu = false;
   }
 
   respondToTicket(index: number): void {
@@ -44,49 +56,27 @@ export class SupportComponent implements OnDestroy {
     // Ajoutez ici la logique de réponse au ticket
   }
 
-  toggleMessage: boolean = false;
-
-  toggleComponent(index: number) {
-    this.tickets[index].showComponent = !this.tickets[index].showComponent;
-    this.tickets[index].showMenu = false;
-  }
-
   ngOnInit() {
-    this.getListTicketsByUser();
-    console.log("Tickets", this.getListTicketsByUser);
+    this.getListTickets();
+    console.log("Tickets", this.getListTickets);
     this.getProfile();
-    this.isAdmin = this.authService.isAdmin();
   }
 
-  getUserProfilePicture(ticket: any) {
-    const user = ticket.users.find((user: any) => user.id === ticket.created_by);
-    return user ? user.profile_picture : "";
-  }
-
-  getProfile() {
-    this.userService.getProfileUser().subscribe((response: any) => {
-      this.user = response.data;
-      console.log("User", this.user);
-    });
-  }
-
-  getListTicketsByUser() {
-    this.subDelete = this.ticketService.listTicketsByUser().subscribe({
-      next: (response) => {
-        this.tickets = response.data;
-        console.log(this.tickets);
-      },
+  getListTickets() {
+    this.ticketService.listTickets().subscribe((response: any) => {
+      this.tickets = response.data;
+      console.log("Tickets", this.tickets);
     });
   }
 
   OnMessageCreated(event: any) {
     if (event) {
-      this.getListTicketsByUser();
+      this.getListTickets();
     }
   }
 
   handleMessageCreated() {
-    this.getListTicketsByUser();
+    this.getListTickets();
     this.showComponent = false;
   }
 
