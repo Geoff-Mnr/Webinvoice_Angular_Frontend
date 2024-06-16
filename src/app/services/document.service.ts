@@ -22,6 +22,10 @@ export class DocumentService {
     return this.http.get<any>(`${this.baseUri}/documents`, { params });
   }
 
+  listDocuments(): Observable<any> {
+    return this.http.get<Document>(`${this.baseUri}/documents-by-customer`);
+  }
+
   createDocument(document: Document): Observable<Document> {
     return this.http.post<Document>(`${this.baseUri}/documents`, document);
   }

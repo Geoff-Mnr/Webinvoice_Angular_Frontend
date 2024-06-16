@@ -12,7 +12,9 @@
           <img class="h-10 w-10 rounded-full" [src]="ticket.createdBy.profile_picture" alt="" />
         </div>
         <div class="min-w-0 flex-1">
-          <p class="text-normal font-semibold text-secondaryforeground">{{ ticket.createdBy.username }}</p>
+          <p class="text-normal font-semibold text-secondaryforeground">
+            {{ ticket.createdBy.username }} - <span class="font-light text-xs">{{ ticket.createdBy.role.name }}</span>
+          </p>
           <p class="text-xs text-primary">
             {{ ticket.created_at }}
           </p>
@@ -29,7 +31,9 @@
                 <img class="h-10 w-10 rounded-full" [src]="user.profile_picture" alt="{{ user?.username }}'s Profile Picture" />
               </div>
               <div class="min-w-0 flex-1">
-                <p class="text-normal font-semibold text-secondaryforeground">{{ user?.username }}</p>
+                <p class="text-normal font-semibold text-secondaryforeground">
+                  {{ user?.username }} - <span class="font-light text-xs">{{ user?.role_name }}</span>
+                </p>
                 <p class="text-xs text-primary">
                   {{ user.pivot.created_at }}
                 </p>

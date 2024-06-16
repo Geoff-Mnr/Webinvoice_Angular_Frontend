@@ -136,14 +136,34 @@ $Webinvoice_Angular_Frontend-theme: mat.define-light-theme((
   box-shadow: inset 0 0 0 1px rgba(5, 150, 105, 0.2);
 }
 
+.dark .status-paid {
+  border-radius: 0.375rem; 
+  background-color: #01180b; 
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem; 
+  font-weight: 500; 
+  color: #10d59d; 
+  box-shadow: inset 0 0 0 1px rgba(1, 84, 58, 0.2);
+}
+
 .status-active {
-  border-radius: 0.375rem;
+  border-radius: 0.375rem; 
   background-color: #f0fdf4; 
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem; 
+  font-weight: 500; 
+  color: #047857;
+  box-shadow: inset 0 0 0 1px rgba(5, 150, 105, 0.2);
+}
+
+.dark .status-active {
+  border-radius: 0.375rem;
+  background-color: #01180b;  
   padding: 0.25rem 0.5rem; 
   font-size: 0.75rem; 
   font-weight: 500; 
-  color: #047857; 
-  box-shadow: inset 0 0 0 1px rgba(5, 150, 105, 0.2);
+  color: #10d59d; 
+  box-shadow: inset 0 0 0 1px rgba(1, 84, 58, 0.2);
 }
 
 .status-in-progress {
@@ -153,7 +173,17 @@ $Webinvoice_Angular_Frontend-theme: mat.define-light-theme((
   font-size: 0.75rem; 
   font-weight: 500; 
   color: #c2410c; 
-  box-shadow: inset 0 0 0 1px rgba(194, 65, 12, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(227, 91, 50, 0.2);
+}
+
+.dark .status-in-progress {
+  border-radius: 0.375rem; 
+  background-color: #1b1201; 
+  padding: 0.25rem 0.5rem; 
+  font-size: 0.75rem; 
+  font-weight: 500; 
+  color: #ec7505; 
+  box-shadow: inset 0 0 0 1px rgba(227, 91, 50, 0.2);
 }
 
 .status-unpaid {
@@ -166,6 +196,16 @@ $Webinvoice_Angular_Frontend-theme: mat.define-light-theme((
     box-shadow: inset 0 0 0 1px rgba(185, 28, 28, 0.1);
 }
 
+.dark .status-unpaid {
+    border-radius: 0.375rem;
+    background-color: #1a0101;
+    padding: 0.25rem 0.5rem; 
+    font-size: 0.75rem; 
+    font-weight: 500;
+    color: #fb0000; 
+    box-shadow: inset 0 0 0 2px rgba(255, 17, 17, 0.1);
+}
+
 .status-inactive {
   border-radius: 0.375rem; 
     background-color: #fef2f2; 
@@ -176,13 +216,17 @@ $Webinvoice_Angular_Frontend-theme: mat.define-light-theme((
     box-shadow: inset 0 0 0 1px rgba(185, 28, 28, 0.1);
 }
 
-.status-unknown {
-  color: gray;
+.dark .status-inactive {
+    border-radius: 0.375rem;
+    background-color: #1a0101;
+    padding: 0.25rem 0.5rem; 
+    font-size: 0.75rem; 
+    font-weight: 500;
+    color: #fb0000; 
+    box-shadow: inset 0 0 0 2px rgba(255, 17, 17, 0.1);
 }
 
-:invalid {
-  color: rgba(156, 163, 175, 1);
-}
+
 
 .is_active-active{
   border-radius: 0.375rem;
@@ -194,6 +238,16 @@ $Webinvoice_Angular_Frontend-theme: mat.define-light-theme((
   box-shadow: inset 0 0 0 1px rgba(5, 150, 105, 0.2);
 }
 
+.dark .is_active-active{
+  border-radius: 0.375rem; 
+  background-color: #01180b; 
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem; 
+  font-weight: 500; 
+  color: #10d59d; 
+  box-shadow: inset 0 0 0 1px rgba(1, 84, 58, 0.2);
+}
+
 .is_active-inactive{
   border-radius: 0.375rem; 
   background-color: #fef2f2; 
@@ -202,4 +256,14 @@ $Webinvoice_Angular_Frontend-theme: mat.define-light-theme((
   font-weight: 500; 
   color: #b91c1c; 
   box-shadow: inset 0 0 0 1px rgba(185, 28, 28, 0.1);
+}
+
+.dark .is_active-inactive{
+    border-radius: 0.375rem;
+    background-color: #1a0101;
+    padding: 0.25rem 0.5rem; 
+    font-size: 0.75rem; 
+    font-weight: 500;
+    color: #fb0000; 
+    box-shadow: inset 0 0 0 2px rgba(255, 17, 17, 0.1);
 }
