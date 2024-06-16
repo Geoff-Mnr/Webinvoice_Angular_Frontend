@@ -17,6 +17,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { routes } from "./app.routes";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { VatNumberPipe } from "./pipes/vat-number.pipe";
+import { StatusTicketPipe } from "./pipes/status-ticket.pipe";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,5 +35,6 @@ export const appConfig: ApplicationConfig = {
     MatFormFieldModule,
     MatInputModule,
     VatNumberPipe,
+    StatusTicketPipe,
   ],
 };

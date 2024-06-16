@@ -94,8 +94,8 @@ export class SupportComponent implements OnDestroy {
     this.router.navigate(["/support/create-ticket"]);
   }
 
-  getIsactiveClass(is_active: string): string {
-    switch (is_active) {
+  getStatusClass(status: string): string {
+    switch (status) {
       case "Ouvert":
         return "is_active-active";
       case "Fermé":

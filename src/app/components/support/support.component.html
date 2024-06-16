@@ -31,7 +31,7 @@
           <div class="mt-4">
             <h3 class="text-md font-semibold font-open text-secondaryforeground">{{ ticket.title }}</h3>
             <p class="text-normal font-light text-secondaryforeground">{{ ticket.description }}</p>
-            <span class="mt-1" [ngClass]="getIsactiveClass(ticket.is_active)">{{ ticket.is_active }}</span>
+            <span class="mt-1" [ngClass]="getStatusClass(ticket.status)">{{ ticket.status }}</span>
           </div>
           <div *ngFor="let user of ticket.users; let i = index" class="flex space-x-3 mt-6">
             <ng-container *ngIf="i !== 0">

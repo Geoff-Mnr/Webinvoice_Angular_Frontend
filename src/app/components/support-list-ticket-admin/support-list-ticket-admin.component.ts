@@ -6,11 +6,11 @@ import { HttpClientModule } from "@angular/common/http";
 import { Subscription } from "rxjs";
 import { TicketService } from "../../services/ticket.service";
 import { Ticket } from "../../models/ticket.interface";
-import { NavigationExtras } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { AuthService } from "../../services/auth.service";
 import { SupportMessageComponent } from "../support-message/support-message.component";
 import { ToastrService } from "ngx-toastr";
+import { ChangeDetectorRef } from "@angular/core";
 
 @Component({
   selector: "app-support-list-ticket-admin",
@@ -25,6 +25,7 @@ export class SupportListTicketAdminComponent {
   authService = inject(AuthService);
   router = inject(Router);
   toastr = inject(ToastrService);
+  private changeDetector = inject(ChangeDetectorRef);
   private subDelete: Subscription | undefined;
 
   tickets: Ticket[] = [];
@@ -32,6 +33,8 @@ export class SupportListTicketAdminComponent {
   showMenu = false;
   showComponent = false;
   toggleMessage: boolean = false;
+
+  pendingStatusChange: { [key: number]: boolean } = {};
 
   getProfile() {
     this.userService.getProfileUser().subscribe((response: any) => {
@@ -50,11 +53,9 @@ export class SupportListTicketAdminComponent {
   }
 
   respondToTicket(index: number): void {
-    // Assurez-vous que le menu est fermé
     if (this.tickets[index].showMenu) {
       this.toggleMenu(index);
     }
-    // Ajoutez ici la logique de réponse au ticket
   }
 
   ngOnInit() {
@@ -87,20 +88,30 @@ export class SupportListTicketAdminComponent {
 
   inactiveTicket(index: number) {
     const ticket = this.tickets[index];
-    ticket.is_active = "0";
-    this.ticketService.updateTicket(ticket.id, ticket).subscribe({
+    this.pendingStatusChange[index] = true;
+
+    this.ticketService.updateTicket(ticket.id, { ...ticket, status: "C" }).subscribe({
       next: () => {
         this.toastr.success("Ticket désactivé avec succès");
-        this.getListTickets();
+        this.tickets[index].status = "Fermé";
+        this.tickets[index].showMenu = false;
+        delete this.pendingStatusChange[index];
       },
       error: (error) => {
-        this.toastr.error("Une erreur est survenue lors de la désactivation du ticket", error);
+        delete this.pendingStatusChange[index];
+        this.tickets[index].showMenu = false;
+        const errorMessage = error.error?.message || "Erreur inconnue lors de la désactivation du ticket";
+        this.toastr.error(errorMessage, "Erreur lors de la désactivation du ticket");
       },
     });
   }
 
-  getIsactiveClass(is_active: string): string {
-    switch (is_active) {
+  getStatusClass(status: string, index: number): string {
+    if (this.pendingStatusChange[index]) {
+      return "is_active-inactive"; // Retourner la classe pour le statut "Fermé" en attente
+    }
+
+    switch (status) {
       case "Ouvert":
         return "is_active-active";
       case "Fermé":
@@ -108,6 +119,14 @@ export class SupportListTicketAdminComponent {
       default:
         return "is_active-inactive";
     }
+  }
+
+  getStatusText(status: string, index: number): string {
+    if (this.pendingStatusChange[index]) {
+      return "Fermé";
+    }
+
+    return status;
   }
 
   ngOnDestroy() {

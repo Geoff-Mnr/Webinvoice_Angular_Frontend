@@ -21,7 +21,7 @@
             <p class="text-normal font-light text-secondaryforeground">
               {{ ticket.description }}
             </p>
-            <span [ngClass]="getIsactiveClass(ticket.is_active)">{{ ticket.is_active }}</span>
+            <span [ngClass]="getStatusClass(ticket.status, i)">{{ getStatusText(ticket.status, i) }}</span>
           </div>
           <div *ngFor="let user of ticket.users; let i = index" class="flex space-x-3 mt-6">
             <ng-container *ngIf="i !== 0">
