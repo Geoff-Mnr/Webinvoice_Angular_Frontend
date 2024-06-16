@@ -1,9 +1,9 @@
-<ul role="list" class="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
+<ul role="list" class="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8 font-montserrat">
   @for( document of documents; track documents){
-  <li class="overflow-hidden rounded-xl border border-border bg-background">
+  <li class="overflow-hidden rounded-sm border border-border bg-background">
     <div class="flex items-center gap-x-4 border-b border-border bg-background p-6">
       <img src="../../../assets/images/wi_logomark_light.png" alt="Tuple" class="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10" />
-      <div class="text-sm font-medium leading-6 text-primary">{{ document.customer.company_name }}</div>
+      <div class="text-sm font-medium leading-6 text-secondaryforeground">{{ document.customer.company_name }}</div>
     </div>
     <dl class="-my-3 divide-y divide-border px-6 py-4 text-sm leading-6">
       <div class="flex justify-between gap-x-4 py-3">
@@ -17,7 +17,7 @@
         <dd class="flex items-start gap-x-2">
           <div class="font-medium text-secondaryforeground">{{ document.price_tvac }} €</div>
           <div class="">
-            <span [ngClass]="getStatusClass(document.status)">{{ document.status }}</span>
+            <span [ngClass]="getStatusClass(document.status)">{{ document?.status }}</span>
           </div>
         </dd>
       </div>
@@ -25,3 +25,66 @@
   </li>
   }
 </ul>
+
+@if(stats){
+<dl class="mx-auto grid grid-cols-1 gap-px bg-secondary sm:grid-cols-2 lg:grid-cols-4 mt-8 font-montserrat">
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-background px-4 py-10 sm:px-6 xl:px-8">
+    <dt class="text-sm font-medium leading-6 text-secondaryforeground">Nombre de Facture</dt>
+    <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-secondaryforeground">{{ stats.document_count }}</dd>
+  </div>
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-background px-4 py-10 sm:px-6 xl:px-8">
+    <dt class="text-sm font-medium leading-6 text-secondaryforeground">Nombre de Client</dt>
+    <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-secondaryforeground">{{ stats.customer_count }}</dd>
+  </div>
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-background px-4 py-10 sm:px-6 xl:px-8">
+    <dt class="text-sm font-medium leading-6 text-secondaryforeground">Nombre de Produit</dt>
+    <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-secondaryforeground">{{ stats.product_count }}</dd>
+  </div>
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-background px-4 py-10 sm:px-6 xl:px-8">
+    <dt class="text-sm font-medium leading-6 text-secondaryforeground">Nombre de Ticket</dt>
+    <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-secondaryforeground">{{ stats.ticket_count }}</dd>
+  </div>
+</dl>
+}
+
+<div class="mt-8 flow-root">
+  <div class="bg-background rounded-sm font-montserrat px-4 py-5 sm:px-6 mt-3">
+    <div class="flex space-x-3">
+      <div class="flex-shrink-0">
+        <img class="h-10 w-10 rounded-full" [src]="user?.profile_picture" alt="" />
+      </div>
+      <div class="min-w-0 flex-1">
+        <p class="text-normal font-semibold text-secondaryforeground">
+          {{ user?.username }} - <span class="font-light text-xs">{{ user?.role.name }}</span>
+        </p>
+
+        <p class="text-xs text-primary">
+          {{ ticket?.created_at }}
+        </p>
+        @if(ticket){
+        <div class="mt-4">
+          <h3 class="text-md font-semibold font-open text-secondaryforeground">{{ ticket?.title }}</h3>
+          <p class="text-normal font-light text-secondaryforeground">{{ ticket?.description }}</p>
+          <span class="mt-1" [ngClass]="getStatusTicketClass(ticket.status)">{{ ticket?.status }}</span>
+        </div>
+        <div *ngFor="let user of ticket.users; let i = index" class="flex space-x-3 mt-6">
+          <ng-container *ngIf="i !== 0">
+            <div class="flex-shrink-0">
+              <img class="h-10 w-10 rounded-full" [src]="user.profile_picture" alt="{{ user?.username }}'s Profile Picture" />
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="text-normal font-semibold text-secondaryforeground">{{ user?.username }}</p>
+              <p class="text-xs text-primary">
+                {{ user.pivot.created_at }}
+              </p>
+              <p class="text-normal font-light text-secondaryforeground mt-1">
+                {{ user.pivot.message }}
+              </p>
+            </div>
+          </ng-container>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

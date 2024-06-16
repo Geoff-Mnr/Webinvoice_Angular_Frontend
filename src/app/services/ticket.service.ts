@@ -19,6 +19,10 @@ export class TicketService {
     return this.http.get<any>(`${this.baseUri}/tickets`);
   }
 
+  getLastTicket(): Observable<any> {
+    return this.http.get<any>(`${this.baseUri}/tickets-by-user`);
+  }
+
   createMessage(ticketId: number, messageData: { message: string }): Observable<Ticket> {
     return this.http.post<Ticket>(`${this.baseUri}/tickets/${ticketId}/messages`, messageData);
   }

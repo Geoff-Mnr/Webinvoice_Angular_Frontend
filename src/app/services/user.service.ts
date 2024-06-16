@@ -21,8 +21,8 @@ export class UserService {
     return this.http.get<User>(`${this.baseUri}/profile-user`);
   }
 
-  getAllUsers(page: number = 1, perPage: number = 10, search: string = ""): Observable<any> {
-    let params = new HttpParams().set("page", page.toString()).set("per_page", perPage.toString());
+  getAllUsers(page: number = 1, per_page: number = 10, search: string = ""): Observable<any> {
+    let params = new HttpParams().set("page", page.toString()).set("per_page", per_page.toString());
     if (search) {
       params = params.set("q", search);
     }

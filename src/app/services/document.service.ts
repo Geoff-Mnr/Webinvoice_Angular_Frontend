@@ -41,4 +41,8 @@ export class DocumentService {
   getInvoicePdf(id: number): Observable<Blob> {
     return this.http.get<any>(`${this.baseUri}/invoices/${id}`, { responseType: "blob" as "json" });
   }
+
+  getstats(): Observable<any> {
+    return this.http.get<any>(`${this.baseUri}/stats`);
+  }
 }

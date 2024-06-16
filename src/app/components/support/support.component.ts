@@ -58,11 +58,6 @@ export class SupportComponent implements OnDestroy {
     this.isAdmin = this.authService.isAdmin();
   }
 
-  getUserProfilePicture(ticket: any) {
-    const user = ticket.users.find((user: any) => user.id === ticket.created_by);
-    return user ? user.profile_picture : "";
-  }
-
   getProfile() {
     this.userService.getProfileUser().subscribe((response: any) => {
       this.user = response.data;
