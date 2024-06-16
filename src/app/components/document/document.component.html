@@ -72,7 +72,9 @@
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ document.price_vvat }}%</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ document.price_htva }} €</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ document.price_tvac }} €</td>
-                <td [ngClass]="getStatusClass(document.status)" class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ document.status }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">
+                  <span [ngClass]="getStatusClass(document.status)">{{ document.status }}</span>
+                </td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">
                   <button
                     class="rounded-full bg-primary p-2 text-secondary shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"

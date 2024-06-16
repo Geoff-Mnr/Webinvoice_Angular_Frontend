@@ -8,14 +8,14 @@ import { TicketService } from "../../services/ticket.service";
 import { Ticket } from "../../models/ticket.interface";
 import { UserService } from "../../services/user.service";
 import { AuthService } from "../../services/auth.service";
-import { SupportMessageComponent } from "../support-message/support-message.component";
+import { SupportMessageAdminComponent } from "../support-message-admin/support-message-admin.component";
 import { ToastrService } from "ngx-toastr";
 import { ChangeDetectorRef } from "@angular/core";
 
 @Component({
   selector: "app-support-list-ticket-admin",
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule, HttpClientModule, SupportMessageComponent],
+  imports: [RouterLink, CommonModule, FormsModule, HttpClientModule, SupportMessageAdminComponent],
   templateUrl: "./support-list-ticket-admin.component.html",
   styleUrl: "./support-list-ticket-admin.component.scss",
 })
@@ -25,7 +25,6 @@ export class SupportListTicketAdminComponent {
   authService = inject(AuthService);
   router = inject(Router);
   toastr = inject(ToastrService);
-  private changeDetector = inject(ChangeDetectorRef);
   private subDelete: Subscription | undefined;
 
   tickets: Ticket[] = [];
@@ -80,10 +79,6 @@ export class SupportListTicketAdminComponent {
   handleMessageCreated() {
     this.getListTickets();
     this.showComponent = false;
-  }
-
-  createTicket() {
-    this.router.navigate(["/support/create-ticket"]);
   }
 
   inactiveTicket(index: number) {

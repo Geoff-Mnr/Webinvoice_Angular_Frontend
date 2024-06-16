@@ -58,7 +58,9 @@
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ user.phone_number }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ user.email }}</td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ user.role.name }}</td>
-                <td [ngClass]="getStatusClass(user.status)" class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">{{ user.status }}</td>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-secondaryforeground">
+                  <span [ngClass]="getStatusClass(user.status)">{{ user.status }}</span>
+                </td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                   <button (click)="selectUser(user)" class="text-primary font-montserrat hover:font-semibold">Editer</button>
                 </td>
