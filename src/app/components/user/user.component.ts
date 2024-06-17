@@ -18,6 +18,7 @@ import { EditUserComponent } from "../user-edit/edit-user.component";
   styleUrl: "./user.component.scss",
 })
 export class UserComponent implements OnDestroy {
+  // Initialisation des services
   userService = inject(UserService);
   router = inject(Router);
   private subDelete: Subscription | undefined;
@@ -32,6 +33,7 @@ export class UserComponent implements OnDestroy {
   itemsPerPage = 10;
   search = "";
 
+  // Initialisation du formulaire
   ngOnInit() {
     const savedItemsPerPage = localStorage.getItem("itemsPerPage");
     if (savedItemsPerPage) {
@@ -39,16 +41,15 @@ export class UserComponent implements OnDestroy {
     }
     this.getListUsers();
   }
-
   searchUser() {
     this.getListUsers(this.currentPage);
   }
 
+  // Récupérer la liste des utilisateurs
   getListUsers(page: number = 1) {
     this.subDelete = this.userService.getAllUsers(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {
         this.users = response.data;
-        console.log(this.users);
         this.totalItems = response.meta.total;
         this.totalPage = response.meta.last_page;
 
@@ -63,6 +64,7 @@ export class UserComponent implements OnDestroy {
     });
   }
 
+  // Selectionner un utilisateur
   selectUser(user: User) {
     this.selectedUser = user;
     const navigationExtras: NavigationExtras = {
@@ -71,12 +73,14 @@ export class UserComponent implements OnDestroy {
     this.router.navigate(["/user-admin/edit-user"], navigationExtras);
   }
 
+  // Désabonnement
   ngOnDestroy() {
     if (this.subDelete) {
       this.subDelete.unsubscribe();
     }
   }
 
+  //recuperer le status et adapter le style
   getStatusClass(status: string): string {
     switch (status) {
       case "Actif":
@@ -88,6 +92,7 @@ export class UserComponent implements OnDestroy {
     }
   }
 
+  //changer le nombre d'éléments par page
   onItemsPerPageChange() {
     localStorage.setItem("itemsPerPage", this.itemsPerPage.toString());
     this.getListUsers();
