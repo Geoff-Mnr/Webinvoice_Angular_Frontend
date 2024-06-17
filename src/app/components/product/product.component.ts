@@ -20,6 +20,7 @@ import { EanCodePipe } from "../../pipes/ean-code.pipe";
   styleUrl: "./product.component.scss",
 })
 export class ProductComponent implements OnDestroy {
+  // Injection des services
   productService = inject(ProductService);
   router = inject(Router);
   private subDelete: Subscription | undefined;
@@ -34,6 +35,7 @@ export class ProductComponent implements OnDestroy {
   itemsPerPage = 10;
   search = "";
 
+  // Methode d'initialisation des données
   ngOnInit() {
     const savedItemsPerPage = localStorage.getItem("itemsPerPage");
     if (savedItemsPerPage) {
@@ -42,12 +44,13 @@ export class ProductComponent implements OnDestroy {
     this.getListProducts();
   }
 
+  // Methode pour rechercher un produit
   searchProduct() {
     this.getListProducts(this.currentPage);
   }
 
+  // Methode pour récupérer la liste des produits
   getListProducts(page: number = 1) {
-    console.log(page, this.itemsPerPage, this.search);
     this.subDelete = this.productService.listProductsByUser(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {
         this.products = response.data;
@@ -57,7 +60,6 @@ export class ProductComponent implements OnDestroy {
           this.toastr.info("Aucun produit trouvé");
         }
         this.currentPage = page < 1 ? 1 : page > this.totalPage ? this.totalPage : page;
-        console.log(this.currentPage);
       },
       error: (error) => {
         this.toastr.error("Erreur lors de la récupération des produits");
@@ -65,24 +67,27 @@ export class ProductComponent implements OnDestroy {
     });
   }
 
+  // Methode pour selectionner un produit
   selectProduct(product: Product) {
     this.selectedProduct = product;
     const navigationExtras: NavigationExtras = {
       state: { product: product },
     };
     this.router.navigate(["/product/edit-product"], navigationExtras);
-    console.log(this.selectProduct);
   }
 
+  // Methode qui renvoie vers le formulaire d'ajout de produit
   addProduct() {
     this.router.navigate(["/product/add-product"]);
   }
 
+  // Methode pour garder la page courante
   onItemsPerPageChange() {
     localStorage.setItem("itemsPerPage", this.itemsPerPage.toString());
     this.getListProducts(this.currentPage);
   }
 
+  // Methode pour se désinscrire de l'observable
   ngOnDestroy() {
     if (this.subDelete) {
       this.subDelete.unsubscribe();
