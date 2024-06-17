@@ -163,7 +163,6 @@ export class ProfileUserComponent implements OnDestroy {
     this.subDelete = this.userService.updateProfileUser(this.selectedUser.id, item).subscribe({
       next: () => {
         this.toastr.success("Profil modifié avec succès");
-        console.log("User updated", item);
         this.router.navigate(["/home"]);
         this.reloadPage();
       },
@@ -177,7 +176,6 @@ export class ProfileUserComponent implements OnDestroy {
   getListRoles() {
     this.subDelete = this.roleService.listRoles().subscribe((response: any) => {
       this.roles = response.data;
-      console.log(this.roles);
     });
   }
 
