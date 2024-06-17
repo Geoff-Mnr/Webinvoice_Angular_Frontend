@@ -19,6 +19,7 @@ import { NavigationExtras } from "@angular/router";
   styleUrl: "./documenttype.component.scss",
 })
 export class DocumenttypeComponent implements OnDestroy {
+  // Injection des services
   documenttypeService = inject(DocumenttypeService);
   router = inject(Router);
   private subDelete: Subscription | undefined;
@@ -33,6 +34,7 @@ export class DocumenttypeComponent implements OnDestroy {
   itemsPerPage = 10;
   search = "";
 
+  // Initialisation du composant
   ngOnInit() {
     const savedItemsPerPage = localStorage.getItem("itemsPerPage");
     if (savedItemsPerPage) {
@@ -41,16 +43,16 @@ export class DocumenttypeComponent implements OnDestroy {
     this.getListDocumentTypes();
   }
 
+  // Méthode de recherche
   searchDocumentType() {
     this.getListDocumentTypes(this.currentPage);
   }
 
+  //méthode pour récupérer la liste des types de documents
   getListDocumentTypes(page: number = 1) {
-    console.log(page, this.itemsPerPage, this.search);
     this.subDelete = this.documenttypeService.listDocumenttypesByUser(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {
         this.documenttypes = response.data;
-        console.log(this.documenttypes);
         this.totalItems = response.meta.total;
         this.totalPage = response.meta.last_page;
         if (this.totalItems === 0) {
@@ -59,25 +61,26 @@ export class DocumenttypeComponent implements OnDestroy {
         this.currentPage = page < 1 ? 1 : page > this.totalPage ? this.totalPage : page;
       },
       error: (error) => {
-        console.error(error);
         this.toastr.error("Erreur lors de la récupération des types de documents");
       },
     });
   }
 
+  // Méthode pour sélectionner un type de document
   selectDocumentType(documenttype: DocumentType) {
     this.selectedDocumentType = documenttype;
-    console.log(this.selectedDocumentType);
     const navigationExtras: NavigationExtras = {
       state: { documenttype: documenttype },
     };
     this.router.navigate(["/documenttype/edit-documenttype"], navigationExtras);
   }
 
+  // Méthode pour ajouter un type de document
   addDocumentType() {
     this.router.navigate(["/documenttype/add-documenttype"]);
   }
 
+  // Méthode pour supprimer un type de document
   deleteDocumentType(item: DocumentType) {
     if (confirm("Voulez-vous vraiment supprimer ce type de document?")) {
       this.subDelete = this.documenttypeService.delete(item.id).subscribe({
@@ -93,6 +96,7 @@ export class DocumenttypeComponent implements OnDestroy {
     }
   }
 
+  // Méthode pour changer le statut
   getStatusClass(status: string): string {
     switch (status) {
       case "Actif":
@@ -104,11 +108,13 @@ export class DocumenttypeComponent implements OnDestroy {
     }
   }
 
+  // Méthode pour changer le nombre d'éléments par page
   onItemsPerPageChange() {
     localStorage.setItem("itemsPerPage", this.itemsPerPage.toString());
     this.getListDocumentTypes();
   }
 
+  // Méthode pour changer de page
   ngOnDestroy() {
     if (this.subDelete) {
       this.subDelete.unsubscribe();
