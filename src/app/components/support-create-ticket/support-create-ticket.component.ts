@@ -8,6 +8,8 @@ import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
+import { OnDestroy } from "@angular/core";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-support-create-ticket",
@@ -16,7 +18,7 @@ import { AuthService } from "../../services/auth.service";
   templateUrl: "./support-create-ticket.component.html",
   styleUrl: "./support-create-ticket.component.scss",
 })
-export class SupportCreateTicketComponent {
+export class SupportCreateTicketComponent implements OnDestroy {
   Ticket = {
     id: 0,
     title: "",
@@ -26,12 +28,15 @@ export class SupportCreateTicketComponent {
     updated_at: new Date(),
   };
 
+  // Initialisation des services
   router = inject(Router);
   ticketService = inject(TicketService);
   toastr = inject(ToastrService);
   fb = inject(FormBuilder);
   authService = inject(AuthService);
+  private subDelete: Subscription | undefined;
 
+  // Constructeur pour les paramètres de route
   constructor(private route: ActivatedRoute) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
@@ -39,14 +44,16 @@ export class SupportCreateTicketComponent {
     }
   }
 
+  // Initialisation des données
   form = this.fb.group({
     title: ["", Validators.required],
     description: ["", Validators.required],
   });
 
+  // Créer un ticket
   createTicket() {
     const item: Ticket = this.form.value as Ticket;
-    this.ticketService.createTicket(item).subscribe({
+    this.subDelete = this.ticketService.createTicket(item).subscribe({
       next: (response) => {
         this.toastr.success("Ticket created successfully");
         this.router.navigate(["/support"]);
@@ -57,7 +64,15 @@ export class SupportCreateTicketComponent {
     });
   }
 
+  // Annuler la création du ticket
   cancel() {
     this.router.navigate(["/support"]);
+  }
+
+  // Désabonnement
+  ngOnDestroy() {
+    if (this.subDelete) {
+      this.subDelete.unsubscribe();
+    }
   }
 }
