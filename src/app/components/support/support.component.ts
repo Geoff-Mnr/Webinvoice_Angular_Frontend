@@ -3,11 +3,9 @@ import { RouterLink, Router } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
-import { ToastrService } from "ngx-toastr";
 import { Subscription } from "rxjs";
 import { TicketService } from "../../services/ticket.service";
 import { Ticket } from "../../models/ticket.interface";
-import { NavigationExtras } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { AuthService } from "../../services/auth.service";
 import { SupportMessageComponent } from "../support-message/support-message.component";
@@ -20,60 +18,61 @@ import { SupportMessageComponent } from "../support-message/support-message.comp
   styleUrl: "./support.component.scss",
 })
 export class SupportComponent implements OnDestroy {
+  // Initialisation des services
   ticketService = inject(TicketService);
   userService = inject(UserService);
   authService = inject(AuthService);
   router = inject(Router);
   private subDelete: Subscription | undefined;
-
   tickets: Ticket[] = [];
   showMenu = false;
   showComponent = false;
   user: any;
   isAdmin: boolean = false;
+  toggleMessage: boolean = false;
 
+  // afficher le menu
   toggleMenu(index: number): void {
     this.tickets[index].showMenu = !this.tickets[index].showMenu;
   }
 
+  // répondre au ticket
   respondToTicket(index: number): void {
-    // Assurez-vous que le menu est fermé
     if (this.tickets[index].showMenu) {
       this.toggleMenu(index);
     }
-    // Ajoutez ici la logique de réponse au ticket
   }
 
-  toggleMessage: boolean = false;
-
+  // Afficher le composant
   toggleComponent(index: number) {
     this.tickets[index].showComponent = !this.tickets[index].showComponent;
     this.tickets[index].showMenu = false;
   }
 
+  // Initialisation des données
   ngOnInit() {
     this.getListTicketsByUser();
-    console.log("Tickets", this.getListTicketsByUser);
     this.getProfile();
     this.isAdmin = this.authService.isAdmin();
   }
 
+  // Récupérer le profil de l'utilisateur
   getProfile() {
-    this.userService.getProfileUser().subscribe((response: any) => {
+    this.subDelete = this.userService.getProfileUser().subscribe((response: any) => {
       this.user = response.data;
-      console.log("User", this.user);
     });
   }
 
+  // Récupérer la liste des tickets de l'utilisateur
   getListTicketsByUser() {
     this.subDelete = this.ticketService.listTicketsByUser().subscribe({
       next: (response) => {
         this.tickets = response.data;
-        console.log(this.tickets);
       },
     });
   }
 
+  // Un fois le message est créé
   OnMessageCreated(event: any) {
     if (event) {
       this.getListTicketsByUser();
@@ -85,10 +84,12 @@ export class SupportComponent implements OnDestroy {
     this.showComponent = false;
   }
 
+  // Bouton pour créer un ticket
   createTicket() {
     this.router.navigate(["/support/create-ticket"]);
   }
 
+  // Status de l'activité du ticket pour le css
   getStatusClass(status: string): string {
     switch (status) {
       case "Ouvert":
@@ -100,6 +101,7 @@ export class SupportComponent implements OnDestroy {
     }
   }
 
+  // Se désabonner de la souscription
   ngOnDestroy() {
     if (this.subDelete) {
       this.subDelete.unsubscribe();
