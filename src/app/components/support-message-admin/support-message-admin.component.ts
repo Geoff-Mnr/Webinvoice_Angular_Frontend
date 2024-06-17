@@ -8,6 +8,8 @@ import { RouterLink } from "@angular/router";
 import { Router } from "@angular/router";
 import { TicketService } from "../../services/ticket.service";
 import { ToastrService } from "ngx-toastr";
+import { OnDestroy } from "@angular/core";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-support-message-admin",
@@ -16,28 +18,33 @@ import { ToastrService } from "ngx-toastr";
   templateUrl: "./support-message-admin.component.html",
   styleUrl: "./support-message-admin.component.scss",
 })
-export class SupportMessageAdminComponent {
+export class SupportMessageAdminComponent implements OnDestroy {
+  // Inpiut et Output seront utilisés pour la communication entre les composants
   @Input() ticket!: Ticket;
   @Output() messageCreated = new EventEmitter<void>();
   user: any;
 
+  // Initialisation des services
   userService = inject(UserService);
   ticketService = inject(TicketService);
   router = inject(Router);
   toastr = inject(ToastrService);
   fb = inject(FormBuilder);
+  private subDelete: Subscription | undefined;
 
+  // Initialisation du formulaire
   form = this.fb.group({
     message: ["", Validators.required],
   });
 
+  // Créer un message
   createMessage() {
     const messageData = {
       message: this.form.value.message as string,
     };
 
     if (messageData.message) {
-      this.ticketService.createMessage(this.ticket.id, messageData).subscribe({
+      this.subDelete = this.ticketService.createMessage(this.ticket.id, messageData).subscribe({
         next: (response: any) => {
           this.toastr.success("Message created successfully");
           this.router.navigate(["/support-admin"]);
@@ -52,14 +59,21 @@ export class SupportMessageAdminComponent {
     }
   }
 
+  // Initialisation  des données
   ngOnInit() {
     this.getProfile();
   }
 
+  // Recupérer le profil de l'utilisateur
   getProfile() {
-    this.userService.getProfileUser().subscribe((response: any) => {
+    this.subDelete = this.userService.getProfileUser().subscribe((response: any) => {
       this.user = response.data;
-      console.log("User", this.user);
     });
+  }
+
+  ngOnDestroy() {
+    if (this.subDelete) {
+      this.subDelete.unsubscribe();
+    }
   }
 }
