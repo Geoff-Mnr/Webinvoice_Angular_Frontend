@@ -17,7 +17,11 @@
     </div>
   </div>
   <div class="mt-8 flow-root">
-    @for(ticket of tickets; track tickets; let i = $index){
+    @if(tickets.length === 0) {
+    <div class="flex justify-center items-center h-32 bg-background">
+      <p class="text-secondaryforeground">Aucun ticket trouvé</p>
+    </div>
+    } @for(ticket of tickets; track tickets; let i = $index){
     <div class="bg-background rounded-sm font-montserrat px-4 py-5 sm:px-6 mt-3">
       <div class="flex space-x-3">
         <div class="flex-shrink-0">
