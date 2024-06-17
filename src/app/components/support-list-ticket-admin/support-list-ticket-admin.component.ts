@@ -10,7 +10,6 @@ import { UserService } from "../../services/user.service";
 import { AuthService } from "../../services/auth.service";
 import { SupportMessageAdminComponent } from "../support-message-admin/support-message-admin.component";
 import { ToastrService } from "ngx-toastr";
-import { ChangeDetectorRef } from "@angular/core";
 
 @Component({
   selector: "app-support-list-ticket-admin",
@@ -19,7 +18,8 @@ import { ChangeDetectorRef } from "@angular/core";
   templateUrl: "./support-list-ticket-admin.component.html",
   styleUrl: "./support-list-ticket-admin.component.scss",
 })
-export class SupportListTicketAdminComponent {
+export class SupportListTicketAdminComponent implements OnDestroy {
+  // Initialisation des services
   ticketService = inject(TicketService);
   userService = inject(UserService);
   authService = inject(AuthService);
@@ -35,57 +35,61 @@ export class SupportListTicketAdminComponent {
 
   pendingStatusChange: { [key: number]: boolean } = {};
 
+  // Recupérer le profil de l'utilisateur
   getProfile() {
-    this.userService.getProfileUser().subscribe((response: any) => {
+    this.subDelete = this.userService.getProfileUser().subscribe((response: any) => {
       this.user = response.data;
-      console.log("User", this.user);
     });
   }
 
+  // Afficher le menu
   toggleMenu(index: number): void {
     this.tickets[index].showMenu = !this.tickets[index].showMenu;
   }
 
+  // Afficher le composant
   toggleComponent(index: number) {
     this.tickets[index].showComponent = !this.tickets[index].showComponent;
     this.tickets[index].showMenu = false;
   }
 
+  // Répondre à un ticket
   respondToTicket(index: number): void {
     if (this.tickets[index].showMenu) {
       this.toggleMenu(index);
     }
   }
 
+  // Initialisation des données
   ngOnInit() {
     this.getListTickets();
-    console.log("Tickets", this.getListTickets);
     this.getProfile();
   }
 
+  // Récupérer la liste des tickets
   getListTickets() {
-    this.ticketService.listTickets().subscribe((response: any) => {
+    this.subDelete = this.ticketService.listTickets().subscribe((response: any) => {
       this.tickets = response.data;
-      console.log("Tickets", this.tickets);
     });
   }
-
+  // Quand un message est créé ça met à jour la liste des tickets
   OnMessageCreated(event: any) {
     if (event) {
       this.getListTickets();
     }
   }
 
+  //ça enlève le composant quand le message est créé
   handleMessageCreated() {
     this.getListTickets();
     this.showComponent = false;
   }
 
+  // désactiver un ticket
   inactiveTicket(index: number) {
     const ticket = this.tickets[index];
     this.pendingStatusChange[index] = true;
-
-    this.ticketService.updateTicket(ticket.id, { ...ticket, status: "C" }).subscribe({
+    this.subDelete = this.ticketService.updateTicket(ticket.id, { ...ticket, status: "C" }).subscribe({
       next: () => {
         this.toastr.success("Ticket désactivé avec succès");
         this.tickets[index].status = "Fermé";
@@ -101,11 +105,11 @@ export class SupportListTicketAdminComponent {
     });
   }
 
+  // status du ticket
   getStatusClass(status: string, index: number): string {
     if (this.pendingStatusChange[index]) {
-      return "is_active-inactive"; // Retourner la classe pour le statut "Fermé" en attente
+      return "is_active-inactive";
     }
-
     switch (status) {
       case "Ouvert":
         return "is_active-active";
@@ -116,14 +120,15 @@ export class SupportListTicketAdminComponent {
     }
   }
 
+  // status du ticket
   getStatusText(status: string, index: number): string {
     if (this.pendingStatusChange[index]) {
       return "Fermé";
     }
-
     return status;
   }
 
+  // Désabonnement
   ngOnDestroy() {
     if (this.subDelete) {
       this.subDelete.unsubscribe();
