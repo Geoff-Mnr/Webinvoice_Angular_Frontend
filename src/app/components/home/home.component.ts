@@ -17,6 +17,7 @@ import { UserService } from "../../services/user.service";
   styleUrl: "./home.component.scss",
 })
 export class HomeComponent implements OnDestroy {
+  // Injectection des services
   documentService = inject(DocumentService);
   ticketService = inject(TicketService);
   userService = inject(UserService);
@@ -27,13 +28,15 @@ export class HomeComponent implements OnDestroy {
   user: any;
   stats: any;
 
+  // Methode d'initialisation des données
   ngOnInit() {
     this.getListDocuments();
+    this.getStats();
     this.getLastTicket();
     this.getProfile();
-    this.getStats();
   }
 
+  // Methode avec switch pour changer la couleur du status
   getStatusClass(status: string): string {
     switch (status) {
       case "Payé":
@@ -47,6 +50,7 @@ export class HomeComponent implements OnDestroy {
     }
   }
 
+  // Methode avec switch pour changer la couleur du status du ticket
   getStatusTicketClass(status: string): string {
     switch (status) {
       case "Ouvert":
@@ -58,34 +62,35 @@ export class HomeComponent implements OnDestroy {
     }
   }
 
+  // Methode pour recuperer le profile de l'utilisateur
   getProfile() {
-    this.userService.getProfileUser().subscribe((response: any) => {
+    this.subDelete = this.userService.getProfileUser().subscribe((response: any) => {
       this.user = response.data;
-      console.log("User", this.user);
     });
   }
 
+  // Methode pour recuperer la liste des documents
   getListDocuments() {
     this.subDelete = this.documentService.listDocuments().subscribe((data) => {
       this.documents = data.data;
-      console.log(this.documents);
     });
   }
 
+  // Methode pour recuperer le dernier ticket
   getLastTicket() {
     this.subDelete = this.ticketService.getLastTicket().subscribe((data) => {
       this.ticket = data.data;
-      console.log(this.ticket);
     });
   }
 
+  // Methode pour recuperer les statistiques
   getStats() {
     this.subDelete = this.documentService.getstats().subscribe((data) => {
       this.stats = data.data;
-      console.log(this.stats);
     });
   }
 
+  // Methode pour se désinscrire de l'observable
   ngOnDestroy() {
     if (this.subDelete) {
       this.subDelete.unsubscribe();
