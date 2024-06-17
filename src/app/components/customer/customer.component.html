@@ -37,7 +37,7 @@
                   [(ngModel)]="search"
                   id="search-field"
                   class="block h-full w-full border-0 py-0 pl-8 pr-0 text-secondaryforeground bg-background placeholder:text-cardforeground font-montserrat focus:ring-0 sm:text-sm"
-                  placeholder="Search..."
+                  placeholder="Rechercher..."
                   type="search"
                   name="search"
                 />
@@ -73,7 +73,7 @@
                   <span [ngClass]="getStatusClass(customer.status)">{{ customer.status }}</span>
                 </td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                  <button (click)="selectCustomer(customer)" class="text-primary font-montserrat hover:font-semibold">Edit</button>
+                  <button (click)="selectCustomer(customer)" class="text-primary font-montserrat hover:font-semibold">Editer</button>
                 </td>
               </tr>
               }
