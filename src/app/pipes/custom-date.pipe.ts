@@ -9,6 +9,7 @@ import { inject } from "@angular/core";
 export class CustomDatePipe implements PipeTransform {
   datePipe = inject(DatePipe);
 
+  // La méthode transform permet de transformer une date en une chaîne de caractères
   transform(value: string | Date, format: string = "yyyy-MM-dd"): string | null {
     return this.datePipe.transform(value, format);
   }

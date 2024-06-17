@@ -6,6 +6,7 @@ import { Injectable, effect, signal } from "@angular/core";
 export class DarkModeService {
   darkModeSignal = signal<string>(JSON.parse(window.localStorage.getItem("darkModeSignal") ?? "null"));
 
+  // Méthode pour activer le mode sombre
   updateDarkMode() {
     this.darkModeSignal.update((value) => (value === "dark" ? "null" : "dark"));
   }

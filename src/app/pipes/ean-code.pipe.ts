@@ -9,13 +9,13 @@ export class EanCodePipe implements PipeTransform {
     if (!value) {
       return "";
     }
-
-    // Remove any non-numeric characters
+    // Enlever tous les caractères non numériques
     value = value.replace(/\D/g, "");
 
-    // Format the EAN code (example: 1234567890123 to 123 456 789 0123)
+    // Formater le code EAN
     let formattedValue = value;
 
+    // Si le code EAN est de 13 chiffres
     if (value.length === 13) {
       formattedValue = value.replace(/(\d{3})(\d{3})(\d{3})(\d{4})/, "$1 $2 $3 $4");
     }

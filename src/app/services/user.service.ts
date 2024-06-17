@@ -16,11 +16,11 @@ export class UserService {
   http = inject(HttpClient);
 
   constructor() {}
-
+  // Récupérer le profil de l'utilisateur
   getProfileUser(): Observable<any> {
     return this.http.get<User>(`${this.baseUri}/profile-user`);
   }
-
+  // Récupérer la liste des utilisateurs
   getAllUsers(page: number = 1, per_page: number = 10, search: string = ""): Observable<any> {
     let params = new HttpParams().set("page", page.toString()).set("per_page", per_page.toString());
     if (search) {
@@ -28,7 +28,7 @@ export class UserService {
     }
     return this.http.get<any>(`${this.baseUri}/users`, { params });
   }
-
+  // Modifier le profil de l'utilisateur
   updateProfileUser(id: number, user: User): Observable<User> {
     return this.http.put<User>(`${this.baseUri}/users/${id}`, user).pipe(
       tap((updatedUser) => {

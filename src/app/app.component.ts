@@ -15,6 +15,6 @@ export class AppComponent {
   title = "WebInvoice.";
 
   router = inject(Router);
-
+  // Injection du service DarkModeService
   darkModeService: DarkModeService = inject(DarkModeService);
 }

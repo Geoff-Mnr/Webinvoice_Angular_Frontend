@@ -11,13 +11,13 @@ export class VatNumberPipe implements PipeTransform {
     }
 
     const vatPrefix = "BE";
-    // Remove any existing 'BE' prefix to avoid duplication
+    // Enlever le préfixe BE s'il est présent
     value = value.replace(/^BE/, "");
 
-    // Remove any existing formatting to standardize the input
+    // Enlever tous les caractères non numériques
     value = value.replace(/\D/g, "");
 
-    // Format the VAT number with dots after every 3 digits
+    // Formater le numéro de TVA
     const formattedValue = value.replace(/(\d{4})(\d{3})(\d{3})/, "$1.$2.$3");
 
     return `${vatPrefix} ${formattedValue}`;

@@ -10,24 +10,22 @@ export class PhoneNumberPipe implements PipeTransform {
       return "";
     }
 
-    // Remove any non-numeric characters
+    // enlever tous les caractères non numériques
     value = value.replace(/\D/g, "");
 
-    // Remove the leading 0 if it exists
+    // enlever le zéro initial
     if (value.startsWith("0")) {
       value = value.substring(1);
     }
 
-    // Add the international prefix
+    // rajoute le préfixe +32
     const prefix = "+32";
 
-    // Format the phone number (example: 123456789 to +32 123 45 67 89)
+    // formatter le numéro de téléphone
     let formattedValue = value;
-
     if (value.length === 9) {
       formattedValue = value.replace(/(\d{3})(\d{2})(\d{2})(\d{2})/, "$1 $2 $3 $4");
     }
-
     return `${prefix} ${formattedValue}`;
   }
 }

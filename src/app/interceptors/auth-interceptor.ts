@@ -11,7 +11,8 @@ import { Router } from "@angular/router";
 export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> => {
   // Injection de AuthService via le constructeur
   const authService = inject(AuthService);
-
+  // L'intercepteur va permettre de vérifier si l'utilisateur est authentifié
+  // Injection de Router via le constructeur
   const router = inject(Router);
   if (authService.isAuthenticated()) {
     let headers = req.headers;

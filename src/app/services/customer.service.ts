@@ -14,6 +14,7 @@ export class CustomerService {
 
   constructor() {}
 
+  // Méthode pour récupérer la liste des clients par utilisateur
   listCustomersByUser(page: number = 1, perPage: number = 10, search: string = ""): Observable<any> {
     let params = new HttpParams().set("page", page.toString()).set("per_page", perPage.toString());
     if (search) {
@@ -22,18 +23,22 @@ export class CustomerService {
     return this.http.get<any>(`${this.baseUri}/customers`, { params });
   }
 
+  // Méthode pour créer un client
   createCustomer(customer: Customer): Observable<Customer> {
     return this.http.post<Customer>(`${this.baseUri}/customers`, customer);
   }
 
+  // Méthode pour modifier un client
   updateCustomer(id: number, customer: Customer): Observable<Customer> {
     return this.http.put<Customer>(`${this.baseUri}/customers/${id}`, customer);
   }
 
+  // Méthode pour supprimer un client
   delete(id: number): Observable<Customer> {
     return this.http.delete<any>(`${this.baseUri}/customers/${id}`);
   }
 
+  // Méhode pour récuper la liste des clients
   listCustomers(): Observable<any> {
     return this.http.get<Customer>(`${this.baseUri}/list-customers`);
   }

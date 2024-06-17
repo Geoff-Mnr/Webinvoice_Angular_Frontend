@@ -12,7 +12,7 @@ export class RoleService {
   constructor() {}
 
   http = inject(HttpClient);
-
+  // Méthode pour récupérer la liste des rôles
   listRoles(): Observable<any> {
     return this.http.get<Role>(`${this.baseUri}/roles`);
   }

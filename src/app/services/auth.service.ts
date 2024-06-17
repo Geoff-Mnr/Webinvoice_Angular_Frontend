@@ -20,14 +20,17 @@ export class AuthService {
     return !!localStorage.getItem("session");
   }
 
+  // Méthode pour récupérer le token
   getToken(): string {
     return JSON.parse(localStorage.getItem("session")!).access_token;
   }
 
+  // Méthode pour vérifier si l'utilisateur est un administrateur
   isAdmin(): boolean {
     return JSON.parse(localStorage.getItem("session")!).user.role_name == "Admin";
   }
 
+  // Méthode pour récupérer le nom d'utilisateur
   getUsername(): string {
     return JSON.parse(localStorage.getItem("session")!).user.username;
   }
