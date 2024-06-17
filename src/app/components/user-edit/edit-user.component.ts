@@ -12,7 +12,6 @@ import { ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import { RoleService } from "../../services/role.service";
 import { Role } from "../../models/role.interface";
-import { OnInit } from "@angular/core";
 
 @Component({
   selector: "app-edit-user",
@@ -24,6 +23,7 @@ import { OnInit } from "@angular/core";
 export class EditUserComponent implements OnDestroy {
   roles: Role[] = [];
 
+  // Initialisation des données de l'utilisateur
   selectedUser: User = {
     id: 0,
     username: "",
@@ -61,6 +61,7 @@ export class EditUserComponent implements OnDestroy {
     },
   };
 
+  // Initialisation des services
   userService = inject(UserService);
   router = inject(Router);
   private subDelete: Subscription | undefined;
@@ -70,6 +71,7 @@ export class EditUserComponent implements OnDestroy {
   roleService = inject(RoleService);
   fb = inject(FormBuilder);
 
+  //Cosntructeur pour les routes et les paramètres
   constructor(private route: ActivatedRoute) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
@@ -78,11 +80,13 @@ export class EditUserComponent implements OnDestroy {
     }
   }
 
+  //initialisation du formulaire
   userForm = this.fb.group({
     role_id: [this.selectedUser.role_id, [Validators.required]],
     status: [this.selectedUser.status, [Validators.required]],
   });
 
+  //Initialisation des données
   ngOnInit() {
     if (this.selectedUser) {
       this.userForm.patchValue(this.selectedUser);
@@ -92,6 +96,7 @@ export class EditUserComponent implements OnDestroy {
     this.isAdmin = this.authService.isAdmin();
   }
 
+  //Mappage des données
   mapStatusToValue(status: string): string {
     switch (status) {
       case "Actif":
@@ -103,6 +108,7 @@ export class EditUserComponent implements OnDestroy {
     }
   }
 
+  //Mappage des données
   mapValueToStatus(value: string): string {
     switch (value) {
       case "A":
@@ -114,9 +120,9 @@ export class EditUserComponent implements OnDestroy {
     }
   }
 
+  //Mise à jour de l'utilisateur
   updateUser() {
     const item: User = this.userForm.value as unknown as User;
-
     if (item.password === "") {
       item.password = this.selectedUser.password;
     }
@@ -124,11 +130,9 @@ export class EditUserComponent implements OnDestroy {
     if (item.profile_picture === "") {
       item.profile_picture = this.selectedUser.profile_picture;
     }
-
-    this.userService.updateProfileUser(this.selectedUser.id, item).subscribe({
+    this.subDelete = this.userService.updateProfileUser(this.selectedUser.id, item).subscribe({
       next: () => {
         this.toastr.success("Profil modifié avec succès");
-        console.log("User updated", item);
         this.router.navigate(["/home"]);
       },
       error: (error) => {
@@ -138,9 +142,8 @@ export class EditUserComponent implements OnDestroy {
   }
 
   getListRoles() {
-    this.roleService.listRoles().subscribe((response: any) => {
+    this.subDelete = this.roleService.listRoles().subscribe((response: any) => {
       this.roles = response.data;
-      console.log(this.roles);
     });
   }
 
