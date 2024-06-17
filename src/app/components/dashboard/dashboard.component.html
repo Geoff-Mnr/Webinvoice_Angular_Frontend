@@ -1,6 +1,5 @@
 <div [ngClass]="darkModeService.darkModeSignal()">
   <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
-
   <div *ngIf="isMenuOpen" class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
     <div class="fixed inset-0 bg-gray-900/80" (click)="closeMenuDashboard()"></div>
     <div class="fixed inset-0 flex">
