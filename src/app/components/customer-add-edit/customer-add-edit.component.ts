@@ -17,6 +17,7 @@ import { RouterLink } from "@angular/router";
   providers: [DatePipe],
 })
 export class CustomerAddEditComponent {
+  //Déclaration de la variable selectedCustomer de type Customer
   selectedCustomer: Customer = {
     id: 0,
     company_name: "",
@@ -34,10 +35,13 @@ export class CustomerAddEditComponent {
     updated_at: new Date(),
   };
 
+  //Injection des services router, customerService et toastr
   router = inject(Router);
   customerService = inject(CustomerService);
   toastr = inject(ToastrService);
+  fb = inject(FormBuilder);
 
+  //Constructeur de la classe CustomerAddEditComponent avec le service ActivatedRoute en paramètre
   constructor(private route: ActivatedRoute) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
@@ -45,9 +49,7 @@ export class CustomerAddEditComponent {
       this.selectedCustomer.status = this.mapStatusToValue(this.selectedCustomer.status);
     }
   }
-
-  fb = inject(FormBuilder);
-
+  //Déclaration de la variable form de type FormGroup
   form = this.fb.group({
     company_name: [this.selectedCustomer.company_name, Validators.required],
     email: [this.selectedCustomer.email, Validators.required],
@@ -64,19 +66,20 @@ export class CustomerAddEditComponent {
     updated_at: [new Date(), Validators.required],
   });
 
+  //Initialisation de la méthode ngOnInit
   ngOnInit() {
-    console.log("status", this.selectedCustomer.status);
     this.selectedCustomer = this.clone(this.selectedCustomer);
     if (this.selectedCustomer) {
-      console.log(this.selectedCustomer);
       this.form.patchValue(this.selectedCustomer);
     }
   }
 
+  // Clone qui permet de copier un objet
   private clone(value: any) {
     return JSON.parse(JSON.stringify(value));
   }
 
+  //Méthode mapStatusToValue qui prend en paramètre status de type string et retourne une string
   mapStatusToValue(status: string): string {
     switch (status) {
       case "Actif":
@@ -87,7 +90,7 @@ export class CustomerAddEditComponent {
         return "";
     }
   }
-
+  //Méthode mapValueToStatus qui prend en paramètre value de type string et retourne une string
   mapValueToStatus(value: string): string {
     switch (value) {
       case "A":
@@ -99,6 +102,7 @@ export class CustomerAddEditComponent {
     }
   }
 
+  //Méthode save qui permet de sauvegarder un client
   updateCustomer() {
     const item: Customer = this.form.value as Customer;
     this.customerService.updateCustomer(this.selectedCustomer.id, item).subscribe({
@@ -112,6 +116,7 @@ export class CustomerAddEditComponent {
     });
   }
 
+  //Méthode createCustomer qui permet d'ajouter un client
   createCustomer() {
     const item: Customer = this.form.value as Customer;
     this.customerService.createCustomer(item).subscribe({
@@ -125,6 +130,7 @@ export class CustomerAddEditComponent {
     });
   }
 
+  //Méthode cancel qui permet d'annuler l'opération
   cancel() {
     this.router.navigate(["/customer"]);
     this.toastr.info("Opération annulée");
