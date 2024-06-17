@@ -20,6 +20,7 @@ import { DocumentAddEditComponent } from "../document-add-edit/document-add-edit
   styleUrl: "./document.component.scss",
 })
 export class DocumentComponent implements OnDestroy {
+  //Injection des services documentService, toastr et router
   documentService = inject(DocumentService);
   router = inject(Router);
   private subDelete: Subscription | undefined;
@@ -34,6 +35,7 @@ export class DocumentComponent implements OnDestroy {
   itemsPerPage = 10;
   search = "";
 
+  // Initialisation de la méthode ngOnInit
   ngOnInit() {
     const savedItemsPerPage = localStorage.getItem("itemsPerPage");
     if (savedItemsPerPage) {
@@ -42,10 +44,12 @@ export class DocumentComponent implements OnDestroy {
     this.getListDocuments();
   }
 
+  //Déclaration de la méthode searchDocument
   searchDocument() {
     this.getListDocuments(this.currentPage);
   }
 
+  //Déclaration de la méthode getStatusClass qui prend en paramètre un statut de type string
   getStatusClass(status: string): string {
     switch (status) {
       case "Payé":
@@ -59,11 +63,11 @@ export class DocumentComponent implements OnDestroy {
     }
   }
 
+  //Déclaration de la méthode getListDocuments qui prend en paramètre une page de type number initialisée à 1
   getListDocuments(page: number = 1) {
     this.subDelete = this.documentService.listDocumentsByUser(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {
         this.documents = response.data;
-        console.log(this.documents);
         this.totalItems = response.meta.total;
         this.totalPage = response.meta.last_page;
 
@@ -78,19 +82,21 @@ export class DocumentComponent implements OnDestroy {
     });
   }
 
+  //Déclaration de la méthode selectDocument qui prend en paramètre un document de type Document
   selectDocument(document: Document) {
     this.selectedDocument = document;
     const navigationExtras: NavigationExtras = {
       state: { document: document },
     };
     this.router.navigate(["/document/edit-document"], navigationExtras);
-    console.log(this.selectedDocument);
   }
 
+  //Déclaration de la méthode addDocument
   addDocument() {
     this.router.navigate(["/document/add-document"]);
   }
 
+  //Déclaration de la méthode deleteDocument qui prend en paramètre un item de type Document
   deleteDocument(item: Document) {
     this.subDelete = this.documentService.delete(item.id).subscribe({
       next: (response) => {
@@ -103,6 +109,7 @@ export class DocumentComponent implements OnDestroy {
     });
   }
 
+  //Déclaration de la méthode downloadInvoice qui prend en paramètre un item de type Document et qui permet de télécharger une facture
   downloadInvoice(item: Document) {
     this.subDelete = this.documentService.getInvoicePdf(item.id).subscribe({
       next: (response) => {
@@ -116,11 +123,13 @@ export class DocumentComponent implements OnDestroy {
     });
   }
 
+  //Déclaration de la méthode onPageChange qui prend en paramètre une page de type number
   onItemsPerPageChange() {
     localStorage.setItem("itemsPerPage", this.itemsPerPage.toString());
     this.getListDocuments();
   }
 
+  //Déclaration de la méthode onPageChange qui prend en paramètre une page de type number
   ngOnDestroy() {
     if (this.subDelete) {
       this.subDelete.unsubscribe();

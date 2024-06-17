@@ -33,6 +33,7 @@ export class DocumentAddEditComponent {
   customers: Customer[] = [];
   products: Product[] = [];
 
+  // Déclaration de la variable selectedDocument de type Document
   selectedDocument: Document = {
     id: 0,
     documenttype_id: 0,
@@ -101,15 +102,18 @@ export class DocumentAddEditComponent {
     status: "",
   };
 
+  // Déclaration des variables documentService, customerService, documenttypeService, productService, toastr et datePipe
   router = inject(Router);
   documentService = inject(DocumentService);
   customerService = inject(CustomerService);
   documenttypeService = inject(DocumenttypeService);
   productService = inject(ProductService);
   toastr = inject(ToastrService);
+  fb = inject(FormBuilder);
   datePipe = inject(DatePipe);
   form: any;
 
+  // Constructeur de la classe DocumentAddEditComponent avec le service ActivatedRoute en paramètre
   constructor(private route: ActivatedRoute) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
@@ -118,17 +122,19 @@ export class DocumentAddEditComponent {
     }
   }
 
+  // Déclaration de la méthode formatDate qui prend en paramètre une date de type Date
   formatDate(date: Date) {
     return this.datePipe.transform(date, "HH:mm le dd-MM-yyyy");
   }
 
+  // Initialisation de la méthode ngOnInit
   ngOnInit() {
     this.selectedDocument = this.clone(this.selectedDocument);
-    console.log(this.selectedDocument);
     this.getListDocumenttypes();
     this.getListCustomers();
     this.getListProducts();
 
+    // Initialisation du formulaire
     this.form = this.fb.group({
       documenttype_id: [this.selectedDocument.documenttype_id || "", Validators.required],
       customer_id: [this.selectedDocument.customer_id || "", Validators.required],
@@ -143,6 +149,7 @@ export class DocumentAddEditComponent {
       status: [this.selectedDocument.status || "", Validators.required],
     });
 
+    // Remplir le formulaire avec les produits sélectionnés
     if (this.selectedDocument && this.selectedDocument.products) {
       const productArray = this.form.get("selectedProducts") as FormArray;
       this.selectedDocument.products.forEach((product) => {
@@ -165,9 +172,9 @@ export class DocumentAddEditComponent {
     this.form.get("price_vvat").valueChanges.subscribe(() => {
       this.updatePrices();
     });
-    /*setTimeout(() => this.updatePrices());*/
   }
 
+  // Méthode mapStatusToValue qui prend en paramètre status de type string et retourne une string
   mapStatusToValue(status: string): string {
     switch (status) {
       case "Payé":
@@ -181,6 +188,7 @@ export class DocumentAddEditComponent {
     }
   }
 
+  // Méthode mapValueToStatus qui prend en paramètre value de type string et retourne une string
   mapValueToStatus(value: string): string {
     switch (value) {
       case "P":
@@ -194,6 +202,7 @@ export class DocumentAddEditComponent {
     }
   }
 
+  // Méthode updatePrices qui permet de mettre à jour les prix
   updatePrices() {
     const products: { product_id: string; quantity: number; discount: number }[] = this.form.get("selectedProducts").value;
     if (products) {
@@ -201,8 +210,6 @@ export class DocumentAddEditComponent {
       let totalPriceHtva = 0;
       products.forEach((product, index) => {
         const selectedProduct = this.getProductById(product.product_id);
-        console.log("productId", product.product_id, selectedProduct);
-        console.log("index", index, totalPriceHtva, selectedProduct);
         if (selectedProduct) {
           const price = Number(selectedProduct.selling_price);
           const quantity = product.quantity;
@@ -221,28 +228,21 @@ export class DocumentAddEditComponent {
 
       this.form.controls.price_htva.setValue(totalPriceHtva, { emitEvent: false });
       this.form.controls.price_tvac.setValue(price_tvac, { emitEvent: false });
-
-      console.log("Total Price HTVA Form:", this.form.controls.price_htva.value);
-
-      /*  this.form.patchValue({ price_htva: totalPriceHtva, price_tvac }, { emitEvent: false });*/
-
-      /*console.log("Total Price HTVA:", totalPriceHtva);
-      console.log("VAT Rate:", vat_rate);
-      console.log("Price VVAT:", price_vvat);
-      console.log("Price TVAC:", price_tvac);*/
     }
   }
 
+  // Méthode getProductById qui prend en paramètre un id de type string et retourne un produit
   getProductById(id: string) {
     const numId = Number(id);
-    console.log("this.products", this.products);
     return this.products.find((product) => product.id === numId);
   }
 
+  // Méthode get selectedProducts qui permet de retourner les produits sélectionnés
   get selectedProducts(): FormArray {
     return this.form.get("selectedProducts") as FormArray;
   }
 
+  // Méthode addProduct qui permet d'ajouter un produit avec les champs product_id, quantity, discount et price_total
   addProduct() {
     this.selectedProducts.push(
       this.fb.group({
@@ -254,38 +254,39 @@ export class DocumentAddEditComponent {
     );
   }
 
+  // Méthode removeProduct qui prend en paramètre un index de type number et permet de supprimer un produit
   removeProduct(index: number) {
     this.selectedProducts.removeAt(index);
   }
 
-  fb = inject(FormBuilder);
-
+  // Méthode getListDocumenttypes qui permet de lister les types de documents
   getListDocumenttypes() {
     this.documenttypeService.listDocumenttypes().subscribe((response: any) => {
       this.documenttypes = response.data;
-      console.log(this.documenttypes);
     });
   }
 
+  // Méthode getListCustomers qui permet de lister les clients
   getListCustomers() {
     this.customerService.listCustomers().subscribe((response: any) => {
       this.customers = response.data;
-      console.log(this.customers);
     });
   }
 
+  // Méthode getListProducts qui permet de lister les produits
   getListProducts() {
     this.productService.listProducts().subscribe((response: any) => {
       this.products = response.data;
       this.updatePrices();
-      console.log(this.products);
     });
   }
 
+  // Méthode clone qui permet de copier un objet
   private clone(value: any) {
     return JSON.parse(JSON.stringify(value));
   }
 
+  // Méthode updateDocument qui permet de mettre à jour un document
   updateDocument() {
     const item: Document = this.form.value as Document;
     const product_ids = this.selectedProducts.controls.map((ctrl) => ctrl.get("product_id")?.value) as number[]; // Créer le tableau de product_id
@@ -302,12 +303,11 @@ export class DocumentAddEditComponent {
     });
   }
 
+  // Méthode createDocument qui permet de créer un document
   createDocument() {
     const item: Document = this.form.value as Document;
     const product_ids = this.selectedProducts.controls.map((ctrl) => ctrl.get("product_id")?.value) as number[]; // Créer le tableau de product_id
-    // Assigner le tableau de produits
     item.product_id = product_ids;
-    console.log(item);
     this.documentService.createDocument(item).subscribe({
       next: () => {
         this.toastr.success("Document créé avec succès");
@@ -325,11 +325,13 @@ export class DocumentAddEditComponent {
     });
   }
 
+  // Méthode save qui permet de sauvegarder un document
   cancel() {
     this.router.navigate(["/document"]);
     this.toastr.info("Opération annulée");
   }
 
+  // Méthode onDateChanged qui prend en paramètre un événement de type any
   dateChanged($event: any) {
     console.log($event.target.value);
   }
