@@ -11,7 +11,6 @@ import { OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ValidatorFn } from "@angular/forms";
 import { nospaceValidator } from "../../validators/nospace";
-import { OnInit } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { RoleService } from "../../services/role.service";
 import { Role } from "../../models/role.interface";
@@ -26,6 +25,7 @@ import { Role } from "../../models/role.interface";
 export class ProfileUserComponent implements OnDestroy {
   roles: Role[] = [];
 
+  // Initialisation des données
   selectedUser: User = {
     id: 0,
     username: "",
@@ -63,6 +63,7 @@ export class ProfileUserComponent implements OnDestroy {
     },
   };
 
+  // Injection des services
   userService = inject(UserService);
   router = inject(Router);
   private subDelete: Subscription | undefined;
@@ -70,7 +71,9 @@ export class ProfileUserComponent implements OnDestroy {
   isAdmin = false;
   authService = inject(AuthService);
   roleService = inject(RoleService);
+  fb = inject(FormBuilder);
 
+  // Constructeur pour la navigation
   constructor(private route: ActivatedRoute) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
@@ -78,6 +81,7 @@ export class ProfileUserComponent implements OnDestroy {
     }
   }
 
+  // Validation des champs de mot de passe
   passwordMatch: ValidatorFn = (control) => {
     const password = control.get("password");
     const confirm_password = control.get("confirm_password");
@@ -96,8 +100,7 @@ export class ProfileUserComponent implements OnDestroy {
     return null;
   };
 
-  fb = inject(FormBuilder);
-
+  // Initialisation du formulaire
   userForm = this.fb.group(
     {
       username: [this.selectedUser.username, Validators.required],
@@ -119,6 +122,7 @@ export class ProfileUserComponent implements OnDestroy {
     { validators: this.passwordMatch }
   );
 
+  // Initialisation des données
   ngOnInit() {
     this.selectedUser = this.clone(this.selectedUser);
     if (this.selectedUser) {
@@ -126,10 +130,12 @@ export class ProfileUserComponent implements OnDestroy {
     }
   }
 
+  // Methode pour cloner les données
   private clone(value: any) {
     return JSON.parse(JSON.stringify(value));
   }
 
+  // Methode pour selectionner une image
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
@@ -143,9 +149,9 @@ export class ProfileUserComponent implements OnDestroy {
     }
   }
 
+  // Methode pour mettre à jour l'utilisateur
   updateUser() {
     const item: User = this.userForm.value as unknown as User;
-
     if (item.password === "") {
       item.password = this.selectedUser.password;
     }
@@ -154,7 +160,7 @@ export class ProfileUserComponent implements OnDestroy {
       item.profile_picture = this.selectedUser.profile_picture;
     }
 
-    this.userService.updateProfileUser(this.selectedUser.id, item).subscribe({
+    this.subDelete = this.userService.updateProfileUser(this.selectedUser.id, item).subscribe({
       next: () => {
         this.toastr.success("Profil modifié avec succès");
         console.log("User updated", item);
@@ -167,24 +173,28 @@ export class ProfileUserComponent implements OnDestroy {
     });
   }
 
+  // Methode pour récupérer la liste des rôles
   getListRoles() {
-    this.roleService.listRoles().subscribe((response: any) => {
+    this.subDelete = this.roleService.listRoles().subscribe((response: any) => {
       this.roles = response.data;
       console.log(this.roles);
     });
   }
 
+  // Methode pour recharger la page
   reloadPage() {
     setTimeout(() => {
       window.location.reload();
     }, 300);
   }
 
+  // Methode pour annuler la modification
   cancel() {
     this.router.navigate(["/home"]);
     this.toastr.info("Modification annulée");
   }
 
+  // Methode pour se désinscrire de l'observable
   ngOnDestroy() {
     if (this.subDelete) {
       this.subDelete.unsubscribe();
