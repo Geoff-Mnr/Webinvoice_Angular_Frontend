@@ -18,6 +18,7 @@ import { EanCodePipe } from "../../pipes/ean-code.pipe";
   styleUrl: "./product-add-edit.component.scss",
 })
 export class ProductAddEditComponent {
+  // Initialisation des données
   selectedProduct: Product = {
     id: 0,
     name: "",
@@ -44,11 +45,14 @@ export class ProductAddEditComponent {
     },
   };
 
+  // Injection des services
   router = inject(Router);
   productService = inject(ProductService);
   toastr = inject(ToastrService);
   form: any;
+  fb = inject(FormBuilder);
 
+  // Constructeur pour la navigation
   constructor(private route: ActivatedRoute) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras.state) {
@@ -56,6 +60,7 @@ export class ProductAddEditComponent {
     }
   }
 
+  // Methode d'initialisation des données
   ngOnInit() {
     this.selectedProduct = this.clone(this.selectedProduct);
     setTimeout(() => {
@@ -85,27 +90,24 @@ export class ProductAddEditComponent {
     });
   }
 
-  fb = inject(FormBuilder);
-
+  // Methode pour calculer le prix de vente
   calculateSellingPrice() {
     const buyingPrice = this.form.value.buying_price;
     const margin = this.form.value.margin ?? 0;
     const discount = this.form.value.discount ?? 0;
-
-    console.log(`buyingPrice: ${buyingPrice}, margin: ${margin}, discount: ${discount}`);
-
     if (buyingPrice !== null && buyingPrice !== undefined) {
       const priceAfterDiscount = buyingPrice * (1 - discount / 100);
       const sellingPrice = priceAfterDiscount * (1 + margin / 100);
-
       this.form.get("selling_price").setValue(sellingPrice.toFixed(0), { emitEvent: false });
     }
   }
 
+  // Methode pour cloner un objet
   private clone(value: any): Product {
     return JSON.parse(JSON.stringify(value));
   }
 
+  // Methode pour mettre à jour un produit
   updateProduct() {
     if (!this.selectedProduct.id) {
       this.toastr.error("Aucun produit sélectionné");
@@ -123,6 +125,7 @@ export class ProductAddEditComponent {
     });
   }
 
+  // Methode pour créer un produit
   createProduct() {
     const item: Product = this.form.value as Product;
     this.productService.createProduct(item).subscribe({
@@ -136,10 +139,9 @@ export class ProductAddEditComponent {
     });
   }
 
+  // Methode pour annuler l'opération
   cancel() {
     this.router.navigate(["/product"]);
     this.toastr.info("Operation cancelled");
   }
 }
-
-// Path: src/app/components/product-add-edit/product-add-edit.component.html
