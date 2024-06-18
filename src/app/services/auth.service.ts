@@ -10,8 +10,8 @@ import { throwError } from "rxjs";
 })
 export class AuthService {
   // URL de base de l'API
-  private baseUri = "http://127.0.0.1:8000/api";
-  //private baseUri = "https://api.web-invoice.be/api";
+  //private baseUri = "http://127.0.0.1:8000/api";
+  private baseUri = "https://api.web-invoice.be/api";
 
   // Injection de HttpClient via le constructeur
   http = inject(HttpClient);

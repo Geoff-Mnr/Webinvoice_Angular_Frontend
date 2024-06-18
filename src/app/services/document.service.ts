@@ -8,8 +8,8 @@ import { HttpParams } from "@angular/common/http";
   providedIn: "root",
 })
 export class DocumentService {
-  private baseUri = "http://127.0.0.1:8000/api";
-  //private baseUri = "https://api.web-invoice.be/api";
+  //private baseUri = "http://127.0.0.1:8000/api";
+  private baseUri = "https://api.web-invoice.be/api";
 
   http = inject(HttpClient);
 
