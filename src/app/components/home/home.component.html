@@ -45,13 +45,13 @@
     <dd class="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-secondaryforeground">{{ stats.ticket_count }}</dd>
   </div>
 </dl>
-}
 
+} @if(ticket){
 <div class="mt-8 flow-root">
   <div class="bg-background rounded-sm font-montserrat px-4 py-5 sm:px-6 mt-3">
     <div class="flex space-x-3">
       <div class="flex-shrink-0">
-        <img class="h-10 w-10 rounded-full" [src]="user?.profile_picture" alt="" />
+        <img class="h-10 w-10 rounded-full" [src]="user?.profile_picture ?? '../../../assets/images/profile.jpg'" alt="" />
       </div>
       <div class="min-w-0 flex-1">
         <p class="text-normal font-semibold text-secondaryforeground">
@@ -61,30 +61,14 @@
         <p class="text-xs text-primary">
           {{ ticket?.created_at }}
         </p>
-        @if(ticket){
+
         <div class="mt-4">
           <h3 class="text-md font-semibold font-open text-secondaryforeground">{{ ticket?.title }}</h3>
           <p class="text-normal font-light text-secondaryforeground">{{ ticket?.description }}</p>
           <span class="mt-1" [ngClass]="getStatusTicketClass(ticket.status)">{{ ticket?.status }}</span>
         </div>
-        <div *ngFor="let user of ticket.users; let i = index" class="flex space-x-3 mt-6">
-          <ng-container *ngIf="i !== 0">
-            <div class="flex-shrink-0">
-              <img class="h-10 w-10 rounded-full" [src]="user.profile_picture" alt="{{ user?.username }}'s Profile Picture" />
-            </div>
-            <div class="min-w-0 flex-1">
-              <p class="text-normal font-semibold text-secondaryforeground">{{ user?.username }}</p>
-              <p class="text-xs text-primary">
-                {{ user.pivot.created_at }}
-              </p>
-              <p class="text-normal font-light text-secondaryforeground mt-1">
-                {{ user.pivot.message }}
-              </p>
-            </div>
-          </ng-container>
-        </div>
-        }
       </div>
     </div>
   </div>
 </div>
+}
