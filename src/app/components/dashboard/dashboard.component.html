@@ -150,13 +150,13 @@
         <img src="../../../assets/images/wi_logo_dark.png" class="w-40" />
         }
       </div>
-      <nav class="flex flex-1 flex-col">
+      <nav class="flex flex-1 flex-col font-montserrat">
         <ul role="list" class="flex flex-1 flex-col gap-y-7">
           <li>
-            <ul role="list" class="-mx-2 space-y-1 font-montserrat">
+            <ul role="list" class="-mx-2 space-y-1">
               <li>
                 <!-- Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800" -->
-                <a routerLink="/home" routerLinkActive="active" class="text-secondaryforeground group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
+                <a routerLink="/home" routerLinkActive="active" class="text-secondaryforeground hover:bg-secondary group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
                   <svg class="h-6 w-6 shrink-0 text-secondaryforeground" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                     <path
                       stroke-linecap="round"
@@ -168,7 +168,7 @@
                 </a>
               </li>
               <li>
-                <a routerLink="/customer" routerLinkActive="active" class="text-secondaryforeground group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
+                <a routerLink="/customer" routerLinkActive="active" class="text-secondaryforeground hover:bg-secondary group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
                   <svg class="h-6 w-6 shrink-0 text-secondaryforeground" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                     <path
                       stroke-linecap="round"
@@ -180,7 +180,7 @@
                 </a>
               </li>
               <li>
-                <a routerLink="/product" routerLinkActive="active" class="text-secondaryforeground group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
+                <a routerLink="/product" routerLinkActive="active" class="text-secondaryforeground hover:bg-secondary group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
                   <svg class="h-6 w-6 shrink-0 text-secondaryforeground" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                     <path
                       stroke-linecap="round"
@@ -192,7 +192,7 @@
                 </a>
               </li>
               <li>
-                <a routerLink="/document" routerLinkActive="active" class="text-secondaryforeground group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
+                <a routerLink="/document" routerLinkActive="active" class="text-secondaryforeground hover:bg-secondary group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
                   <svg class="h-6 w-6 shrink-0 text-secondaryforeground" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                     <path
                       stroke-linecap="round"
@@ -204,7 +204,7 @@
                 </a>
               </li>
               <li>
-                <a routerLink="/support" routerLinkActive="active" class="text-secondaryforeground group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
+                <a routerLink="/support" routerLinkActive="active" class="text-secondaryforeground hover:bg-secondary group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
                   <svg class="h-6 w-6 shrink-0 text-secondaryforeground" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
@@ -212,12 +212,14 @@
                   Support
                 </a>
               </li>
-              @if(isAdmin === true){
+            </ul>
+            @if(isAdmin === true){
+            <ul role="list" class="flex flex-1 flex-col gap-y-7">
               <li>
                 <div class="text-md uppercase font-semibold leading-6 text-secondaryforeground mt-10">Administration</div>
                 <ul role="list" class="-mx-2 mt-2 space-y-1">
                   <li>
-                    <a routerLink="/documenttype" routerLinkActive="active" class="text-secondaryforeground group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
+                    <a routerLink="/documenttype" routerLinkActive="active" class="text-secondaryforeground hover:bg-secondary group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
                       <svg class="h-6 w-6 shrink-0 text-secondaryforeground" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                         <path
                           stroke-linecap="round"
@@ -230,7 +232,7 @@
                   </li>
                   <li>
                     <!-- Current: "bg-gray-800 text-white", Default: "text-gray-400 hover:text-white hover:bg-gray-800" -->
-                    <a routerLink="/user-admin" routerLinkActive="active" class="text-secondaryforeground group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
+                    <a routerLink="/user-admin" routerLinkActive="active" class="text-secondaryforeground hover:bg-secondary group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path
                           stroke-linecap="round"
@@ -242,7 +244,7 @@
                     </a>
                   </li>
                   <li>
-                    <a routerLink="/support-admin" routerLinkActive="active" class="text-secondaryforeground group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
+                    <a routerLink="/support-admin" routerLinkActive="active" class="text-secondaryforeground hover:bg-secondary group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-normal">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path
                           stroke-linecap="round"
@@ -255,8 +257,8 @@
                   </li>
                 </ul>
               </li>
-              }
             </ul>
+            }
           </li>
         </ul>
       </nav>
