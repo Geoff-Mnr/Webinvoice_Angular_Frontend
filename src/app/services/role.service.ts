@@ -9,6 +9,7 @@ import { HttpParams } from "@angular/common/http";
 })
 export class RoleService {
   private baseUri = "http://localhost:8000/api";
+  //private baseUri = "https://api.web-invoice.be/api";
   constructor() {}
 
   http = inject(HttpClient);

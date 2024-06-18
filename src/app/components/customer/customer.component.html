@@ -86,8 +86,20 @@
           }
           <div class="flex items-center justify-between border-t border-border bg-background px-4 py-3 sm:px-6">
             <div class="flex flex-1 justify-between sm:hidden">
-              <a href="#" class="relative inline-flex items-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-secondaryforeground hover:bg-gray-50">Previous</a>
-              <a href="#" class="relative ml-3 inline-flex items-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-secondaryforeground hover:bg-gray-50">Next</a>
+              <button
+                (click)="getListCustomers(currentPage - 1)"
+                [disabled]="currentPage <= 1"
+                class="relative inline-flex items-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-secondaryforeground hover:bg-gray-50"
+              >
+                Previous
+              </button>
+              <button
+                (click)="getListCustomers(currentPage + 1)"
+                [disabled]="currentPage >= totalPage"
+                class="relative ml-3 inline-flex items-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-secondaryforeground hover:bg-gray-50"
+              >
+                Next
+              </button>
             </div>
             <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
               <div>

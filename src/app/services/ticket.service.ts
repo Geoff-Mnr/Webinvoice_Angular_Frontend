@@ -8,7 +8,8 @@ import { Ticket } from "../models/ticket.interface";
   providedIn: "root",
 })
 export class TicketService {
-  private baseUri = "http:///127.0.0.1:8000/api";
+  //private baseUri = "http:///127.0.0.1:8000/api";
+  private baseUri = "https://api.web-invoice.be/api";
   http = inject(HttpClient);
   constructor() {}
   // Méthode pour récupérer la liste des tickets par utilisateur
