@@ -133,9 +133,9 @@ export class EditUserComponent implements OnDestroy {
     this.subDelete = this.userService.updateProfileUser(this.selectedUser.id, item).subscribe({
       next: () => {
         this.toastr.success("Profil modifié avec succès");
-        this.router.navigate(["/home"]);
+        this.router.navigate(["/user-admin"]);
       },
-      error: (error) => {
+      error: () => {
         this.toastr.error("Erreur lors de la modification du profil");
       },
     });
