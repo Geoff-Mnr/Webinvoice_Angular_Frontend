@@ -5,7 +5,7 @@
       <p class="mt-1 max-w-2xl text-sm leading-6 text-secondaryforeground font-montserrat">C'est ici que vous pouvez modifier vos données</p>
       <div class="mt-10 space-y-8 border-b border-border pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-border sm:border-t sm:pb-0">
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="username" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Username</label>
+          <label for="username" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Username<span class="ml-2 text-destructive">*</span></label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 sm:max-w-md">
               <input
@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6 border-border">
-          <label for="email" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Email address</label>
+          <label for="email" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Email address<span class="ml-2 text-destructive">*</span></label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               name="email"
@@ -102,7 +102,7 @@
 
       <div class="mt-10 space-y-8 border-b border-border pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="company_name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Nom de votre entreprise</label>
+          <label for="company_name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Nom de votre entreprise<span class="ml-2 text-destructive">*</span></label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               type="text"
@@ -119,13 +119,13 @@
           </div>
         </div>
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="vat_number" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numero d'entreprise</label>
+          <label for="vat_number" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numero d'entreprise<span class="ml-2 text-destructive">*</span></label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               type="text"
               name="vat_number"
               formControlName="vat_number"
-              placeholder="Numéro d'entreprise"
+              placeholder="123456789"
               required
               autocomplete="given-name"
               class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
@@ -136,13 +136,13 @@
           </div>
         </div>
         <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-          <label for="account_number" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numero de compte</label>
+          <label for="account_number" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numero de compte<span class="ml-2 text-destructive">*</span></label>
           <div class="mt-2 sm:col-span-2 sm:mt-0">
             <input
               type="text"
               name="account_number"
               formControlName="account_number"
-              placeholder="Numéro de compte"
+              placeholder="BE12345678912345"
               required
               autocomplete="given-name"
               class="block w-full rounded-md border-0 py-1.5 bg-background font-montserrat text-secondaryforeground shadow-sm ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:max-w-xs sm:text-sm sm:leading-6"
@@ -158,7 +158,7 @@
         <p class="mt-1 max-w-2xl text-sm leading-6 text-secondaryforeground font-montserrat">Mettez à jour vos informations personnelles</p>
         <div class="mt-10 space-y-8 border-b border-border pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
           <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-            <label for="first-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Prénom</label>
+            <label for="first-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Prénom<span class="ml-2 text-destructive">*</span></label>
             <div class="mt-2 sm:col-span-2 sm:mt-0">
               <input
                 type="text"
@@ -175,7 +175,7 @@
             </div>
           </div>
           <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-            <label for="last-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Nom</label>
+            <label for="last-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Nom<span class="ml-2 text-destructive">*</span></label>
             <div class="mt-2 sm:col-span-2 sm:mt-0">
               <input
                 type="text"
@@ -192,7 +192,7 @@
             </div>
           </div>
           <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-            <label for="last-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numéro de téléphone</label>
+            <label for="last-name" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numéro de téléphone<span class="ml-2 text-destructive">*</span></label>
             <div class="mt-2 sm:col-span-2 sm:mt-0">
               <input
                 type="text"
@@ -209,7 +209,7 @@
           </div>
 
           <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-            <label for="street-address" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Adresse</label>
+            <label for="street-address" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Adresse<span class="ml-2 text-destructive">*</span></label>
             <div class="mt-2 sm:col-span-2 sm:mt-0">
               <input
                 type="text"
@@ -227,7 +227,7 @@
           </div>
 
           <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-            <label for="city" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Ville</label>
+            <label for="city" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Ville<span class="ml-2 text-destructive">*</span></label>
             <div class="mt-2 sm:col-span-2 sm:mt-0">
               <input
                 type="text"
@@ -245,7 +245,7 @@
           </div>
 
           <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-            <label for="postal-code" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Code postale</label>
+            <label for="postal-code" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Code postale<span class="ml-2 text-destructive">*</span></label>
             <div class="mt-2 sm:col-span-2 sm:mt-0">
               <input
                 type="text"
@@ -260,7 +260,7 @@
             </div>
           </div>
           <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-            <label for="country" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Pays</label>
+            <label for="country" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Pays<span class="ml-2 text-destructive">*</span></label>
             <div class="mt-2 sm:col-span-2 sm:mt-0">
               <input
                 type="text"

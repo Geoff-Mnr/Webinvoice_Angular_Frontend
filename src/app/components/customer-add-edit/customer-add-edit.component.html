@@ -3,7 +3,7 @@
     <h2 class="font-montserrat font-semibold text-lg text-primary">Données du client</h2>
     <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 pt-6">
       <div class="sm:col-span-3">
-        <label for="compagny_name" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Nom de l'entreprise</label>
+        <label for="compagny_name" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Nom de l'entreprise<span class="ml-2 text-destructive">*</span></label>
         <div class="mt-2">
           <input
             type="text"
@@ -20,7 +20,7 @@
       </div>
 
       <div class="sm:col-span-3">
-        <label for="vat_number" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numéro d'entreprise</label>
+        <label for="vat_number" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numéro d'entreprise<span class="ml-2 text-destructive">*</span></label>
         <div class="mt-2">
           <input
             type="text"
@@ -29,7 +29,7 @@
             pattern="\d*"
             required
             placeholder="Numéro d'entreprise"
-            class="block w-full rounded-md font-montserrat border-0 py-1.5 secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
           @if(form.controls.vat_number.invalid && form.controls.vat_number.touched) {
           <p class="mt-2 text-sm text-destructive font-montserrat" id="email-error">Numero d'entreprise n'est pas valable</p>
@@ -38,7 +38,7 @@
       </div>
 
       <div class="sm:col-span-3">
-        <label for="email" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Adresse E-mail</label>
+        <label for="email" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Adresse E-mail<span class="ml-2 text-destructive">*</span></label>
         <div class="relative mt-2 rounded-md shadow-sm">
           <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <svg class="h-5 w-5 dark:text-secondaryforeground text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -51,7 +51,7 @@
             name="email"
             id="email"
             formControlName="email"
-            class="block w-full rounded-md font-montserrat border-0 py-1.5 pl-10 secondaryforeground bg-background ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 pl-10 text-secondaryforeground bg-background ring-1 ring-inset ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
             placeholder="Adresse e-mail"
           />
         </div>
@@ -60,7 +60,7 @@
         }
       </div>
       <div class="sm:col-span-3">
-        <label for="phone_number" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numéro de téléphone</label>
+        <label for="phone_number" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Numéro de téléphone<span class="ml-2 text-destructive">*</span></label>
         <div class="mt-2">
           <input
             type="text"
@@ -68,7 +68,7 @@
             formControlName="phone_number"
             placeholder="Numéro de téléphone"
             required
-            class="block w-full rounded-md font-montserrat border-0 py-1.5 secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
         @if(form.controls.phone_number.errors && form.controls.phone_number.touched) {
@@ -77,7 +77,7 @@
       </div>
 
       <div class="sm:col-span-4">
-        <label for="website" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Site internet</label>
+        <label for="website" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Site internet<span class="ml-2 text-destructive">*</span></label>
         <div class="mt-2">
           <input
             type="text"
@@ -85,7 +85,7 @@
             formControlName="website"
             placeholder="Site internet"
             required
-            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
         @if (form.controls.website.errors && form.controls.website.touched) {
@@ -95,14 +95,14 @@
 
       <div class="col-span-full mt-4">
         <h2 class="font-montserrat text-lg font-semibold text-primary mb-6">Adresse de facturation</h2>
-        <label for="billing-address" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Rue</label>
+        <label for="billing-address" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Rue<span class="ml-2 text-destructive">*</span></label>
         <div class="mt-2">
           <input
             type="text"
             name="billing_address"
             formControlName="billing_address"
             placeholder="Rue"
-            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
         @if(form.controls.billing_address.errors && form.controls.billing_address.touched) {
@@ -111,14 +111,14 @@
       </div>
 
       <div class="sm:col-span-2 sm:col-start-1">
-        <label for="billing_zip_code" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Code postal</label>
+        <label for="billing_zip_code" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Code postal<span class="ml-2 text-destructive">*</span></label>
         <div class="mt-2">
           <input
             type="text"
             name="billing_zip_code"
             formControlName="billing_zip_code"
             placeholder="Code postal"
-            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
+            class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
         @if(form.controls.billing_zip_code.errors && form.controls.billing_zip_code.touched) {
@@ -127,7 +127,7 @@
       </div>
 
       <div class="sm:col-span-2">
-        <label for="billing_city" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Ville</label>
+        <label for="billing_city" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Ville<span class="ml-2 text-destructive">*</span></label>
         <div class="mt-2">
           <input
             type="text"
@@ -143,7 +143,7 @@
       </div>
 
       <div class="sm:col-span-2">
-        <label for="billing_state" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Province</label>
+        <label for="billing_state" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Province<span class="ml-2 text-destructive">*</span></label>
         <div class="mt-2">
           <input
             type="text"
@@ -159,7 +159,7 @@
       </div>
 
       <div class="sm:col-span-4">
-        <label for="billing_country" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Pays</label>
+        <label for="billing_country" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Pays<span class="ml-2 text-destructive">*</span></label>
         <div class="mt-2">
           <input
             id="billing_country"
@@ -175,7 +175,7 @@
       </div>
 
       <div class="sm:col-span-4">
-        <label for="status" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Statut</label>
+        <label for="status" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Statut<span class="ml-2 text-destructive">*</span></label>
         <div class="mt-2">
           <select
             required

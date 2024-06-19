@@ -4,7 +4,7 @@
     <h2 class="font-montserrat font-semibold text-lg text-primary">Données du Produit</h2>
     <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 pt-6">
       <div class="sm:col-span-3">
-        <label for="documenttype_id" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Nom du produit</label>
+        <label for="documenttype_id" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Nom du produit<span class="ml-2 text-destructive">*</span></label>
         <div class="mt-2">
           <input
             type="text"
@@ -20,7 +20,7 @@
         }
       </div>
       <div class="sm:col-span-3">
-        <label for="brand" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Marque</label>
+        <label for="brand" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Marque<span class="ml-2 text-destructive">*</span></label>
         <div class="mt-2">
           <input
             type="text"
@@ -37,14 +37,14 @@
       </div>
 
       <div class="sm:col-span-3">
-        <label for="ean_code" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Code Ean</label>
+        <label for="ean_code" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Code Ean<span class="ml-2 text-destructive">*</span></label>
         <div class="mt-2">
           <input
             type="text"
             name="ean_code"
             formControlName="ean_code"
             required
-            placeholder="Code Ean"
+            placeholder="1234567891234"
             class="block w-full rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           />
         </div>
@@ -53,7 +53,7 @@
         }
       </div>
       <div class="sm:col-span-2">
-        <label for="buying_price" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Prix d'achat</label>
+        <label for="buying_price" class="block font-montserrat text-sm font-medium leading-6 text-secondaryforeground">Prix d'achat<span class="ml-2 text-destructive">*</span></label>
         <div class="mt-2">
           <input
             type="text"
@@ -86,7 +86,7 @@
       </div>
 
       <div class="sm:col-span-2">
-        <label for="discount" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Prix de vente</label>
+        <label for="discount" class="block text-sm font-montserrat font-medium leading-6 text-secondaryforeground">Prix de vente<span class="ml-2 text-destructive">*</span></label>
         <div class="mt-2">
           <input
             type="text"
@@ -107,7 +107,7 @@
             type="text"
             name="description"
             formControlName="description"
-            placeholder="description"
+            placeholder="Description"
             class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
           >
           </textarea>

@@ -152,7 +152,7 @@ export class EditUserComponent implements OnDestroy {
   }
 
   cancel() {
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/user-admin"]);
     this.toastr.info("Modification annulée");
   }
 
