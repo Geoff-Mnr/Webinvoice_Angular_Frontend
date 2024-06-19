@@ -1,3 +1,4 @@
+@if(form){
 <form [formGroup]="form" class="relative transform overflow-hidden bg-background shadow-sm ring-1 ring-gray-900/5 sm:rounded-sm md:col-span-2">
   <div class="px-4 py-6 sm:p-8">
     <h2 class="font-montserrat font-semibold text-lg text-primary">Données du Produit</h2>
@@ -105,7 +106,6 @@
             rows="4"
             type="text"
             name="description"
-            [(ngModel)]="selectedProduct.description"
             formControlName="description"
             placeholder="description"
             class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
@@ -121,7 +121,6 @@
             rows="4"
             type="text"
             name="comment"
-            [(ngModel)]="selectedProduct.comment"
             formControlName="comment"
             placeholder="Commentaire"
             class="block w-full pl-3 rounded-md font-montserrat border-0 py-1.5 text-secondaryforeground shadow-sm ring-1 ring-inset bg-background ring-border placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6"
@@ -159,3 +158,4 @@
     }
   </div>
 </form>
+}

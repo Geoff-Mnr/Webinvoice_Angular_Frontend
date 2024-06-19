@@ -8,7 +8,6 @@ import { ToastrService } from "ngx-toastr";
 import { RouterLink } from "@angular/router";
 import { ActivatedRoute } from "@angular/router";
 import { debounceTime, min } from "rxjs";
-import { EanCodePipe } from "../../pipes/ean-code.pipe";
 
 @Component({
   selector: "app-product-add-edit",
@@ -63,31 +62,40 @@ export class ProductAddEditComponent {
   // Methode d'initialisation des données
   ngOnInit() {
     this.selectedProduct = this.clone(this.selectedProduct);
-    setTimeout(() => {
-      this.form = this.fb.group({
-        name: [this.selectedProduct.name, Validators.required],
-        brand: [this.selectedProduct.brand, Validators.required],
-        ean_code: [this.selectedProduct.ean_code, [Validators.minLength(13), Validators.maxLength(13)]],
-        buying_price: [this.selectedProduct.buying_price, Validators.required],
-        margin: [this.selectedProduct.margin, Validators.required],
-        selling_price: [this.selectedProduct.selling_price, Validators.required],
-        description: [this.selectedProduct.description],
-        comment: [this.selectedProduct.comment],
-      });
+    this.initializeForm();
+  }
 
+  initializeForm() {
+    this.form = this.fb.group({
+      name: [this.selectedProduct.name, Validators.required],
+      brand: [this.selectedProduct.brand, Validators.required],
+      ean_code: [this.selectedProduct.ean_code, [Validators.minLength(13), Validators.maxLength(13)]],
+      buying_price: [this.selectedProduct.buying_price, Validators.required],
+      margin: [this.selectedProduct.margin, Validators.required],
+      selling_price: [this.selectedProduct.selling_price, Validators.required],
+      description: [this.selectedProduct.description],
+      comment: [this.selectedProduct.comment],
+    });
+
+    // Only subscribe to valueChanges if controls are defined
+    if (this.form.get("buying_price")) {
       this.form
         .get("buying_price")
         .valueChanges.pipe(debounceTime(300))
         .subscribe(() => this.calculateSellingPrice());
+    }
+    if (this.form.get("margin")) {
       this.form
         .get("margin")
         .valueChanges.pipe(debounceTime(300))
         .subscribe(() => this.calculateSellingPrice());
+    }
+    if (this.form.get("discount")) {
       this.form
         .get("discount")
         .valueChanges.pipe(debounceTime(300))
         .subscribe(() => this.calculateSellingPrice());
-    });
+    }
   }
 
   // Methode pour calculer le prix de vente
