@@ -32,6 +32,7 @@ export class UserComponent implements OnDestroy {
   totalItems = 1;
   itemsPerPage = 10;
   search = "";
+  isLoading = true;
 
   // Initialisation du formulaire
   ngOnInit() {
@@ -47,6 +48,7 @@ export class UserComponent implements OnDestroy {
 
   // Récupérer la liste des utilisateurs
   getListUsers(page: number = 1) {
+    this.isLoading = true;
     this.subDelete = this.userService.getAllUsers(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {
         this.users = response.data;
@@ -57,9 +59,11 @@ export class UserComponent implements OnDestroy {
           this.toastr.info("Aucun utilisateur trouvé");
         }
         this.currentPage = page < 1 ? 1 : page > this.totalPage ? this.totalPage : page;
+        this.isLoading = false;
       },
       error: (error) => {
         this.toastr.error("Erreur lors de la récupération des utilisateurs");
+        this.isLoading = false;
       },
     });
   }

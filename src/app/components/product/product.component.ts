@@ -34,6 +34,7 @@ export class ProductComponent implements OnDestroy {
   totalItems = 1;
   itemsPerPage = 10;
   search = "";
+  isLoading = true;
 
   // Methode d'initialisation des données
   ngOnInit() {
@@ -51,6 +52,7 @@ export class ProductComponent implements OnDestroy {
 
   // Methode pour récupérer la liste des produits
   getListProducts(page: number = 1) {
+    this.isLoading = true;
     this.subDelete = this.productService.listProductsByUser(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {
         this.products = response.data;
@@ -60,9 +62,11 @@ export class ProductComponent implements OnDestroy {
           this.toastr.info("Aucun produit trouvé");
         }
         this.currentPage = page < 1 ? 1 : page > this.totalPage ? this.totalPage : page;
+        this.isLoading = false;
       },
       error: (error) => {
         this.toastr.error("Erreur lors de la récupération des produits");
+        this.isLoading = false;
       },
     });
   }

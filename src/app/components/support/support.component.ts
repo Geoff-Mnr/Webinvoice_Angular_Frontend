@@ -9,6 +9,7 @@ import { Ticket } from "../../models/ticket.interface";
 import { UserService } from "../../services/user.service";
 import { AuthService } from "../../services/auth.service";
 import { SupportMessageComponent } from "../support-message/support-message.component";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-support",
@@ -23,6 +24,7 @@ export class SupportComponent implements OnDestroy {
   userService = inject(UserService);
   authService = inject(AuthService);
   router = inject(Router);
+  toastr = inject(ToastrService);
   private subDelete: Subscription | undefined;
   tickets: Ticket[] = [];
   showMenu = false;
@@ -30,6 +32,7 @@ export class SupportComponent implements OnDestroy {
   user: any;
   isAdmin: boolean = false;
   toggleMessage: boolean = false;
+  isLoading = true;
 
   // afficher le menu
   toggleMenu(index: number): void {
@@ -65,9 +68,18 @@ export class SupportComponent implements OnDestroy {
 
   // Récupérer la liste des tickets de l'utilisateur
   getListTicketsByUser() {
-    this.subDelete = this.ticketService.listTicketsByUser().subscribe({
+    this.isLoading = true;
+    this.ticketService.listTicketsByUser().subscribe({
       next: (response) => {
         this.tickets = response.data;
+        this.isLoading = false;
+        if (this.tickets.length === 0) {
+          this.toastr.info("Aucun ticket trouvé");
+        }
+      },
+      error: (error) => {
+        this.toastr.error("Une erreur est survenue lors de la récupération des données", error.message);
+        this.isLoading = false;
       },
     });
   }

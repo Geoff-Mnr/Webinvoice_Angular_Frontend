@@ -32,6 +32,7 @@ export class SupportListTicketAdminComponent implements OnDestroy {
   showMenu = false;
   showComponent = false;
   toggleMessage: boolean = false;
+  isLoading = true;
 
   pendingStatusChange: { [key: number]: boolean } = {};
 
@@ -68,8 +69,19 @@ export class SupportListTicketAdminComponent implements OnDestroy {
 
   // Récupérer la liste des tickets
   getListTickets() {
-    this.subDelete = this.ticketService.listTickets().subscribe((response: any) => {
-      this.tickets = response.data;
+    this.isLoading = true;
+    this.subDelete = this.ticketService.listTickets().subscribe({
+      next: (response) => {
+        this.tickets = response.data;
+        this.isLoading = false;
+        if (this.tickets.length === 0) {
+          this.toastr.info("Aucun ticket trouvé");
+        }
+      },
+      error: (error) => {
+        this.toastr.error("Une erreur est survenue lors de la récupération des données", error.message);
+        this.isLoading = false;
+      },
     });
   }
   // Quand un message est créé ça met à jour la liste des tickets

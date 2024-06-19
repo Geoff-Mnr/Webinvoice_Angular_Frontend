@@ -34,6 +34,7 @@ export class DocumentComponent implements OnDestroy {
   totalItems = 1;
   itemsPerPage = 10;
   search = "";
+  isLoading = true;
 
   // Initialisation de la méthode ngOnInit
   ngOnInit() {
@@ -65,6 +66,7 @@ export class DocumentComponent implements OnDestroy {
 
   //Déclaration de la méthode getListDocuments qui prend en paramètre une page de type number initialisée à 1
   getListDocuments(page: number = 1) {
+    this.isLoading = true;
     this.subDelete = this.documentService.listDocumentsByUser(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {
         this.documents = response.data;
@@ -75,9 +77,11 @@ export class DocumentComponent implements OnDestroy {
           this.toastr.info("Aucun document trouvé");
         }
         this.currentPage = page < 1 ? 1 : page > this.totalPage ? this.totalPage : page;
+        this.isLoading = false;
       },
       error: (error) => {
         this.toastr.error("Erreur lors du chargement des documents", error);
+        this.isLoading = false;
       },
     });
   }

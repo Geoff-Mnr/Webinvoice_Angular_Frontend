@@ -37,6 +37,7 @@ export class CustomerComponent implements OnDestroy {
   totalItems = 1;
   itemsPerPage = 10;
   search: string = "";
+  isLoading = true;
 
   // Initialisation de la méthode ngOnInit
   ngOnInit() {
@@ -56,6 +57,7 @@ export class CustomerComponent implements OnDestroy {
 
   //Déclaration de la méthode getListCustomers qui prend en paramètre la page et qui permet de récupérer la liste des clients
   getListCustomers(page: number = 1) {
+    this.isLoading = true;
     this.subDelete = this.customerService.listCustomersByUser(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {
         this.customers = response.data;
@@ -65,9 +67,11 @@ export class CustomerComponent implements OnDestroy {
           this.toastr.info("Aucun client trouvé");
         }
         this.currentPage = page < 1 ? 1 : page > this.totalPage ? this.totalPage : page;
+        this.isLoading = false;
       },
       error: (error) => {
         this.toastr.error("Une erreur est survenue lors de la récupération des données", error);
+        this.isLoading = false;
       },
     });
   }

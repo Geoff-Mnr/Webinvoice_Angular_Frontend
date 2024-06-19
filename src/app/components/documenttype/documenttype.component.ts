@@ -33,6 +33,7 @@ export class DocumenttypeComponent implements OnDestroy {
   totalItems = 1;
   itemsPerPage = 10;
   search = "";
+  isLoading = true;
 
   // Initialisation du composant
   ngOnInit() {
@@ -50,6 +51,7 @@ export class DocumenttypeComponent implements OnDestroy {
 
   //méthode pour récupérer la liste des types de documents
   getListDocumentTypes(page: number = 1) {
+    this.isLoading = true;
     this.subDelete = this.documenttypeService.listDocumenttypesByUser(page, this.itemsPerPage, this.search).subscribe({
       next: (response) => {
         this.documenttypes = response.data;
@@ -59,9 +61,11 @@ export class DocumenttypeComponent implements OnDestroy {
           this.toastr.info("Aucun type de document trouvé");
         }
         this.currentPage = page < 1 ? 1 : page > this.totalPage ? this.totalPage : page;
+        this.isLoading = false;
       },
       error: (error) => {
         this.toastr.error("Erreur lors de la récupération des types de documents");
+        this.isLoading = false;
       },
     });
   }
